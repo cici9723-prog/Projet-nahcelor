@@ -28,7 +28,7 @@
 
   body {
     font-family: 'Host Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: linear-gradient(145deg, #EAE4FF 0%, #E0ECFF 100%);
+    background: #E8E6F0;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -39,15 +39,15 @@
   .phone-frame {
     width: 390px;
     height: 844px;
-    background: var(--bg);
+    background: white;
     border-radius: 52px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 48px 120px rgba(80,50,200,0.22), 0 8px 32px rgba(0,0,0,0.12), inset 0 0 0 1.5px rgba(255,255,255,0.6);
+    box-shadow: 0 40px 100px rgba(0,0,0,0.22), 0 8px 32px rgba(0,0,0,0.1);
   }
 
   @media (max-width: 430px) {
-    body { background: var(--bg); align-items: flex-start; }
+    body { background: white; align-items: flex-start; }
     .phone-frame { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; }
   }
 
@@ -78,7 +78,7 @@
     transition: opacity 0.25s ease;
   }
   .screen.active { display: flex; }
-  .screen:not(#screen-splash) { background: var(--bg); }
+  .screen { background: white; }
 
   /* SCROLL CONTENT */
   .scroll-content {
@@ -315,8 +315,6 @@
   .home-header {
     padding: 60px 20px 18px;
     background: white;
-    border-radius: 0 0 28px 28px;
-    box-shadow: 0 4px 20px rgba(107,78,255,0.05);
   }
   .home-top {
     display: flex;
@@ -343,7 +341,7 @@
   }
 
   .event-card {
-    margin: 0 20px 0;
+    margin: 0;
     background: white;
     border-radius: 24px;
     border: none;
@@ -1334,6 +1332,98 @@
     flex-shrink: 0;
   }
 
+  /* ========================
+     POSTS INSTAGRAM STYLE
+  ======================== */
+  .post-card {
+    background: white;
+    border-radius: 20px;
+    box-shadow: var(--card-shadow);
+    padding: 16px;
+    margin: 0 20px 12px;
+    border: 1px solid var(--border);
+  }
+  .post-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .post-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+  }
+  .post-username {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.2px;
+  }
+  .post-time {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-weight: 400;
+  }
+  .post-more {
+    margin-left: auto;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--text-gray);
+    padding: 4px;
+  }
+  .post-content {
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    margin-bottom: 14px;
+    font-weight: 400;
+  }
+  .post-tag {
+    display: inline-block;
+    background: var(--purple-light);
+    color: var(--purple);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 50px;
+    margin-bottom: 12px;
+    letter-spacing: -0.1px;
+  }
+  .post-actions {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border-top: 1px solid var(--border);
+    padding-top: 12px;
+  }
+  .post-action-btn {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-gray);
+    border: none;
+    background: none;
+    cursor: pointer;
+    font-family: 'Host Grotesk', sans-serif;
+    padding: 4px 12px 4px 0;
+    transition: color 0.15s;
+    letter-spacing: -0.1px;
+  }
+  .post-action-btn:active { color: var(--purple); }
+  .post-action-btn.liked { color: #E91E63; }
+  .post-divider { width: 1px; height: 18px; background: var(--border); margin: 0 12px 0 0; }
+
   /* TOAST */
   .toast {
     position: absolute;
@@ -1411,7 +1501,7 @@
         <div class="home-top">
           <div>
             <div class="home-greeting-sub">Prends soin de toi et des autres</div>
-            <div class="home-greeting-name">Bonjour Marie ! 👋</div>
+            <div class="home-greeting-name">Bonjour Marie !</div>
           </div>
           <svg class="home-mascot-small" viewBox="0 0 80 95" fill="none" xmlns="http://www.w3.org/2000/svg">
             <line x1="14" y1="50" x2="3" y2="62" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
@@ -1428,7 +1518,7 @@
 
       <!-- Event card -->
       <div style="padding: 0 20px 16px;">
-        <div class="event-card" onclick="goTo('event-detail')">
+        <div class="event-card" onclick="goTo('event-detail')" style="box-shadow:var(--card-shadow-lg);">
           <div class="event-card-header">
             <i data-lucide="calendar" style="width:15px;height:15px;color:var(--text);stroke-width:2.5;flex-shrink:0;"></i>
             <span>PROCHAIN ÉVÈNEMENT !</span>
@@ -1449,8 +1539,9 @@
 
       <!-- Nearby locations -->
       <div class="section-header">
-        <div class="section-title">
-          <span class="section-icon">📍</span>LES LIEUX PRÈS DE CHEZ VOUS
+        <div class="section-title" style="display:flex;align-items:center;gap:6px;">
+          <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--purple);stroke-width:2.5;"></i>
+          LES LIEUX PRÈS DE CHEZ VOUS
         </div>
       </div>
       <div class="locations-scroll">
@@ -1487,38 +1578,107 @@
       </div>
 
       <!-- News -->
-      <div class="section-header" style="padding-top: 12px;">
-        <div class="section-title">
-          <span class="section-icon">📰</span>L'ACTUALITÉ
+      <!-- Posts témoignages -->
+      <div class="section-header" style="padding-top: 4px;">
+        <div class="section-title" style="display:flex;align-items:center;gap:6px;">
+          <i data-lucide="users-round" style="width:14px;height:14px;color:var(--purple);stroke-width:2.5;"></i>
+          TÉMOIGNAGES
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar" style="background:linear-gradient(135deg,#FF6B8A,#FF4D6D);">L</div>
+          <div style="flex:1;">
+            <div class="post-username">Laure Green</div>
+            <div class="post-time">Il y a 2h</div>
+          </div>
+          <button class="post-more"><i data-lucide="more-horizontal" style="width:18px;height:18px;stroke-width:2;"></i></button>
+        </div>
+        <span class="post-tag">Témoignage</span>
+        <div class="post-content">"Ce groupe m'a vraiment aidée à traverser cette période difficile. Je me sens moins seule et j'ai trouvé des astuces que je n'aurais jamais trouvées seule."</div>
+        <div class="post-actions">
+          <button class="post-action-btn liked" onclick="toggleLike(this)">
+            <i data-lucide="heart" style="width:16px;height:16px;stroke-width:2;fill:currentColor;"></i> 24
+          </button>
+          <div class="post-divider"></div>
+          <button class="post-action-btn" onclick="showToast('Commentaires')">
+            <i data-lucide="message-circle" style="width:16px;height:16px;stroke-width:2;"></i> 8
+          </button>
+          <div class="post-divider"></div>
+          <button class="post-action-btn" onclick="showToast('Partagé !')">
+            <i data-lucide="share-2" style="width:16px;height:16px;stroke-width:2;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="post-card">
+        <div class="post-header">
+          <div class="post-avatar" style="background:linear-gradient(135deg,#6B4EFF,#9B7EFF);">S</div>
+          <div style="flex:1;">
+            <div class="post-username">Safir Nahas</div>
+            <div class="post-time">Il y a 5h</div>
+          </div>
+          <button class="post-more"><i data-lucide="more-horizontal" style="width:18px;height:18px;stroke-width:2;"></i></button>
+        </div>
+        <span class="post-tag">Conseil</span>
+        <div class="post-content">"Un truc qui m'a changé la vie : bloquer 20 min chaque matin juste pour moi, avant de m'occuper de mon père. Ça paraît égoïste mais c'est vital."</div>
+        <div class="post-actions">
+          <button class="post-action-btn" onclick="toggleLike(this)">
+            <i data-lucide="heart" style="width:16px;height:16px;stroke-width:2;"></i> 41
+          </button>
+          <div class="post-divider"></div>
+          <button class="post-action-btn" onclick="showToast('Commentaires')">
+            <i data-lucide="message-circle" style="width:16px;height:16px;stroke-width:2;"></i> 13
+          </button>
+          <div class="post-divider"></div>
+          <button class="post-action-btn" onclick="showToast('Partagé !')">
+            <i data-lucide="share-2" style="width:16px;height:16px;stroke-width:2;"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="section-header" style="padding-top: 4px;">
+        <div class="section-title" style="display:flex;align-items:center;gap:6px;">
+          <i data-lucide="newspaper" style="width:14px;height:14px;color:var(--purple);stroke-width:2.5;"></i>
+          L'ACTUALITÉ
         </div>
       </div>
       <div class="news-grid">
-        <div class="news-card">
-          <div class="news-img-placeholder" style="background: linear-gradient(135deg, #B8D4FF 0%, #7BA8E8 100%);">🏥</div>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:var(--card-shadow);">
+          <div style="height:90px;background:#EDE8FF;display:flex;align-items:center;justify-content:center;">
+            <i data-lucide="heart-handshake" style="width:36px;height:36px;color:var(--purple);stroke-width:1.5;"></i>
+          </div>
           <div class="news-body">
-            <div class="news-title">Comment vos dons améliorent concrètement le quotidien à l'hôpital ?</div>
-            <button class="news-btn">Lire →</button>
+            <div class="news-title" style="color:var(--text);">Comment vos dons améliorent le quotidien à l'hôpital</div>
+            <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
           </div>
         </div>
-        <div class="news-card">
-          <div class="news-img-placeholder" style="background: linear-gradient(135deg, #FFD4B8 0%, #E8A87B 100%);">💛</div>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:var(--card-shadow);">
+          <div style="height:90px;background:#FFF8DC;display:flex;align-items:center;justify-content:center;">
+            <i data-lucide="sun" style="width:36px;height:36px;color:#C47A00;stroke-width:1.5;"></i>
+          </div>
           <div class="news-body">
-            <div class="news-title">Préserver son équilibre quand on accompagne un malade</div>
-            <button class="news-btn">Lire →</button>
+            <div class="news-title" style="color:var(--text);">Préserver son équilibre en accompagnant un proche</div>
+            <button class="news-btn" style="background:#FFF3DC;color:#C47A00;">Lire →</button>
           </div>
         </div>
-        <div class="news-card">
-          <div class="news-img-placeholder" style="background: linear-gradient(135deg, #D4FFB8 0%, #88C85A 100%);">🌿</div>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:var(--card-shadow);">
+          <div style="height:90px;background:#E4F9F1;display:flex;align-items:center;justify-content:center;">
+            <i data-lucide="leaf" style="width:36px;height:36px;color:#1A7A4A;stroke-width:1.5;"></i>
+          </div>
           <div class="news-body">
-            <div class="news-title">5 gestes simples pour prendre soin de vous au quotidien</div>
-            <button class="news-btn">Lire →</button>
+            <div class="news-title" style="color:var(--text);">5 gestes pour prendre soin de vous au quotidien</div>
+            <button class="news-btn" style="background:#E4F9F1;color:#1A7A4A;">Lire →</button>
           </div>
         </div>
-        <div class="news-card">
-          <div class="news-img-placeholder" style="background: linear-gradient(135deg, #FFB8D4 0%, #E87BA8 100%);">💪</div>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:var(--card-shadow);">
+          <div style="height:90px;background:#FFE8EE;display:flex;align-items:center;justify-content:center;">
+            <i data-lucide="alert-triangle" style="width:36px;height:36px;color:#C0143C;stroke-width:1.5;"></i>
+          </div>
           <div class="news-body">
-            <div class="news-title">Le burn-out des aidants : reconnaître les signaux d'alerte</div>
-            <button class="news-btn">Lire →</button>
+            <div class="news-title" style="color:var(--text);">Burn-out des aidants : reconnaître les signaux</div>
+            <button class="news-btn" style="background:#FFE8EE;color:#C0143C;">Lire →</button>
           </div>
         </div>
       </div>
@@ -1628,14 +1788,39 @@
 
       <!-- Tab: Questions (hidden) -->
       <div id="tab-questions" style="display:none;">
-        <div style="padding:16px 20px; cursor:pointer;" onclick="goTo('questions')">
-          <div style="background:var(--purple-light); border-radius:16px; padding:14px; display:flex; align-items:center; gap:10px;">
-            <div style="font-size:24px;">❓</div>
-            <div>
-              <div style="font-size:14px; font-weight:700; color:var(--text);">Voir le forum de questions</div>
-              <div style="font-size:12px; color:var(--text-gray);">Posez vos questions, obtenez des réponses</div>
+        <div style="padding:20px;">
+          <div style="background:var(--purple);border-radius:24px;padding:24px;cursor:pointer;" onclick="goTo('questions')">
+            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+              <div style="width:48px;height:48px;background:rgba(255,255,255,0.2);border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
+                <i data-lucide="help-circle" style="width:24px;height:24px;color:white;stroke-width:2;"></i>
+              </div>
+              <div>
+                <div style="font-size:17px;font-weight:800;color:white;letter-spacing:-0.3px;">Forum de questions</div>
+                <div style="font-size:13px;color:rgba(255,255,255,0.75);margin-top:2px;">Posez vos questions à la communauté</div>
+              </div>
             </div>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--purple)" style="margin-left:auto; flex-shrink:0"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            <div style="background:white;border-radius:50px;padding:14px;text-align:center;font-size:14px;font-weight:800;color:var(--purple);font-family:'Host Grotesk',sans-serif;letter-spacing:-0.2px;">
+              Accéder au forum →
+            </div>
+          </div>
+
+          <!-- Recent questions preview -->
+          <div style="margin-top:16px;">
+            <div style="font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-gray);margin-bottom:12px;">Questions récentes</div>
+            <div style="background:white;border-radius:18px;border:1px solid var(--border);overflow:hidden;">
+              <div style="padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;" onclick="goTo('forum')">
+                <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Comment obtenir le statut d'aidant familial ?</div>
+                <div style="font-size:12px;color:var(--text-gray);display:flex;gap:10px;">
+                  <span>124 vues</span><span>8 réponses</span>
+                </div>
+              </div>
+              <div style="padding:14px 16px;cursor:pointer;" onclick="goTo('forum')">
+                <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Comment gérer les nuits difficiles ?</div>
+                <div style="font-size:12px;color:var(--text-gray);display:flex;gap:10px;">
+                  <span>89 vues</span><span>15 réponses</span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -1794,10 +1979,10 @@
         <input type="text" placeholder="Rechercher une maison d'aidants" style="border:none;background:transparent;font-size:14px;font-family:'Host Grotesk',sans-serif;flex:1;outline:none;color:var(--text);">
       </div>
       <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;">
-        <button onclick="filterMap(this,'Répit')" style="flex-shrink:0;background:var(--purple);color:white;border:none;border-radius:50px;padding:7px 14px;font-size:13px;font-weight:700;font-family:'Host Grotesk',sans-serif;cursor:pointer;">🏠 Répit</button>
-        <button onclick="filterMap(this,'Écoute')" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">🎧 Écoute</button>
-        <button onclick="filterMap(this,'Accompagnement')" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">🤝 Accompagnement</button>
-        <button onclick="filterMap(this,'Ateliers')" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">🎨 Ateliers</button>
+        <button onclick="filterMap(this,'repit')" data-filter="repit" style="flex-shrink:0;background:var(--purple);color:white;border:none;border-radius:50px;padding:7px 14px;font-size:13px;font-weight:700;font-family:'Host Grotesk',sans-serif;cursor:pointer;">Répit</button>
+        <button onclick="filterMap(this,'ecoute')" data-filter="ecoute" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">Écoute</button>
+        <button onclick="filterMap(this,'accompagnement')" data-filter="accompagnement" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">Accompagnement</button>
+        <button onclick="filterMap(this,'ateliers')" data-filter="ateliers" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">Ateliers</button>
       </div>
     </div>
 
@@ -1862,29 +2047,45 @@
 
       <!-- Default list -->
       <div id="map-list">
-        <div class="location-list-item" onclick="selectPin(document.querySelector('.map-warm-pin'),'La Maison des Aidants','Paris 11e','1.5 km','☕ Pause café · 🧠 Aide psy · 🎨 Ateliers')">
-          <div class="loc-icon" style="background:#FFF8DC;">💛</div>
+        <div class="location-list-item" data-filters="repit,ateliers" onclick="showToast('La Maison des Aidants – Paris 11e')">
+          <div class="loc-icon" style="background:#EDE8FF;">
+            <i data-lucide="house-heart" style="width:22px;height:22px;color:var(--purple);stroke-width:1.8;"></i>
+          </div>
           <div style="flex:1;">
             <div class="loc-name">La Maison des Aidants</div>
-            <div class="loc-meta">📍 Paris 11e · Ouvert</div>
+            <div class="loc-meta"><i data-lucide="map-pin" style="width:11px;height:11px;stroke-width:2;"></i> Paris 11e · Ouvert</div>
           </div>
           <span class="loc-dist">1.5 km</span>
         </div>
-        <div class="location-list-item" onclick="showToast('Maison des Aidants – Paris 12e')">
-          <div class="loc-icon" style="background:#FFF8DC;">💛</div>
+        <div class="location-list-item" data-filters="repit" onclick="showToast('Maison des Aidants – Paris 12e')">
+          <div class="loc-icon" style="background:#EDE8FF;">
+            <i data-lucide="house-heart" style="width:22px;height:22px;color:var(--purple);stroke-width:1.8;"></i>
+          </div>
           <div style="flex:1;">
             <div class="loc-name">Maison des Aidants</div>
-            <div class="loc-meta">📍 Paris 12e · Ouvert</div>
+            <div class="loc-meta"><i data-lucide="map-pin" style="width:11px;height:11px;stroke-width:2;"></i> Paris 12e · Ouvert</div>
           </div>
           <span class="loc-dist">2.1 km</span>
         </div>
-        <div class="location-list-item" onclick="showToast('Centre d\'Écoute – Paris 10e')">
-          <div class="loc-icon" style="background:#E3F2FD;">🎧</div>
+        <div class="location-list-item" data-filters="ecoute,accompagnement" onclick="showToast('Centre d\'Écoute – Paris 10e')">
+          <div class="loc-icon" style="background:#E3F2FD;">
+            <i data-lucide="ear" style="width:22px;height:22px;color:#0288D1;stroke-width:1.8;"></i>
+          </div>
           <div style="flex:1;">
             <div class="loc-name">Centre d'Écoute</div>
-            <div class="loc-meta">📍 Paris 10e · Ouvert</div>
+            <div class="loc-meta"><i data-lucide="map-pin" style="width:11px;height:11px;stroke-width:2;"></i> Paris 10e · Ouvert</div>
           </div>
           <span class="loc-dist">2.8 km</span>
+        </div>
+        <div class="location-list-item" data-filters="ateliers,accompagnement" onclick="showToast('Atelier Bien-être – Paris 13e')">
+          <div class="loc-icon" style="background:#E4F9F1;">
+            <i data-lucide="palette" style="width:22px;height:22px;color:#1A7A4A;stroke-width:1.8;"></i>
+          </div>
+          <div style="flex:1;">
+            <div class="loc-name">Atelier Bien-être</div>
+            <div class="loc-meta"><i data-lucide="map-pin" style="width:11px;height:11px;stroke-width:2;"></i> Paris 13e · Ouvert</div>
+          </div>
+          <span class="loc-dist">3.2 km</span>
         </div>
       </div>
     </div>
@@ -2411,16 +2612,36 @@ function selectPin(el, name, city, dist, services) {
   document.getElementById('map-list').style.display = 'none';
 }
 
-function filterMap(btn, label) {
-  document.querySelectorAll('#screen-map button[onclick^="filterMap"]').forEach(b => {
+function filterMap(btn, filterKey) {
+  document.querySelectorAll('#screen-map button[data-filter]').forEach(b => {
     b.style.background = 'white';
     b.style.color = 'var(--text)';
     b.style.border = '1.5px solid var(--border)';
+    b.style.fontWeight = '600';
   });
   btn.style.background = 'var(--purple)';
   btn.style.color = 'white';
   btn.style.border = 'none';
-  showToast('Filtre : ' + label);
+  btn.style.fontWeight = '700';
+
+  document.querySelectorAll('#map-list .location-list-item').forEach(item => {
+    const filters = item.getAttribute('data-filters') || '';
+    item.style.display = filters.split(',').includes(filterKey) ? 'flex' : 'none';
+  });
+  document.getElementById('map-detail').style.display = 'none';
+  document.getElementById('map-list').style.display = 'block';
+  lucide.createIcons();
+}
+
+function toggleLike(btn) {
+  btn.classList.toggle('liked');
+  const icon = btn.querySelector('i');
+  if (btn.classList.contains('liked')) {
+    icon.style.fill = 'currentColor';
+  } else {
+    icon.style.fill = 'none';
+  }
+  lucide.createIcons();
 }
 
 function updateClock() {
