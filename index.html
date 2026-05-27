@@ -1424,6 +1424,362 @@
   .post-action-btn.liked { color: #E91E63; }
   .post-divider { width: 1px; height: 18px; background: var(--border); margin: 0 12px 0 0; }
 
+  /* ========================
+     ONBOARDING
+  ======================== */
+  .onboard-screen {
+    display: flex;
+    flex-direction: column;
+    background: white;
+    height: 100%;
+  }
+  .onboard-topbar {
+    padding: 52px 24px 0;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .onboard-back {
+    background: var(--bg);
+    border: none;
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: background 0.15s;
+  }
+  .onboard-back:active { background: var(--purple-light); }
+  .onboard-progress-bar {
+    flex: 1;
+    height: 6px;
+    background: var(--border);
+    border-radius: 50px;
+    overflow: hidden;
+  }
+  .onboard-progress-fill {
+    height: 100%;
+    background: var(--purple);
+    border-radius: 50px;
+    transition: width 0.4s cubic-bezier(.4,0,.2,1);
+  }
+  .onboard-step-label {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-gray);
+    flex-shrink: 0;
+  }
+  .onboard-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 28px 24px 20px;
+    scrollbar-width: none;
+  }
+  .onboard-content::-webkit-scrollbar { display: none; }
+  .onboard-pretitle {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--purple);
+    margin-bottom: 8px;
+  }
+  .onboard-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1.2;
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .onboard-subtitle {
+    font-size: 15px;
+    color: var(--text-gray);
+    font-weight: 400;
+    line-height: 1.5;
+    margin-bottom: 28px;
+  }
+  .onboard-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.1px;
+    margin-bottom: 10px;
+    margin-top: 20px;
+  }
+  .onboard-label:first-of-type { margin-top: 0; }
+  .onboard-input {
+    width: 100%;
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 16px;
+    font-size: 16px;
+    font-family: 'Host Grotesk', sans-serif;
+    font-weight: 400;
+    color: var(--text);
+    outline: none;
+    background: white;
+    transition: border-color 0.15s;
+    margin-bottom: 4px;
+  }
+  .onboard-input:focus { border-color: var(--purple); }
+  .onboard-input::placeholder { color: var(--text-gray); }
+
+  /* Single choice cards */
+  .choice-grid { display: grid; gap: 10px; margin-bottom: 4px; }
+  .choice-grid-2 { grid-template-columns: 1fr 1fr; }
+  .choice-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
+  .choice-card {
+    border: 1.5px solid var(--border);
+    border-radius: 18px;
+    padding: 16px 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: white;
+    text-align: center;
+  }
+  .choice-card:active { transform: scale(0.96); }
+  .choice-card.selected {
+    border-color: var(--purple);
+    background: var(--purple-light);
+  }
+  .choice-card-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 14px;
+    background: var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.15s;
+  }
+  .choice-card.selected .choice-card-icon { background: white; }
+  .choice-card-label {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.1px;
+    line-height: 1.3;
+  }
+  .choice-card.selected .choice-card-label { color: var(--purple); }
+
+  /* Multi-select pills */
+  .pills-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 4px;
+  }
+  .choice-pill {
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    padding: 10px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text);
+    background: white;
+    cursor: pointer;
+    font-family: 'Host Grotesk', sans-serif;
+    transition: all 0.15s;
+    letter-spacing: -0.1px;
+  }
+  .choice-pill:active { transform: scale(0.95); }
+  .choice-pill.selected {
+    border-color: var(--purple);
+    background: var(--purple-light);
+    color: var(--purple);
+    font-weight: 700;
+  }
+
+  /* Footer with buttons */
+  .onboard-footer {
+    padding: 16px 24px 32px;
+    background: white;
+    box-shadow: 0 -1px 0 var(--border);
+  }
+  .onboard-continue {
+    width: 100%;
+    background: var(--purple);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    padding: 17px;
+    font-size: 16px;
+    font-weight: 800;
+    font-family: 'Host Grotesk', sans-serif;
+    letter-spacing: -0.2px;
+    cursor: pointer;
+    transition: all 0.15s;
+    box-shadow: 0 8px 24px rgba(107,78,255,0.3);
+  }
+  .onboard-continue:active { opacity: 0.88; transform: scale(0.98); }
+  .onboard-skip {
+    width: 100%;
+    background: none;
+    border: none;
+    color: var(--text-gray);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Host Grotesk', sans-serif;
+    padding: 12px;
+    cursor: pointer;
+    margin-top: 4px;
+  }
+
+  /* Recap screen */
+  .recap-hero {
+    background: linear-gradient(160deg, var(--purple) 0%, #9B7EFF 100%);
+    padding: 56px 24px 32px;
+    text-align: center;
+  }
+  .recap-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: var(--yellow);
+    margin: 0 auto 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 32px;
+    font-weight: 800;
+    color: var(--text);
+    border: 4px solid white;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+  .recap-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.4px;
+  }
+  .recap-sub {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    margin-top: 4px;
+  }
+  .recap-section {
+    padding: 20px 24px 0;
+  }
+  .recap-section-title {
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-gray);
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .recap-edit {
+    font-size: 12px;
+    color: var(--purple);
+    font-weight: 700;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-family: 'Host Grotesk', sans-serif;
+    text-transform: none;
+    letter-spacing: 0;
+  }
+  .recap-card {
+    background: var(--bg);
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 12px;
+  }
+  .recap-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+  }
+  .recap-row:last-child { margin-bottom: 0; }
+  .recap-row-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .recap-row-label { font-size: 12px; color: var(--text-gray); }
+  .recap-row-value { font-size: 14px; font-weight: 700; color: var(--text); letter-spacing: -0.1px; }
+  .recap-pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+  .recap-pill {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    padding: 5px 12px;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text);
+    font-family: 'Host Grotesk', sans-serif;
+  }
+
+  /* Recommendations */
+  .reco-header {
+    padding: 52px 24px 20px;
+    background: white;
+  }
+  .reco-title {
+    font-size: 24px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    margin-bottom: 6px;
+  }
+  .reco-sub { font-size: 14px; color: var(--text-gray); font-weight: 400; }
+  .reco-card {
+    margin: 0 20px 12px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 16px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    cursor: pointer;
+    box-shadow: var(--card-shadow);
+    transition: transform 0.15s;
+  }
+  .reco-card:active { transform: scale(0.98); }
+  .reco-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .reco-card-title { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; margin-bottom: 3px; }
+  .reco-card-desc { font-size: 13px; color: var(--text-gray); font-weight: 400; line-height: 1.4; }
+  .reco-tag {
+    display: inline-block;
+    background: var(--purple-light);
+    color: var(--purple);
+    font-size: 10px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 50px;
+    margin-top: 6px;
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+    font-family: 'Host Grotesk', sans-serif;
+  }
+
   /* TOAST */
   .toast {
     position: absolute;
@@ -1490,7 +1846,7 @@
       </div>
       <div class="splash-title">Bienvenue sur<br>WELO</div>
       <div class="splash-subtitle">Prends soin de toi et des autres</div>
-      <button class="splash-btn" onclick="goTo('home')">Commencer →</button>
+      <button class="splash-btn" onclick="goTo('onboard-1')">Commencer →</button>
     </div>
   </div>
 
@@ -2517,20 +2873,446 @@
     </div>
   </div>
 
+  <!-- ===================== ONBOARDING 1 – IDENTITÉ ===================== -->
+  <div class="screen" id="screen-onboard-1">
+    <div class="onboard-topbar">
+      <button class="onboard-back" onclick="goTo('splash')">
+        <i data-lucide="arrow-left" style="width:18px;height:18px;color:var(--text);stroke-width:2.5;"></i>
+      </button>
+      <div class="onboard-progress-bar"><div class="onboard-progress-fill" style="width:25%"></div></div>
+      <span class="onboard-step-label">1 / 4</span>
+    </div>
+    <div class="onboard-content">
+      <div class="onboard-pretitle">La personne accompagnée</div>
+      <div class="onboard-title">Qui accompagnez‑vous ?</div>
+      <div class="onboard-subtitle">Ces infos nous aident à vous proposer des ressources adaptées. Tout est facultatif.</div>
+
+      <div class="onboard-label">Prénom (facultatif)</div>
+      <input class="onboard-input" type="text" placeholder="Ex : Madeleine" id="input-prenom" oninput="profile.prenom=this.value">
+
+      <div class="onboard-label" style="margin-top:24px;">Genre</div>
+      <div class="choice-grid choice-grid-3">
+        <div class="choice-card" onclick="selectSingle(this,'genre','femme')">
+          <div class="choice-card-icon"><i data-lucide="venus" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Femme</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'genre','homme')">
+          <div class="choice-card-icon"><i data-lucide="mars" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Homme</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'genre','autre')">
+          <div class="choice-card-icon"><i data-lucide="sparkles" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Autre</span>
+        </div>
+      </div>
+    </div>
+    <div class="onboard-footer">
+      <button class="onboard-continue" onclick="goTo('onboard-2')">Continuer</button>
+      <button class="onboard-skip" onclick="goTo('onboard-2')">Passer cette étape</button>
+    </div>
+  </div>
+
+  <!-- ===================== ONBOARDING 2 – ÂGE & LIEN ===================== -->
+  <div class="screen" id="screen-onboard-2">
+    <div class="onboard-topbar">
+      <button class="onboard-back" onclick="goTo('onboard-1')">
+        <i data-lucide="arrow-left" style="width:18px;height:18px;color:var(--text);stroke-width:2.5;"></i>
+      </button>
+      <div class="onboard-progress-bar"><div class="onboard-progress-fill" style="width:50%"></div></div>
+      <span class="onboard-step-label">2 / 4</span>
+    </div>
+    <div class="onboard-content">
+      <div class="onboard-pretitle">Contexte</div>
+      <div class="onboard-title">Quelques précisions</div>
+      <div class="onboard-subtitle">Pour mieux cibler les ressources disponibles dans votre situation.</div>
+
+      <div class="onboard-label">Tranche d'âge de la personne</div>
+      <div class="choice-grid choice-grid-2">
+        <div class="choice-card" onclick="selectSingle(this,'age','moins18')">
+          <div class="choice-card-icon"><i data-lucide="baby" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Moins de 18 ans</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'age','18-44')">
+          <div class="choice-card-icon"><i data-lucide="user" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">18 – 44 ans</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'age','45-64')">
+          <div class="choice-card-icon"><i data-lucide="user-check" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">45 – 64 ans</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'age','65-79')">
+          <div class="choice-card-icon"><i data-lucide="user-round" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">65 – 79 ans</span>
+        </div>
+        <div class="choice-card" style="grid-column:1/-1;" onclick="selectSingle(this,'age','80+')">
+          <div class="choice-card-icon"><i data-lucide="users" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">80 ans et plus</span>
+        </div>
+      </div>
+
+      <div class="onboard-label">Votre lien avec cette personne</div>
+      <div class="choice-grid choice-grid-2">
+        <div class="choice-card" onclick="selectSingle(this,'lien','parent')">
+          <div class="choice-card-icon"><i data-lucide="heart" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Parent</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'lien','conjoint')">
+          <div class="choice-card-icon"><i data-lucide="heart-handshake" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Conjoint·e</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'lien','enfant')">
+          <div class="choice-card-icon"><i data-lucide="baby" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Enfant</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'lien','ami')">
+          <div class="choice-card-icon"><i data-lucide="users-round" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Ami·e / Autre</span>
+        </div>
+      </div>
+    </div>
+    <div class="onboard-footer">
+      <button class="onboard-continue" onclick="goTo('onboard-3')">Continuer</button>
+      <button class="onboard-skip" onclick="goTo('onboard-3')">Passer cette étape</button>
+    </div>
+  </div>
+
+  <!-- ===================== ONBOARDING 3 – SANTÉ ===================== -->
+  <div class="screen" id="screen-onboard-3">
+    <div class="onboard-topbar">
+      <button class="onboard-back" onclick="goTo('onboard-2')">
+        <i data-lucide="arrow-left" style="width:18px;height:18px;color:var(--text);stroke-width:2.5;"></i>
+      </button>
+      <div class="onboard-progress-bar"><div class="onboard-progress-fill" style="width:75%"></div></div>
+      <span class="onboard-step-label">3 / 4</span>
+    </div>
+    <div class="onboard-content">
+      <div class="onboard-pretitle">Situation de santé</div>
+      <div class="onboard-title">Quelle est sa situation ?</div>
+      <div class="onboard-subtitle">Sélectionnez tout ce qui correspond. Vous pouvez ne rien choisir.</div>
+
+      <div class="pills-wrap" id="pills-maladies">
+        <button class="choice-pill" onclick="togglePill(this,'maladies','alzheimer')">Alzheimer / Démence</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','parkinson')">Parkinson</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','cancer')">Cancer</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','avc')">AVC / Séquelles</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','handicap-moteur')">Handicap moteur</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','handicap-mental')">Handicap mental</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','depression')">Dépression / Anxiété</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','diabete')">Diabète</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','cardiaque')">Insuffisance cardiaque</button>
+        <button class="choice-pill" onclick="togglePill(this,'maladies','autre-chronique')">Autre maladie chronique</button>
+      </div>
+
+      <div style="margin-top:20px;padding:14px;background:var(--bg);border-radius:16px;display:flex;align-items:flex-start;gap:10px;">
+        <i data-lucide="info" style="width:18px;height:18px;color:var(--purple);stroke-width:2;flex-shrink:0;margin-top:1px;"></i>
+        <p style="font-size:13px;color:var(--text-gray);font-weight:400;line-height:1.5;">Ces informations restent confidentielles et ne sont utilisées que pour personnaliser votre expérience WELO.</p>
+      </div>
+    </div>
+    <div class="onboard-footer">
+      <button class="onboard-continue" onclick="goTo('onboard-4')">Continuer</button>
+      <button class="onboard-skip" onclick="goTo('onboard-4')">Passer cette étape</button>
+    </div>
+  </div>
+
+  <!-- ===================== ONBOARDING 4 – BESOINS ===================== -->
+  <div class="screen" id="screen-onboard-4">
+    <div class="onboard-topbar">
+      <button class="onboard-back" onclick="goTo('onboard-3')">
+        <i data-lucide="arrow-left" style="width:18px;height:18px;color:var(--text);stroke-width:2.5;"></i>
+      </button>
+      <div class="onboard-progress-bar"><div class="onboard-progress-fill" style="width:100%"></div></div>
+      <span class="onboard-step-label">4 / 4</span>
+    </div>
+    <div class="onboard-content">
+      <div class="onboard-pretitle">Vos besoins</div>
+      <div class="onboard-title">Où avez-vous besoin de soutien ?</div>
+      <div class="onboard-subtitle">Plusieurs réponses possibles. Cela nous aide à vous orienter vers les bons services.</div>
+
+      <div class="pills-wrap" id="pills-besoins">
+        <button class="choice-pill" onclick="togglePill(this,'besoins','gestes-quotidiens')">Aide aux gestes quotidiens</button>
+        <button class="choice-pill" onclick="togglePill(this,'besoins','soutien-emotionnel')">Soutien émotionnel</button>
+        <button class="choice-pill" onclick="togglePill(this,'besoins','medicaments')">Gestion des médicaments</button>
+        <button class="choice-pill" onclick="togglePill(this,'besoins','mobilite')">Déplacements / Mobilité</button>
+        <button class="choice-pill" onclick="togglePill(this,'besoins','courses-repas')">Courses &amp; repas</button>
+        <button class="choice-pill" onclick="togglePill(this,'besoins','administratif')">Démarches administratives</button>
+        <button class="choice-pill" onclick="togglePill(this,'besoins','coordination-medicale')">Coordination médicale</button>
+        <button class="choice-pill" onclick="togglePill(this,'besoins','repit')">Répit pour moi</button>
+      </div>
+    </div>
+    <div class="onboard-footer">
+      <button class="onboard-continue" onclick="buildRecap(); goTo('onboard-recap')">Voir le récapitulatif</button>
+      <button class="onboard-skip" onclick="buildRecap(); goTo('onboard-recap')">Terminer sans sélection</button>
+    </div>
+  </div>
+
+  <!-- ===================== ONBOARDING RECAP ===================== -->
+  <div class="screen" id="screen-onboard-recap">
+    <div class="scroll-content">
+      <div class="recap-hero">
+        <div class="recap-avatar" id="recap-avatar">?</div>
+        <div class="recap-name" id="recap-name">Votre proche</div>
+        <div class="recap-sub" id="recap-sub">Profil en cours de création</div>
+      </div>
+
+      <div class="recap-section">
+        <div class="recap-section-title">
+          Identité
+          <button class="recap-edit" onclick="goTo('onboard-1')">Modifier</button>
+        </div>
+        <div class="recap-card" id="recap-identite">
+          <div class="recap-row">
+            <div class="recap-row-icon"><i data-lucide="user" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div><div class="recap-row-label">Prénom</div><div class="recap-row-value" id="rr-prenom">—</div></div>
+          </div>
+          <div class="recap-row">
+            <div class="recap-row-icon"><i data-lucide="sparkles" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div><div class="recap-row-label">Genre</div><div class="recap-row-value" id="rr-genre">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recap-section">
+        <div class="recap-section-title">
+          Contexte
+          <button class="recap-edit" onclick="goTo('onboard-2')">Modifier</button>
+        </div>
+        <div class="recap-card">
+          <div class="recap-row">
+            <div class="recap-row-icon"><i data-lucide="calendar" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div><div class="recap-row-label">Tranche d'âge</div><div class="recap-row-value" id="rr-age">—</div></div>
+          </div>
+          <div class="recap-row">
+            <div class="recap-row-icon"><i data-lucide="heart" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div><div class="recap-row-label">Votre lien</div><div class="recap-row-value" id="rr-lien">—</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="recap-section">
+        <div class="recap-section-title">
+          Situation de santé
+          <button class="recap-edit" onclick="goTo('onboard-3')">Modifier</button>
+        </div>
+        <div class="recap-card">
+          <div class="recap-pills" id="rr-maladies"></div>
+        </div>
+      </div>
+
+      <div class="recap-section">
+        <div class="recap-section-title">
+          Vos besoins
+          <button class="recap-edit" onclick="goTo('onboard-4')">Modifier</button>
+        </div>
+        <div class="recap-card">
+          <div class="recap-pills" id="rr-besoins"></div>
+        </div>
+      </div>
+
+      <div style="padding:20px 24px 40px;">
+        <button class="onboard-continue" onclick="buildRecos(); goTo('onboard-recos')">
+          Voir mes recommandations →
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== RECOMMANDATIONS ===================== -->
+  <div class="screen" id="screen-onboard-recos">
+    <div class="reco-header">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
+        <div style="width:42px;height:42px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--text);flex-shrink:0;" id="reco-avatar-small">M</div>
+        <div>
+          <div class="reco-title" id="reco-title">Vos recommandations</div>
+          <div class="reco-sub" id="reco-sub">Sélectionnées pour votre situation</div>
+        </div>
+      </div>
+    </div>
+    <div class="scroll-content">
+      <div style="padding:0 0 20px;" id="reco-list">
+        <!-- Filled by JS -->
+      </div>
+      <div style="padding:0 20px 40px;">
+        <button class="onboard-continue" onclick="goTo('home')">
+          Accéder à l'application →
+        </button>
+      </div>
+    </div>
+  </div>
+
 </div><!-- end phone-frame -->
 
 <script>
 const screens = {
-  'splash':       'screen-splash',
-  'home':         'screen-home',
-  'community':    'screen-community',
-  'questions':    'screen-questions',
-  'map':          'screen-map',
-  'event-detail': 'screen-event-detail',
-  'forum':        'screen-forum',
-  'messages':     'screen-messages',
-  'profil':       'screen-profil',
+  'splash':         'screen-splash',
+  'home':           'screen-home',
+  'community':      'screen-community',
+  'questions':      'screen-questions',
+  'map':            'screen-map',
+  'event-detail':   'screen-event-detail',
+  'forum':          'screen-forum',
+  'messages':       'screen-messages',
+  'profil':         'screen-profil',
+  'onboard-1':      'screen-onboard-1',
+  'onboard-2':      'screen-onboard-2',
+  'onboard-3':      'screen-onboard-3',
+  'onboard-4':      'screen-onboard-4',
+  'onboard-recap':  'screen-onboard-recap',
+  'onboard-recos':  'screen-onboard-recos',
 };
+
+// Profile data
+const profile = {
+  prenom: '', genre: '', age: '', lien: '',
+  maladies: [], besoins: []
+};
+
+// Labels lisibles
+const LABELS = {
+  genre:   { femme:'Femme', homme:'Homme', autre:'Autre' },
+  age:     { 'moins18':'Moins de 18 ans','18-44':'18–44 ans','45-64':'45–64 ans','65-79':'65–79 ans','80+':'80 ans et plus' },
+  lien:    { parent:'Parent', conjoint:'Conjoint·e', enfant:'Enfant', ami:'Ami·e / Autre' },
+  maladies:{ alzheimer:'Alzheimer / Démence', parkinson:'Parkinson', cancer:'Cancer', avc:'AVC / Séquelles',
+             'handicap-moteur':'Handicap moteur','handicap-mental':'Handicap mental',
+             depression:'Dépression / Anxiété', diabete:'Diabète', cardiaque:'Insuffisance cardiaque','autre-chronique':'Autre maladie chronique' },
+  besoins: { 'gestes-quotidiens':'Aide aux gestes quotidiens','soutien-emotionnel':'Soutien émotionnel',
+             medicaments:'Gestion des médicaments', mobilite:'Déplacements / Mobilité',
+             'courses-repas':'Courses & repas', administratif:'Démarches administratives',
+             'coordination-medicale':'Coordination médicale', repit:'Répit pour moi' }
+};
+
+function selectSingle(el, field, value) {
+  const grid = el.closest('.choice-grid');
+  grid.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  profile[field] = value;
+  lucide.createIcons();
+}
+
+function togglePill(el, field, value) {
+  el.classList.toggle('selected');
+  const arr = profile[field];
+  const idx = arr.indexOf(value);
+  if (idx === -1) arr.push(value);
+  else arr.splice(idx, 1);
+}
+
+function buildRecap() {
+  const prenom = profile.prenom || 'Votre proche';
+  const initial = prenom[0].toUpperCase();
+  document.getElementById('recap-avatar').textContent = initial;
+  document.getElementById('recap-name').textContent = prenom;
+  const sub = [LABELS.lien[profile.lien], LABELS.age[profile.age]].filter(Boolean).join(' · ') || 'Profil en cours de création';
+  document.getElementById('recap-sub').textContent = sub;
+  document.getElementById('rr-prenom').textContent = profile.prenom || '—';
+  document.getElementById('rr-genre').textContent = LABELS.genre[profile.genre] || '—';
+  document.getElementById('rr-age').textContent = LABELS.age[profile.age] || '—';
+  document.getElementById('rr-lien').textContent = LABELS.lien[profile.lien] || '—';
+
+  const mEl = document.getElementById('rr-maladies');
+  mEl.innerHTML = profile.maladies.length
+    ? profile.maladies.map(m => `<span class="recap-pill">${LABELS.maladies[m]||m}</span>`).join('')
+    : '<span style="font-size:13px;color:var(--text-gray);">Aucune sélection</span>';
+
+  const bEl = document.getElementById('rr-besoins');
+  bEl.innerHTML = profile.besoins.length
+    ? profile.besoins.map(b => `<span class="recap-pill">${LABELS.besoins[b]||b}</span>`).join('')
+    : '<span style="font-size:13px;color:var(--text-gray);">Aucune sélection</span>';
+
+  lucide.createIcons();
+}
+
+function buildRecos() {
+  const prenom = profile.prenom || 'votre proche';
+  const initial = prenom[0].toUpperCase();
+  document.getElementById('reco-avatar-small').textContent = initial;
+  document.getElementById('reco-title').textContent = 'Pour accompagner ' + prenom;
+  document.getElementById('reco-sub').textContent = 'Sélectionnées selon votre profil';
+
+  const recos = [];
+
+  // Always: Maison des Aidants
+  recos.push({ icon:'house-heart', bg:'#EDE8FF', ic:'var(--purple)',
+    title:'La Maison des Aidants', tag:'Lieu',
+    desc:'Un espace de rencontre, d\'écoute et d\'activités à deux pas de chez vous.',
+    action:"goTo('map')" });
+
+  // Based on besoins
+  if (profile.besoins.includes('soutien-emotionnel')) {
+    recos.push({ icon:'heart-handshake', bg:'#FFE8EE', ic:'#C0143C',
+      title:'Groupe « Se soutenir »', tag:'Communauté',
+      desc:'Échangez avec d\'autres aidants qui vivent la même situation que vous.',
+      action:"goTo('community')" });
+  }
+  if (profile.besoins.includes('repit')) {
+    recos.push({ icon:'calendar-heart', bg:'#FFF3DC', ic:'#C47A00',
+      title:'Séance de Sophrologie', tag:'Événement',
+      desc:'Un moment de détente pour vous ressourcer. Prochaine séance le 6 mai.',
+      action:"goTo('event-detail')" });
+  }
+  if (profile.besoins.includes('administratif')) {
+    recos.push({ icon:'file-text', bg:'#E4F9F1', ic:'#1A7A4A',
+      title:'Droits des aidants', tag:'Article',
+      desc:'Tout savoir sur le statut d\'aidant familial et les aides auxquelles vous avez droit.',
+      action:"showToast('Article ouvert')" });
+  }
+  if (profile.besoins.includes('coordination-medicale')) {
+    recos.push({ icon:'stethoscope', bg:'#EDE8FF', ic:'var(--purple)',
+      title:'Coordination médicale', tag:'Service',
+      desc:'Posez vos questions à nos experts de santé et obtenez une réponse personnalisée.',
+      action:"goTo('questions')" });
+  }
+
+  // Based on maladies
+  if (profile.maladies.includes('alzheimer')) {
+    recos.push({ icon:'brain', bg:'#FFF3DC', ic:'#C47A00',
+      title:'Groupe Aidants Alzheimer', tag:'Communauté',
+      desc:'Un espace dédié aux aidants de personnes atteintes d\'Alzheimer ou de démence.',
+      action:"goTo('community')" });
+  }
+  if (profile.maladies.includes('depression') || profile.maladies.includes('parkinson')) {
+    recos.push({ icon:'ear', bg:'#E3F2FD', ic:'#0288D1',
+      title:'Centre d\'Écoute', tag:'Lieu',
+      desc:'Des professionnels à l\'écoute pour vous accompagner dans les moments difficiles.',
+      action:"goTo('map')" });
+  }
+  if (profile.maladies.includes('cancer')) {
+    recos.push({ icon:'users-round', bg:'#FFE8EE', ic:'#C0143C',
+      title:'Groupe Cancer & Aidants', tag:'Communauté',
+      desc:'Rencontrez d\'autres aidants de proches touchés par le cancer.',
+      action:"goTo('community')" });
+  }
+
+  // Based on lien
+  if (profile.lien === 'conjoint') {
+    recos.push({ icon:'heart', bg:'#FFE8EE', ic:'#C0143C',
+      title:'Couples & maladie', tag:'Article',
+      desc:'Comment préserver votre relation de couple face à la maladie.',
+      action:"showToast('Article ouvert')" });
+  }
+
+  // Always add: Forum
+  recos.push({ icon:'message-circle', bg:'#EDE8FF', ic:'var(--purple)',
+    title:'Forum de questions', tag:'Communauté',
+    desc:'Posez vos questions à la communauté WELO et obtenez des réponses.',
+    action:"goTo('forum')" });
+
+  // Build HTML
+  const list = document.getElementById('reco-list');
+  list.innerHTML = recos.slice(0,6).map(r => `
+    <div class="reco-card" onclick="${r.action}">
+      <div class="reco-icon" style="background:${r.bg};">
+        <i data-lucide="${r.icon}" style="width:24px;height:24px;color:${r.ic};stroke-width:1.8;"></i>
+      </div>
+      <div style="flex:1;">
+        <div class="reco-card-title">${r.title}</div>
+        <div class="reco-card-desc">${r.desc}</div>
+        <span class="reco-tag">${r.tag}</span>
+      </div>
+      <i data-lucide="chevron-right" style="width:16px;height:16px;color:var(--text-gray);stroke-width:2;flex-shrink:0;margin-top:4px;"></i>
+    </div>
+  `).join('');
+  lucide.createIcons();
+}
 
 const NAV_ITEMS = [
   { key: 'home',      icon: 'house',          label: 'Accueil' },
@@ -2540,7 +3322,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash', 'event-detail', 'forum'];
+const NO_NAV = ['splash','event-detail','forum','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
