@@ -1066,39 +1066,39 @@
      SCREEN – PROFIL
   ======================== */
   .profil-hero {
-    background: linear-gradient(160deg, #6B4EFF 0%, #9B7EFF 100%);
-    padding: 56px 20px 28px;
+    background: white;
+    padding: 56px 20px 24px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
+    border-bottom: 1px solid var(--border);
   }
   .profil-avatar-wrap {
-    width: 90px;
-    height: 90px;
+    width: 84px;
+    height: 84px;
     border-radius: 50%;
     background: var(--yellow);
-    border: 4px solid white;
+    border: 4px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 38px;
+    font-size: 34px;
     font-weight: 800;
     color: var(--text);
     margin-bottom: 14px;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
   }
   .profil-name {
     font-size: 22px;
     font-weight: 800;
-    color: white;
+    color: var(--text);
     letter-spacing: -0.4px;
     margin-bottom: 4px;
   }
   .profil-role {
     font-size: 14px;
-    color: rgba(255,255,255,0.75);
+    color: var(--text-gray);
     font-weight: 400;
     margin-bottom: 20px;
   }
@@ -1636,7 +1636,8 @@
 
   /* Recap screen */
   .recap-hero {
-    background: linear-gradient(160deg, var(--purple) 0%, #9B7EFF 100%);
+    background: white;
+    border-bottom: 1px solid var(--border);
     padding: 56px 24px 32px;
     text-align: center;
   }
@@ -1652,18 +1653,18 @@
     font-size: 32px;
     font-weight: 800;
     color: var(--text);
-    border: 4px solid white;
-    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    border: 4px solid var(--border);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.08);
   }
   .recap-name {
     font-size: 22px;
     font-weight: 800;
-    color: white;
+    color: var(--text);
     letter-spacing: -0.4px;
   }
   .recap-sub {
     font-size: 14px;
-    color: rgba(255,255,255,0.75);
+    color: var(--text-gray);
     margin-top: 4px;
   }
   .recap-section {
