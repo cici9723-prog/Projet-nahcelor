@@ -447,40 +447,53 @@
     border-radius: 22px;
     overflow: hidden;
     border: none;
-    background: white;
-    box-shadow: var(--card-shadow);
     cursor: pointer;
     transition: transform 0.15s;
-  }
-  .news-card:active { transform: scale(0.97); }
-  .news-img-placeholder {
-    height: 100px;
-    background: linear-gradient(135deg, #C7BFFF 0%, #9B8FE8 100%);
+    position: relative;
+    min-height: 180px;
     display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 32px;
+    flex-direction: column;
   }
-  .news-body { padding: 10px; }
-  .news-title {
-    font-size: 12px;
-    font-weight: 600;
-    color: var(--text);
-    line-height: 1.4;
+  .news-card:active { transform: scale(0.96); }
+  .news-card-bg {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 14px 14px;
+    position: relative;
+    min-height: 180px;
+  }
+  .news-emoji {
+    font-size: 36px;
+    line-height: 1;
     margin-bottom: 8px;
+    display: block;
+  }
+  .news-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: white;
+    line-height: 1.35;
+    margin-bottom: 12px;
+    letter-spacing: -0.1px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.15);
   }
   .news-btn {
     display: inline-flex;
     align-items: center;
     gap: 4px;
-    background: var(--purple-light);
-    color: var(--purple);
-    font-size: 12px;
-    font-weight: 700;
-    padding: 5px 10px;
+    background: rgba(255,255,255,0.9);
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 800;
+    padding: 6px 12px;
     border-radius: 50px;
     border: none;
     cursor: pointer;
+    align-self: flex-start;
+    font-family: 'Host Grotesk', sans-serif;
+    letter-spacing: -0.1px;
   }
 
   /* ========================
@@ -516,25 +529,40 @@
     border: none;
     background: white;
     box-shadow: var(--card-shadow);
-    padding: 18px;
+    overflow: hidden;
     cursor: pointer;
-    transition: box-shadow 0.15s, transform 0.15s;
+    transition: transform 0.15s;
   }
-  .group-card:active { transform: scale(0.97); box-shadow: var(--card-shadow-lg); }
+  .group-card:active { transform: scale(0.97); }
+  .group-card-header {
+    padding: 16px 16px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .group-card-emoji {
+    font-size: 28px;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
   .group-card-title {
-    font-size: 15px;
-    font-weight: 700;
-    color: var(--yellow);
-    margin-bottom: 6px;
-    line-height: 1.3;
+    font-size: 14px;
+    font-weight: 800;
+    color: white;
+    line-height: 1.25;
     letter-spacing: -0.2px;
+    text-shadow: 0 1px 4px rgba(0,0,0,0.1);
+  }
+  .group-card-body {
+    padding: 12px 16px 14px;
+    background: white;
   }
   .group-card-desc {
     font-size: 12px;
     color: var(--text-gray);
     font-weight: 400;
     line-height: 1.5;
-    margin-bottom: 14px;
+    margin-bottom: 12px;
   }
 
   /* ========================
@@ -574,16 +602,17 @@
     color: white;
     border: none;
     border-radius: 50px;
-    padding: 14px;
-    font-size: 14px;
-    font-weight: 700;
+    padding: 16px;
+    font-size: 15px;
+    font-weight: 800;
     font-family: 'Host Grotesk', sans-serif;
-    letter-spacing: -0.1px;
+    letter-spacing: -0.2px;
     cursor: pointer;
     width: 100%;
-    transition: opacity 0.15s;
+    transition: all 0.15s;
+    box-shadow: 0 8px 24px rgba(107,78,255,0.3);
   }
-  .btn-purple-full:active { opacity: 0.85; }
+  .btn-purple-full:active { opacity: 0.88; transform: scale(0.98); }
 
   .experts-section { padding: 0 20px 20px; }
   .experts-title {
@@ -801,12 +830,14 @@
     background: var(--purple-light);
     color: var(--purple);
     border-radius: 50px;
-    padding: 6px 12px;
+    padding: 7px 14px;
     font-size: 12px;
-    font-weight: 600;
+    font-weight: 700;
     display: flex;
     align-items: center;
-    gap: 4px;
+    gap: 5px;
+    font-family: 'Host Grotesk', sans-serif;
+    letter-spacing: -0.1px;
   }
   .sheet-footer {
     display: flex;
@@ -889,15 +920,18 @@
     color: white;
     border: none;
     border-radius: 50px;
-    padding: 16px;
+    padding: 17px;
     font-size: 16px;
-    font-weight: 700;
+    font-weight: 800;
+    font-family: 'Host Grotesk', sans-serif;
     cursor: pointer;
     width: 100%;
     margin-top: 8px;
-    transition: opacity 0.15s;
+    transition: all 0.15s;
+    letter-spacing: -0.2px;
+    box-shadow: 0 8px 24px rgba(107,78,255,0.35);
   }
-  .register-btn:active { opacity: 0.85; }
+  .register-btn:active { opacity: 0.88; transform: scale(0.98); }
 
   /* ========================
      SCREEN 6 – FORUM
@@ -1494,31 +1528,39 @@
       </div>
       <div class="news-grid">
         <div class="news-card">
-          <div class="news-img-placeholder" style="background: linear-gradient(135deg, #B8D4FF 0%, #7BA8E8 100%);">🏥</div>
-          <div class="news-body">
-            <div class="news-title">Comment vos dons améliorent concrètement le quotidien à l'hôpital ?</div>
-            <button class="news-btn">Lire →</button>
+          <div class="news-card-bg" style="background:linear-gradient(145deg,#6B4EFF,#9B7EFF);">
+            <span class="news-emoji">🏥</span>
+            <div>
+              <div class="news-title">Comment vos dons améliorent le quotidien à l'hôpital</div>
+              <button class="news-btn">Lire →</button>
+            </div>
           </div>
         </div>
         <div class="news-card">
-          <div class="news-img-placeholder" style="background: linear-gradient(135deg, #FFD4B8 0%, #E8A87B 100%);">💛</div>
-          <div class="news-body">
-            <div class="news-title">Préserver son équilibre quand on accompagne un malade</div>
-            <button class="news-btn">Lire →</button>
+          <div class="news-card-bg" style="background:linear-gradient(145deg,#F5A623,#F5C400);">
+            <span class="news-emoji">💛</span>
+            <div>
+              <div class="news-title">Préserver son équilibre en accompagnant un proche</div>
+              <button class="news-btn">Lire →</button>
+            </div>
           </div>
         </div>
         <div class="news-card">
-          <div class="news-img-placeholder" style="background: linear-gradient(135deg, #D4FFB8 0%, #88C85A 100%);">🌿</div>
-          <div class="news-body">
-            <div class="news-title">5 gestes simples pour prendre soin de vous au quotidien</div>
-            <button class="news-btn">Lire →</button>
+          <div class="news-card-bg" style="background:linear-gradient(145deg,#2DC89A,#1DA882);">
+            <span class="news-emoji">🌿</span>
+            <div>
+              <div class="news-title">5 gestes pour prendre soin de vous au quotidien</div>
+              <button class="news-btn">Lire →</button>
+            </div>
           </div>
         </div>
         <div class="news-card">
-          <div class="news-img-placeholder" style="background: linear-gradient(135deg, #FFB8D4 0%, #E87BA8 100%);">💪</div>
-          <div class="news-body">
-            <div class="news-title">Le burn-out des aidants : reconnaître les signaux d'alerte</div>
-            <button class="news-btn">Lire →</button>
+          <div class="news-card-bg" style="background:linear-gradient(145deg,#FF6B8A,#FF4D6D);">
+            <span class="news-emoji">💪</span>
+            <div>
+              <div class="news-title">Burn-out des aidants : reconnaître les signaux</div>
+              <button class="news-btn">Lire →</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1580,43 +1622,44 @@
         </div>
         <div class="groups-grid">
           <div class="group-card" onclick="showToast('Groupe ouvert !')">
-            <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av" style="background:#F5C400;">M</div>
-              <div class="av" style="background:#6C47FF;">S</div>
-              <div class="av" style="background:#FF6B6B;">L</div>
+            <div class="group-card-header" style="background:linear-gradient(145deg,#6B4EFF,#9B7EFF);">
+              <span class="group-card-emoji">💡</span>
+              <div class="group-card-title">Conseils et astuces</div>
             </div>
-            <div class="group-card-title">Conseils et astuces</div>
-            <div class="group-card-desc">Mieux vivre le quotidien à l'hôpital et autour.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Découvrir →</button>
+            <div class="group-card-body">
+              <div class="group-card-desc">Mieux vivre le quotidien à l'hôpital et autour.</div>
+              <button class="btn-purple" style="font-size:12px;padding:9px 14px;box-shadow:none;">Rejoindre →</button>
+            </div>
           </div>
           <div class="group-card" onclick="showToast('Groupe ouvert !')">
-            <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av" style="background:#4CAF50;">G</div>
-              <div class="av" style="background:#E91E63;">A</div>
-              <div class="av" style="background:#2196F3;">P</div>
+            <div class="group-card-header" style="background:linear-gradient(145deg,#FF6B8A,#FF4D6D);">
+              <span class="group-card-emoji">🤝</span>
+              <div class="group-card-title">Se soutenir</div>
             </div>
-            <div class="group-card-title">Se soutenir</div>
-            <div class="group-card-desc">Parler à des personnes qui comprennent.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Découvrir →</button>
+            <div class="group-card-body">
+              <div class="group-card-desc">Parler à des personnes qui comprennent.</div>
+              <button class="btn-purple" style="font-size:12px;padding:9px 14px;box-shadow:none;">Rejoindre →</button>
+            </div>
           </div>
           <div class="group-card" onclick="showToast('Groupe ouvert !')">
-            <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av" style="background:#FF9800;">T</div>
-              <div class="av" style="background:#9C27B0;">C</div>
+            <div class="group-card-header" style="background:linear-gradient(145deg,#F5A623,#F5C400);">
+              <span class="group-card-emoji">💬</span>
+              <div class="group-card-title">Témoignages</div>
             </div>
-            <div class="group-card-title">Témoignages</div>
-            <div class="group-card-desc">Partagez vos expériences d'aidant.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Découvrir →</button>
+            <div class="group-card-body">
+              <div class="group-card-desc">Partagez vos expériences d'aidant.</div>
+              <button class="btn-purple" style="font-size:12px;padding:9px 14px;box-shadow:none;">Rejoindre →</button>
+            </div>
           </div>
           <div class="group-card" onclick="showToast('Groupe ouvert !')">
-            <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av" style="background:#00BCD4;">N</div>
-              <div class="av" style="background:#8BC34A;">D</div>
-              <div class="av" style="background:#FF5722;">R</div>
+            <div class="group-card-header" style="background:linear-gradient(145deg,#2DC89A,#1DA882);">
+              <span class="group-card-emoji">🌿</span>
+              <div class="group-card-title">Bien-être & détente</div>
             </div>
-            <div class="group-card-title">Bien-être & détente</div>
-            <div class="group-card-desc">Des ressources pour prendre soin de vous.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Découvrir →</button>
+            <div class="group-card-body">
+              <div class="group-card-desc">Des ressources pour prendre soin de vous.</div>
+              <button class="btn-purple" style="font-size:12px;padding:9px 14px;box-shadow:none;">Rejoindre →</button>
+            </div>
           </div>
         </div>
       </div>
@@ -1849,14 +1892,19 @@
 
       <!-- Selected location detail (shown on pin click) -->
       <div id="map-detail" style="display:none;">
-        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
           <span class="open-badge">OUVERT</span>
           <span style="font-size:13px;color:var(--text-gray);">⭐ 4.8 · <span id="map-detail-address"></span></span>
         </div>
-        <div style="font-size:12px;color:var(--text-gray);margin-bottom:12px;" id="map-detail-services"></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px;">
+          <span class="service-pill" style="background:#FFF3DC;color:#B87A00;">☕ Café</span>
+          <span class="service-pill" style="background:#EDE8FF;color:#6B4EFF;">🧠 Psy</span>
+          <span class="service-pill" style="background:#E4F9F1;color:#1A7A4A;">💆 Sophro</span>
+          <span class="service-pill" style="background:#FFE8EE;color:#C0143C;">🎨 Ateliers</span>
+        </div>
         <div style="display:flex;gap:10px;">
           <button class="btn-purple" style="flex:1;justify-content:center;" onclick="showToast('Réservation bientôt disponible !')">Voir les disponibilités</button>
-          <button style="width:44px;height:44px;background:#E8F5E9;border-radius:50%;border:none;cursor:pointer;font-size:18px;flex-shrink:0;" onclick="showToast('Appel en cours…')">📞</button>
+          <button style="width:46px;height:46px;background:#E4F9F1;border-radius:50%;border:none;cursor:pointer;font-size:20px;flex-shrink:0;" onclick="showToast('Appel en cours…')">📞</button>
         </div>
       </div>
 
