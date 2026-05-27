@@ -913,6 +913,395 @@
     z-index: 10;
   }
 
+  /* ========================
+     SCREEN – MESSAGERIE
+  ======================== */
+  .msg-header {
+    padding: 56px 20px 12px;
+    background: white;
+  }
+  .msg-title {
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    margin-bottom: 14px;
+  }
+  .convo-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: background 0.12s;
+  }
+  .convo-item:active { background: var(--bg); }
+  .convo-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .convo-online {
+    position: absolute;
+    bottom: 1px;
+    right: 1px;
+    width: 13px;
+    height: 13px;
+    background: #4CAF50;
+    border-radius: 50%;
+    border: 2px solid white;
+  }
+  .convo-body { flex: 1; min-width: 0; }
+  .convo-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3px;
+  }
+  .convo-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.2px;
+  }
+  .convo-time {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-weight: 400;
+    flex-shrink: 0;
+  }
+  .convo-preview {
+    font-size: 13px;
+    color: var(--text-gray);
+    font-weight: 400;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 220px;
+  }
+  .convo-preview.unread {
+    color: var(--text);
+    font-weight: 600;
+  }
+  .unread-badge {
+    background: var(--purple);
+    color: white;
+    font-size: 11px;
+    font-weight: 700;
+    min-width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5px;
+    flex-shrink: 0;
+  }
+  .convo-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 0 20px;
+  }
+  .compose-btn {
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 40px;
+    height: 40px;
+    background: var(--purple-light);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: none;
+  }
+  .msg-group-header {
+    padding: 16px 20px 8px;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--text-gray);
+  }
+
+  /* ========================
+     SCREEN – PROFIL
+  ======================== */
+  .profil-hero {
+    background: linear-gradient(160deg, #6B4EFF 0%, #9B7EFF 100%);
+    padding: 56px 20px 28px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .profil-avatar-wrap {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    background: var(--yellow);
+    border: 4px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 38px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 14px;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+  }
+  .profil-name {
+    font-size: 22px;
+    font-weight: 800;
+    color: white;
+    letter-spacing: -0.4px;
+    margin-bottom: 4px;
+  }
+  .profil-role {
+    font-size: 14px;
+    color: rgba(255,255,255,0.75);
+    font-weight: 400;
+    margin-bottom: 20px;
+  }
+  .profil-stats {
+    display: flex;
+    gap: 0;
+    background: white;
+    border-radius: 20px;
+    padding: 16px 8px;
+    width: 100%;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+  }
+  .stat-item {
+    flex: 1;
+    text-align: center;
+    position: relative;
+  }
+  .stat-item + .stat-item::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 10%;
+    height: 80%;
+    width: 1px;
+    background: var(--border);
+  }
+  .stat-value {
+    font-size: 22px;
+    font-weight: 800;
+    color: var(--text);
+    letter-spacing: -0.5px;
+    display: block;
+  }
+  .stat-label {
+    font-size: 11px;
+    color: var(--text-gray);
+    font-weight: 500;
+    display: block;
+    margin-top: 2px;
+  }
+  .profil-section {
+    padding: 20px 20px 0;
+  }
+  .profil-section-title {
+    font-size: 12px;
+    font-weight: 800;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: var(--text-gray);
+    margin-bottom: 12px;
+  }
+  .profil-card {
+    background: var(--bg);
+    border-radius: 18px;
+    overflow: hidden;
+    margin-bottom: 20px;
+  }
+  .profil-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    cursor: pointer;
+    transition: background 0.12s;
+    background: white;
+    border-bottom: 1px solid var(--border);
+  }
+  .profil-row:last-child { border-bottom: none; }
+  .profil-row:active { background: var(--bg); }
+  .profil-row-icon {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    flex-shrink: 0;
+  }
+  .profil-row-label {
+    flex: 1;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--text);
+    letter-spacing: -0.1px;
+  }
+  .profil-row-arrow {
+    color: var(--text-gray);
+    font-size: 18px;
+  }
+  .profil-tag {
+    background: var(--purple-light);
+    color: var(--purple);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 3px 8px;
+    border-radius: 50px;
+  }
+
+  /* ========================
+     MAP IMPROVED
+  ======================== */
+  .map-warm-bg {
+    flex: 1;
+    background: #F0EBE0;
+    position: relative;
+    overflow: hidden;
+    min-height: 0;
+  }
+  .map-warm-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(200,190,170,0.4) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,190,170,0.4) 1px, transparent 1px);
+    background-size: 36px 36px;
+  }
+  .map-warm-road-h {
+    position: absolute;
+    left: 0; right: 0;
+    background: #DDD5C2;
+    border-top: 1px solid #CCC4B0;
+    border-bottom: 1px solid #CCC4B0;
+  }
+  .map-warm-road-v {
+    position: absolute;
+    top: 0; bottom: 0;
+    background: #DDD5C2;
+    border-left: 1px solid #CCC4B0;
+    border-right: 1px solid #CCC4B0;
+  }
+  .map-park {
+    position: absolute;
+    background: #C8DDB8;
+    border-radius: 50%;
+  }
+  .map-water {
+    position: absolute;
+    background: rgba(130,190,255,0.35);
+  }
+  .map-warm-pin {
+    position: absolute;
+    cursor: pointer;
+    transform: translate(-50%, -100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+    transition: transform 0.15s;
+  }
+  .map-warm-pin:active { transform: translate(-50%, -100%) scale(1.15); }
+  .map-pin-bubble {
+    background: white;
+    border-radius: 50px;
+    padding: 6px 12px;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    white-space: nowrap;
+    font-family: 'Host Grotesk', sans-serif;
+  }
+  .map-pin-bubble.selected {
+    background: var(--purple);
+    color: white;
+  }
+  .map-pin-tail {
+    width: 0;
+    height: 0;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-top: 8px solid white;
+    margin-top: -1px;
+  }
+  .map-pin-tail.selected { border-top-color: var(--purple); }
+  .map-sheet-handle {
+    width: 36px;
+    height: 4px;
+    background: var(--border);
+    border-radius: 2px;
+    margin: 0 auto 16px;
+  }
+  .location-list-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+  }
+  .location-list-item:last-child { border-bottom: none; }
+  .location-list-item:active { opacity: 0.8; }
+  .loc-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .loc-name {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: -0.2px;
+    margin-bottom: 2px;
+  }
+  .loc-meta {
+    font-size: 12px;
+    color: var(--text-gray);
+    font-weight: 400;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .loc-dist {
+    background: var(--purple-light);
+    color: var(--purple);
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 50px;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
   /* TOAST */
   .toast {
     position: absolute;
@@ -1119,7 +1508,7 @@
         <svg viewBox="0 0 24 24" fill="#888"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
         <span>Messages</span>
       </div>
-      <div class="nav-item" onclick="showToast('Profil bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('profil')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         <span>Profil</span>
       </div>
@@ -1247,11 +1636,11 @@
         <svg viewBox="0 0 24 24" fill="#888"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         <span>Lieux</span>
       </div>
-      <div class="nav-item" onclick="showToast('Messagerie bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('messages')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
         <span>Messages</span>
       </div>
-      <div class="nav-item" onclick="showToast('Profil bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('profil')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         <span>Profil</span>
       </div>
@@ -1352,84 +1741,119 @@
         <svg viewBox="0 0 24 24" fill="#888"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         <span>Lieux</span>
       </div>
-      <div class="nav-item" onclick="showToast('Messagerie bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('messages')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
         <span>Messages</span>
       </div>
-      <div class="nav-item" onclick="showToast('Profil bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('profil')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         <span>Profil</span>
       </div>
     </div>
   </div>
 
-  <!-- ===================== SCREEN 4 – MAP ===================== -->
-  <div class="screen map-screen" id="screen-map">
-    <!-- Map background -->
-    <div class="map-bg" style="flex:1; min-height:0;">
-      <!-- Roads -->
-      <div class="map-road map-road-h" style="top:30%;"></div>
-      <div class="map-road map-road-h" style="top:55%; height:20px;"></div>
-      <div class="map-road map-road-h" style="top:75%;"></div>
-      <div class="map-road map-road-v" style="left:25%;"></div>
-      <div class="map-road map-road-v" style="left:60%; width:20px;"></div>
-      <!-- River/park -->
-      <div class="map-blue-zone" style="right:-20px; top:20%; width:80px; height:200px; border-radius:40px; transform:rotate(15deg);"></div>
-      <!-- Pins -->
-      <div class="map-pin" style="left:35%; top:40%;" onclick="showToast('Maison des Aidants – Paris 11e')">
-        <div class="pin-heart">💛</div>
+  <!-- ===================== SCREEN 4 – MAP (redesign) ===================== -->
+  <div class="screen" id="screen-map" style="flex-direction:column;">
+
+    <!-- Search overlay fixed on top -->
+    <div style="padding: 52px 16px 10px; background:white; box-shadow: 0 1px 0 var(--border);">
+      <div style="display:flex; align-items:center; gap:8px; background:var(--bg); border-radius:50px; padding:10px 16px; border:1.5px solid var(--border);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" placeholder="Rechercher une maison d'aidants" style="border:none;background:transparent;font-size:14px;font-family:'Host Grotesk',sans-serif;flex:1;outline:none;color:var(--text);">
       </div>
-      <div class="map-pin" style="left:55%; top:55%;" onclick="showToast('Maison des Aidants – Paris 12e')">
-        <div class="pin-heart">💛</div>
-      </div>
-      <div class="map-pin" style="left:25%; top:65%;" onclick="showToast('Centre d\'écoute – Paris 10e')">
-        <div class="pin-question" style="background:#FF6B6B;">🎧</div>
-      </div>
-      <div class="map-pin" style="left:70%; top:35%;" onclick="showToast('Atelier bien-être – Paris 13e')">
-        <div class="pin-question">🌿</div>
+      <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;">
+        <button onclick="filterMap(this,'Répit')" style="flex-shrink:0;background:var(--purple);color:white;border:none;border-radius:50px;padding:7px 14px;font-size:13px;font-weight:700;font-family:'Host Grotesk',sans-serif;cursor:pointer;">🏠 Répit</button>
+        <button onclick="filterMap(this,'Écoute')" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">🎧 Écoute</button>
+        <button onclick="filterMap(this,'Accompagnement')" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">🤝 Accompagnement</button>
+        <button onclick="filterMap(this,'Ateliers')" style="flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer;">🎨 Ateliers</button>
       </div>
     </div>
 
-    <!-- Search overlay -->
-    <div class="map-search-overlay">
-      <div class="map-search-row">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
-        <input type="text" placeholder="Rechercher une maison d'aidants">
+    <!-- Warm map -->
+    <div class="map-warm-bg" style="flex:1;min-height:0;">
+      <!-- Roads horizontal -->
+      <div class="map-warm-road-h" style="top:28%;height:14px;"></div>
+      <div class="map-warm-road-h" style="top:52%;height:20px;"></div>
+      <div class="map-warm-road-h" style="top:74%;height:10px;"></div>
+      <!-- Roads vertical -->
+      <div class="map-warm-road-v" style="left:22%;width:14px;"></div>
+      <div class="map-warm-road-v" style="left:58%;width:20px;"></div>
+      <!-- Park (green circle) -->
+      <div class="map-park" style="width:70px;height:70px;left:65%;top:55%;opacity:0.8;"></div>
+      <div class="map-park" style="width:40px;height:40px;left:38%;top:70%;opacity:0.6;"></div>
+      <!-- Water -->
+      <div class="map-water" style="right:-10px;top:15%;width:60px;height:180px;border-radius:30px;transform:rotate(12deg);"></div>
+      <!-- Block fills -->
+      <div style="position:absolute;left:23%;top:29%;width:34%;height:22%;background:#E8E0CE;border-radius:4px;opacity:0.5;"></div>
+      <div style="position:absolute;left:59%;top:10%;width:30%;height:17%;background:#E8E0CE;border-radius:4px;opacity:0.5;"></div>
+      <div style="position:absolute;left:0;top:53%;width:21%;height:20%;background:#E8E0CE;border-radius:4px;opacity:0.5;"></div>
+
+      <!-- Warm pins -->
+      <div class="map-warm-pin" style="left:38%;top:44%;" onclick="selectPin(this,'La Maison des Aidants','Paris 11e','1.5 km','☕ Pause café · 🧠 Aide psy · 🎨 Ateliers')">
+        <div class="map-pin-bubble selected">💛 Maison des Aidants</div>
+        <div class="map-pin-tail selected"></div>
       </div>
-      <div class="map-filter-pills">
-        <button class="map-pill active">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-          Répit
-        </button>
-        <button class="map-pill" onclick="showToast('Filtre Écoute')">🎧 Écoute</button>
-        <button class="map-pill" onclick="showToast('Filtre Accompagnement')">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3z"/></svg>
-          Accompagnement
-        </button>
+      <div class="map-warm-pin" style="left:62%;top:30%;" onclick="selectPin(this,'Maison des Aidants','Paris 12e','2.1 km','☕ Café · 💆 Sophrologie · 🌿 Bien-être')">
+        <div class="map-pin-bubble">💛 Maison des Aidants</div>
+        <div class="map-pin-tail"></div>
+      </div>
+      <div class="map-warm-pin" style="left:18%;top:62%;" onclick="selectPin(this,'Centre d\'Écoute','Paris 10e','2.8 km','🎧 Écoute · 💬 Soutien · 🤝 Accompagnement')">
+        <div class="map-pin-bubble">🎧 Centre d'Écoute</div>
+        <div class="map-pin-tail"></div>
+      </div>
+      <div class="map-warm-pin" style="left:75%;top:62%;" onclick="selectPin(this,'Atelier Bien-être','Paris 13e','3.2 km','🎨 Ateliers · 🌿 Nature · 🎵 Musique')">
+        <div class="map-pin-bubble">🌿 Atelier Bien-être</div>
+        <div class="map-pin-tail"></div>
       </div>
     </div>
 
     <!-- Bottom sheet -->
-    <div class="map-bottom-sheet">
-      <div class="sheet-handle"></div>
-      <div class="sheet-status">
-        <span class="open-badge">OUVERT</span>
-        <span class="rating">⭐ 4.8 (24 avis)</span>
+    <div style="background:white;border-radius:24px 24px 0 0;padding:16px 20px;box-shadow:0 -4px 24px rgba(0,0,0,0.08);">
+      <div class="map-sheet-handle"></div>
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
+        <span style="font-size:14px;font-weight:800;color:var(--text);letter-spacing:-0.2px;" id="map-sheet-title">Lieux près de chez vous</span>
+        <span style="font-size:12px;color:var(--text-gray);margin-left:auto;" id="map-sheet-dist"></span>
       </div>
-      <div class="sheet-name">La Maison des Aidants</div>
-      <div class="sheet-address">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="#888"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
-        12 Rue du Repos, 75011 Paris
+
+      <!-- Selected location detail (shown on pin click) -->
+      <div id="map-detail" style="display:none;">
+        <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+          <span class="open-badge">OUVERT</span>
+          <span style="font-size:13px;color:var(--text-gray);">⭐ 4.8 · <span id="map-detail-address"></span></span>
+        </div>
+        <div style="font-size:12px;color:var(--text-gray);margin-bottom:12px;" id="map-detail-services"></div>
+        <div style="display:flex;gap:10px;">
+          <button class="btn-purple" style="flex:1;justify-content:center;" onclick="showToast('Réservation bientôt disponible !')">Voir les disponibilités</button>
+          <button style="width:44px;height:44px;background:#E8F5E9;border-radius:50%;border:none;cursor:pointer;font-size:18px;flex-shrink:0;" onclick="showToast('Appel en cours…')">📞</button>
+        </div>
       </div>
-      <div class="service-pills">
-        <div class="service-pill">☕ Pause café</div>
-        <div class="service-pill">🧠 Aide psy</div>
-        <div class="service-pill">🎨 Ateliers</div>
-        <div class="service-pill">💆 Sophrologie</div>
-      </div>
-      <div class="sheet-footer">
-        <button class="btn-purple" style="flex:1; justify-content:center;" onclick="showToast('Réservation bientôt disponible !')">Voir les disponibilités</button>
-        <button class="call-btn" onclick="showToast('Appel en cours…')">📞</button>
+
+      <!-- Default list -->
+      <div id="map-list">
+        <div class="location-list-item" onclick="selectPin(document.querySelector('.map-warm-pin'),'La Maison des Aidants','Paris 11e','1.5 km','☕ Pause café · 🧠 Aide psy · 🎨 Ateliers')">
+          <div class="loc-icon" style="background:#FFF8DC;">💛</div>
+          <div style="flex:1;">
+            <div class="loc-name">La Maison des Aidants</div>
+            <div class="loc-meta">📍 Paris 11e · Ouvert</div>
+          </div>
+          <span class="loc-dist">1.5 km</span>
+        </div>
+        <div class="location-list-item" onclick="showToast('Maison des Aidants – Paris 12e')">
+          <div class="loc-icon" style="background:#FFF8DC;">💛</div>
+          <div style="flex:1;">
+            <div class="loc-name">Maison des Aidants</div>
+            <div class="loc-meta">📍 Paris 12e · Ouvert</div>
+          </div>
+          <span class="loc-dist">2.1 km</span>
+        </div>
+        <div class="location-list-item" onclick="showToast('Centre d\'Écoute – Paris 10e')">
+          <div class="loc-icon" style="background:#E3F2FD;">🎧</div>
+          <div style="flex:1;">
+            <div class="loc-name">Centre d'Écoute</div>
+            <div class="loc-meta">📍 Paris 10e · Ouvert</div>
+          </div>
+          <span class="loc-dist">2.8 km</span>
+        </div>
       </div>
     </div>
 
@@ -1443,14 +1867,14 @@
         <span>Communauté</span>
       </div>
       <div class="nav-item active">
-        <svg viewBox="0 0 24 24" fill="#6C47FF"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <svg viewBox="0 0 24 24" fill="#6B4EFF"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         <div class="nav-dot"></div>
       </div>
-      <div class="nav-item" onclick="showToast('Messagerie bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('messages')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
         <span>Messages</span>
       </div>
-      <div class="nav-item" onclick="showToast('Profil bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('profil')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         <span>Profil</span>
       </div>
@@ -1599,13 +2023,263 @@
         <svg viewBox="0 0 24 24" fill="#888"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
         <span>Lieux</span>
       </div>
-      <div class="nav-item" onclick="showToast('Messagerie bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('messages')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
         <span>Messages</span>
       </div>
-      <div class="nav-item" onclick="showToast('Profil bientôt disponible !')">
+      <div class="nav-item" onclick="goTo('profil')">
         <svg viewBox="0 0 24 24" fill="#888"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
         <span>Profil</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SCREEN 7 – MESSAGERIE ===================== -->
+  <div class="screen" id="screen-messages">
+    <div class="msg-header" style="position:relative;">
+      <div class="msg-title">Messages</div>
+      <button class="compose-btn" onclick="showToast('Nouveau message')">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--purple)"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+      </button>
+      <div class="search-bar" style="margin-top:0;">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <input type="text" placeholder="Rechercher un message…">
+      </div>
+    </div>
+
+    <div class="scroll-content">
+      <div class="msg-group-header">Récents</div>
+
+      <!-- Conversations -->
+      <div class="convo-item" onclick="showToast('Conversation ouverte')">
+        <div class="convo-avatar" style="background:linear-gradient(135deg,#FF6B6B,#FF8E53);">
+          L
+          <div class="convo-online"></div>
+        </div>
+        <div class="convo-body">
+          <div class="convo-top">
+            <span class="convo-name">Laure Green</span>
+            <span class="convo-time">maintenant</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <span class="convo-preview unread">Merci pour ton message, ça m'a vraiment aidé 💛</span>
+            <div class="unread-badge">2</div>
+          </div>
+        </div>
+      </div>
+      <div class="convo-divider"></div>
+
+      <div class="convo-item" onclick="showToast('Conversation ouverte')">
+        <div class="convo-avatar" style="background:linear-gradient(135deg,#6B4EFF,#9B7EFF);">
+          S
+        </div>
+        <div class="convo-body">
+          <div class="convo-top">
+            <span class="convo-name">Safir Nahas</span>
+            <span class="convo-time">14:23</span>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:8px;">
+            <span class="convo-preview unread">Tu as réussi à joindre l'assistante sociale ?</span>
+            <div class="unread-badge">1</div>
+          </div>
+        </div>
+      </div>
+      <div class="convo-divider"></div>
+
+      <div class="convo-item" onclick="showToast('Conversation ouverte')">
+        <div class="convo-avatar" style="background:linear-gradient(135deg,#81C784,#388E3C);">G</div>
+        <div class="convo-body">
+          <div class="convo-top">
+            <span class="convo-name">Gabrielle Rodrigues</span>
+            <span class="convo-time">Hier</span>
+          </div>
+          <span class="convo-preview">On se retrouve mardi à la Maison des Aidants ?</span>
+        </div>
+      </div>
+      <div class="convo-divider"></div>
+
+      <div class="convo-item" onclick="showToast('Conversation ouverte')">
+        <div class="convo-avatar" style="background:linear-gradient(135deg,#CE93D8,#7B1FA2);">P</div>
+        <div class="convo-body">
+          <div class="convo-top">
+            <span class="convo-name">Pierre Fontaine</span>
+            <span class="convo-time">Hier</span>
+          </div>
+          <span class="convo-preview">Toi aussi tu as essayé la sophrologie ? 😊</span>
+        </div>
+      </div>
+      <div class="convo-divider"></div>
+
+      <div class="msg-group-header" style="padding-top:20px;">Groupes</div>
+
+      <div class="convo-item" onclick="showToast('Groupe ouvert')">
+        <div class="convo-avatar" style="background:linear-gradient(135deg,#F5C400,#E0A800);font-size:24px;">💬</div>
+        <div class="convo-body">
+          <div class="convo-top">
+            <span class="convo-name">Conseils & Astuces</span>
+            <span class="convo-time">Lun.</span>
+          </div>
+          <span class="convo-preview">Amélie : Voilà le lien que je vous avais mentionné</span>
+        </div>
+      </div>
+      <div class="convo-divider"></div>
+
+      <div class="convo-item" onclick="showToast('Groupe ouvert')">
+        <div class="convo-avatar" style="background:linear-gradient(135deg,#FF8A65,#E64A19);font-size:24px;">🤝</div>
+        <div class="convo-body">
+          <div class="convo-top">
+            <span class="convo-name">Se soutenir</span>
+            <span class="convo-time">Sam.</span>
+          </div>
+          <span class="convo-preview">Thomas : Courage à tous, vous n'êtes pas seuls 💪</span>
+        </div>
+      </div>
+      <div class="convo-divider"></div>
+
+      <div class="convo-item" onclick="showToast('Groupe ouvert')">
+        <div class="convo-avatar" style="background:linear-gradient(135deg,#4FC3F7,#0288D1);font-size:24px;">🌿</div>
+        <div class="convo-body">
+          <div class="convo-top">
+            <span class="convo-name">Bien-être & Détente</span>
+            <span class="convo-time">Ven.</span>
+          </div>
+          <span class="convo-preview">Nouveau atelier sophrologie vendredi prochain !</span>
+        </div>
+      </div>
+      <div style="height:20px;"></div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item" onclick="goTo('home')">
+        <svg viewBox="0 0 24 24" fill="#888"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Accueil</span>
+      </div>
+      <div class="nav-item" onclick="goTo('community')">
+        <svg viewBox="0 0 24 24" fill="#888"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <span>Communauté</span>
+      </div>
+      <div class="nav-item" onclick="goTo('map')">
+        <svg viewBox="0 0 24 24" fill="#888"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <span>Lieux</span>
+      </div>
+      <div class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="#6B4EFF"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <div class="nav-dot"></div>
+      </div>
+      <div class="nav-item" onclick="goTo('profil')">
+        <svg viewBox="0 0 24 24" fill="#888"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <span>Profil</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== SCREEN 8 – PROFIL ===================== -->
+  <div class="screen" id="screen-profil">
+    <div class="scroll-content">
+      <div class="profil-hero">
+        <div class="profil-avatar-wrap">M</div>
+        <div class="profil-name">Marie Dupont</div>
+        <div class="profil-role">Aidante de son père · Membre depuis 2024</div>
+        <div class="profil-stats">
+          <div class="stat-item">
+            <span class="stat-value">24</span>
+            <span class="stat-label">Connexions</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">3</span>
+            <span class="stat-label">Groupes</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-value">7</span>
+            <span class="stat-label">Questions</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mon compte -->
+      <div class="profil-section">
+        <div class="profil-section-title">Mon compte</div>
+        <div class="profil-card">
+          <div class="profil-row" onclick="showToast('Modifier le profil')">
+            <div class="profil-row-icon" style="background:#EDE8FF;">✏️</div>
+            <span class="profil-row-label">Modifier mon profil</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+          <div class="profil-row" onclick="showToast('Mes groupes')">
+            <div class="profil-row-icon" style="background:#FFF3E0;">👥</div>
+            <span class="profil-row-label">Mes groupes</span>
+            <span class="profil-tag">3</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc" style="margin-left:8px;"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+          <div class="profil-row" onclick="showToast('Mes questions')">
+            <div class="profil-row-icon" style="background:#E8F5E9;">❓</div>
+            <span class="profil-row-label">Mes questions posées</span>
+            <span class="profil-tag">7</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc" style="margin-left:8px;"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+          <div class="profil-row" onclick="showToast('Événements sauvegardés')">
+            <div class="profil-row-icon" style="background:#FFF8DC;">📅</div>
+            <span class="profil-row-label">Événements sauvegardés</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Paramètres -->
+      <div class="profil-section">
+        <div class="profil-section-title">Paramètres</div>
+        <div class="profil-card">
+          <div class="profil-row" onclick="showToast('Notifications')">
+            <div class="profil-row-icon" style="background:#F3E5F5;">🔔</div>
+            <span class="profil-row-label">Notifications</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+          <div class="profil-row" onclick="showToast('Confidentialité')">
+            <div class="profil-row-icon" style="background:#E3F2FD;">🔒</div>
+            <span class="profil-row-label">Confidentialité</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+          <div class="profil-row" onclick="showToast('Aide & Support')">
+            <div class="profil-row-icon" style="background:#E8F5E9;">💬</div>
+            <span class="profil-row-label">Aide & Support</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+          <div class="profil-row" onclick="showToast('À propos de WELO')">
+            <div class="profil-row-icon" style="background:#FFF8DC;">💛</div>
+            <span class="profil-row-label">À propos de WELO</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+        </div>
+      </div>
+
+      <!-- Déconnexion -->
+      <div style="padding: 0 20px 32px;">
+        <button style="width:100%; padding:14px; border-radius:50px; border:1.5px solid #FFD5D5; background:white; color:#E53935; font-size:15px; font-weight:700; font-family:'Host Grotesk',sans-serif; cursor:pointer;" onclick="showToast('Déconnexion…')">
+          Se déconnecter
+        </button>
+      </div>
+    </div>
+
+    <div class="bottom-nav">
+      <div class="nav-item" onclick="goTo('home')">
+        <svg viewBox="0 0 24 24" fill="#888"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+        <span>Accueil</span>
+      </div>
+      <div class="nav-item" onclick="goTo('community')">
+        <svg viewBox="0 0 24 24" fill="#888"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+        <span>Communauté</span>
+      </div>
+      <div class="nav-item" onclick="goTo('map')">
+        <svg viewBox="0 0 24 24" fill="#888"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+        <span>Lieux</span>
+      </div>
+      <div class="nav-item" onclick="goTo('messages')">
+        <svg viewBox="0 0 24 24" fill="#888"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        <span>Messages</span>
+      </div>
+      <div class="nav-item active">
+        <svg viewBox="0 0 24 24" fill="#6B4EFF"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+        <div class="nav-dot"></div>
       </div>
     </div>
   </div>
@@ -1621,6 +2295,8 @@ const screens = {
   'map': 'screen-map',
   'event-detail': 'screen-event-detail',
   'forum': 'screen-forum',
+  'messages': 'screen-messages',
+  'profil': 'screen-profil',
 };
 
 let toastTimer = null;
@@ -1653,6 +2329,38 @@ function showToast(msg) {
   t.classList.add('show');
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+function selectPin(el, name, city, dist, services) {
+  // Reset all pins
+  document.querySelectorAll('.map-pin-bubble').forEach(b => b.classList.remove('selected'));
+  document.querySelectorAll('.map-pin-tail').forEach(t => t.classList.remove('selected'));
+  // Highlight clicked pin
+  if (el) {
+    const bubble = el.querySelector ? el.querySelector('.map-pin-bubble') : null;
+    const tail = el.querySelector ? el.querySelector('.map-pin-tail') : null;
+    if (bubble) bubble.classList.add('selected');
+    if (tail) tail.classList.add('selected');
+  }
+  // Update bottom sheet
+  document.getElementById('map-sheet-title').textContent = name + ' · ' + city;
+  document.getElementById('map-sheet-dist').textContent = dist;
+  document.getElementById('map-detail-address').textContent = city;
+  document.getElementById('map-detail-services').textContent = services;
+  document.getElementById('map-detail').style.display = 'block';
+  document.getElementById('map-list').style.display = 'none';
+}
+
+function filterMap(btn, label) {
+  document.querySelectorAll('#screen-map button[onclick^="filterMap"]').forEach(b => {
+    b.style.background = 'white';
+    b.style.color = 'var(--text)';
+    b.style.border = '1.5px solid var(--border)';
+  });
+  btn.style.background = 'var(--purple)';
+  btn.style.color = 'white';
+  btn.style.border = 'none';
+  showToast('Filtre : ' + label);
 }
 
 // Update clock
