@@ -7,25 +7,28 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
   :root {
     --purple: #6B4EFF;
-    --purple-light: #ECEAFF;
+    --purple-light: #EEEAFF;
+    --purple-mid: #D4CAFF;
     --yellow: #F5C400;
     --yellow-light: #FFFBEA;
-    --text: #111118;
-    --text-gray: #8A8A9A;
-    --border: #EFEFEF;
-    --bg: #F7F7FB;
+    --text: #0D0D1A;
+    --text-gray: #9090A8;
+    --border: #F0F0F5;
+    --bg: #F6F6FB;
     --white: #FFFFFF;
-    --orange: #FF8C00;
+    --card-shadow: 0 2px 16px rgba(107,78,255,0.09);
+    --card-shadow-lg: 0 8px 32px rgba(107,78,255,0.13);
   }
 
   body {
     font-family: 'Host Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
-    background: #E8E4FF;
+    background: linear-gradient(145deg, #EAE4FF 0%, #E0ECFF 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -36,15 +39,15 @@
   .phone-frame {
     width: 390px;
     height: 844px;
-    background: white;
-    border-radius: 55px;
+    background: var(--bg);
+    border-radius: 52px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 40px 100px rgba(0,0,0,0.3), inset 0 0 0 1px rgba(255,255,255,0.2);
+    box-shadow: 0 48px 120px rgba(80,50,200,0.22), 0 8px 32px rgba(0,0,0,0.12), inset 0 0 0 1.5px rgba(255,255,255,0.6);
   }
 
   @media (max-width: 430px) {
-    body { background: white; align-items: flex-start; }
+    body { background: var(--bg); align-items: flex-start; }
     .phone-frame { width: 100vw; height: 100vh; border-radius: 0; box-shadow: none; }
   }
 
@@ -75,6 +78,7 @@
     transition: opacity 0.25s ease;
   }
   .screen.active { display: flex; }
+  .screen:not(#screen-splash) { background: var(--bg); }
 
   /* SCROLL CONTENT */
   .scroll-content {
@@ -88,14 +92,17 @@
 
   /* BOTTOM NAV */
   .bottom-nav {
-    height: 82px;
-    border-top: 1px solid var(--border);
+    height: 86px;
+    border-top: none;
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-around;
-    padding: 0 10px 16px;
+    padding: 10px 4px 0;
     background: white;
+    box-shadow: 0 -1px 0 rgba(0,0,0,0.05), 0 -12px 32px rgba(107,78,255,0.04);
     flex-shrink: 0;
+    position: relative;
+    z-index: 10;
   }
   .nav-item {
     display: flex;
@@ -103,21 +110,30 @@
     align-items: center;
     gap: 3px;
     cursor: pointer;
-    padding: 8px 12px;
-    border-radius: 12px;
-    transition: background 0.15s;
-    min-width: 52px;
+    min-width: 56px;
+    padding: 0 4px;
+    transition: transform 0.15s;
   }
-  .nav-item:active { background: var(--purple-light); }
-  .nav-item svg { width: 24px; height: 24px; }
-  .nav-item span { font-size: 10px; color: var(--text-gray); }
-  .nav-item.active span { color: var(--purple); }
-  .nav-dot {
-    width: 6px; height: 6px;
-    background: var(--yellow);
-    border-radius: 50%;
-    margin-top: 2px;
+  .nav-item:active { transform: scale(0.92); }
+  .nav-icon-wrap {
+    width: 48px;
+    height: 32px;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s;
   }
+  .nav-item.active .nav-icon-wrap { background: var(--purple-light); }
+  .nav-item i, .nav-item svg { width: 22px; height: 22px; }
+  .nav-item span {
+    font-size: 10px;
+    font-weight: 500;
+    color: var(--text-gray);
+    font-family: 'Host Grotesk', sans-serif;
+    letter-spacing: -0.1px;
+  }
+  .nav-item.active span { color: var(--purple); font-weight: 700; }
 
   /* BUTTONS */
   .btn-purple {
@@ -125,7 +141,7 @@
     color: white;
     border: none;
     border-radius: 50px;
-    padding: 11px 20px;
+    padding: 12px 22px;
     font-size: 14px;
     font-weight: 700;
     font-family: 'Host Grotesk', sans-serif;
@@ -133,16 +149,17 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    transition: opacity 0.15s;
+    transition: all 0.15s;
     letter-spacing: -0.1px;
+    box-shadow: 0 4px 16px rgba(107,78,255,0.3);
   }
-  .btn-purple:active { opacity: 0.85; }
+  .btn-purple:active { opacity: 0.88; transform: scale(0.97); }
   .btn-purple-outline {
     background: white;
     color: var(--purple);
-    border: 2px solid var(--purple);
+    border: 2px solid var(--purple-mid);
     border-radius: 50px;
-    padding: 10px 18px;
+    padding: 11px 20px;
     font-size: 13px;
     font-weight: 700;
     font-family: 'Host Grotesk', sans-serif;
@@ -155,12 +172,13 @@
   .search-bar {
     display: flex;
     align-items: center;
-    background: var(--bg);
+    background: white;
     border-radius: 50px;
-    padding: 11px 16px;
-    gap: 8px;
+    padding: 11px 18px;
+    gap: 10px;
     flex: 1;
     border: 1.5px solid var(--border);
+    box-shadow: var(--card-shadow);
   }
   .search-bar input {
     border: none;
@@ -201,9 +219,10 @@
   /* CARD */
   .card {
     background: white;
-    border-radius: 20px;
-    padding: 16px;
-    border: 1px solid var(--border);
+    border-radius: 24px;
+    padding: 18px;
+    border: none;
+    box-shadow: var(--card-shadow);
   }
 
   /* SECTION TITLE */
@@ -294,8 +313,10 @@
      SCREEN 1 – HOME
   ======================== */
   .home-header {
-    padding: 60px 20px 16px;
+    padding: 60px 20px 18px;
     background: white;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0 4px 20px rgba(107,78,255,0.05);
   }
   .home-top {
     display: flex;
@@ -324,13 +345,14 @@
   .event-card {
     margin: 0 20px 0;
     background: white;
-    border-radius: 20px;
-    border: 1px solid var(--border);
+    border-radius: 24px;
+    border: none;
     overflow: hidden;
+    box-shadow: var(--card-shadow-lg);
   }
   .event-card-header {
     background: var(--yellow);
-    padding: 8px 16px;
+    padding: 10px 18px;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -422,11 +444,15 @@
     padding: 8px 20px 20px;
   }
   .news-card {
-    border-radius: 16px;
+    border-radius: 22px;
     overflow: hidden;
-    border: 1px solid var(--border);
+    border: none;
+    background: white;
+    box-shadow: var(--card-shadow);
     cursor: pointer;
+    transition: transform 0.15s;
   }
+  .news-card:active { transform: scale(0.97); }
   .news-img-placeholder {
     height: 100px;
     background: linear-gradient(135deg, #C7BFFF 0%, #9B8FE8 100%);
@@ -463,6 +489,8 @@
   .community-header {
     padding: 60px 20px 8px;
     background: white;
+    border-radius: 0 0 28px 28px;
+    box-shadow: 0 4px 20px rgba(107,78,255,0.05);
   }
   .community-search-row {
     display: flex;
@@ -484,13 +512,15 @@
     padding: 8px 20px 20px;
   }
   .group-card {
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    padding: 16px;
+    border-radius: 24px;
+    border: none;
+    background: white;
+    box-shadow: var(--card-shadow);
+    padding: 18px;
     cursor: pointer;
-    transition: border-color 0.15s;
+    transition: box-shadow 0.15s, transform 0.15s;
   }
-  .group-card:active { border-color: var(--purple); }
+  .group-card:active { transform: scale(0.97); box-shadow: var(--card-shadow-lg); }
   .group-card-title {
     font-size: 15px;
     font-weight: 700;
@@ -518,9 +548,10 @@
   .confused-card {
     margin: 0 20px 20px;
     background: white;
-    border-radius: 20px;
-    border: 1px solid var(--border);
-    padding: 18px;
+    border-radius: 24px;
+    border: none;
+    box-shadow: var(--card-shadow-lg);
+    padding: 20px;
   }
   .confused-title {
     font-size: 12px;
@@ -1122,16 +1153,17 @@
     margin-bottom: 12px;
   }
   .profil-card {
-    background: var(--bg);
-    border-radius: 18px;
+    background: white;
+    border-radius: 24px;
     overflow: hidden;
     margin-bottom: 20px;
+    box-shadow: var(--card-shadow);
   }
   .profil-row {
     display: flex;
     align-items: center;
     gap: 14px;
-    padding: 14px 16px;
+    padding: 15px 18px;
     cursor: pointer;
     transition: background 0.12s;
     background: white;
@@ -1398,14 +1430,14 @@
       <div style="padding: 0 20px 16px;">
         <div class="event-card" onclick="goTo('event-detail')">
           <div class="event-card-header">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H18V1H16V3H8V1H6V3H5C3.9 3 3 3.9 3 5V19C3 20.1 3.9 21 5 21H19C20.1 21 21 20.1 21 19V5C21 3.9 20.1 3 19 3ZM19 19H5V8H19V19Z"/></svg>
+            <i data-lucide="calendar" style="width:15px;height:15px;color:var(--text);stroke-width:2.5;flex-shrink:0;"></i>
             <span>PROCHAIN ÉVÈNEMENT !</span>
           </div>
           <div class="event-card-body">
             <div class="event-type">Sophrologie</div>
             <div class="event-title">Venez profiter d'un moment de détente pour vous…</div>
             <div class="event-time">
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="#888"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2ZM16.2 16.2L11 13V7H12.5V12.2L17 14.9L16.2 16.2Z"/></svg>
+              <i data-lucide="clock" style="width:14px;height:14px;color:var(--text-gray);stroke-width:2;flex-shrink:0;"></i>
               6 mai 2026 14:00 – 15:00
             </div>
             <div class="event-footer">
@@ -1520,11 +1552,11 @@
     <div class="community-header">
       <div class="community-search-row">
         <div class="search-bar">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <i data-lucide="search" style="width:16px;height:16px;color:var(--text-gray);stroke-width:2;flex-shrink:0;"></i>
           <input type="text" placeholder="Rechercher">
         </div>
         <button class="filter-btn">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#888"><path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/></svg>
+          <i data-lucide="sliders-horizontal" style="width:20px;height:20px;color:var(--text);stroke-width:2;"></i>
         </button>
       </div>
     </div>
@@ -1652,11 +1684,11 @@
     <div class="questions-header">
       <div class="community-search-row">
         <div class="search-bar">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          <i data-lucide="search" style="width:16px;height:16px;color:var(--text-gray);stroke-width:2;flex-shrink:0;"></i>
           <input type="text" placeholder="Rechercher">
         </div>
         <button class="filter-btn">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="#888"><path d="M3 18h6v-2H3v2zM3 6v2h18V6H3zm0 7h12v-2H3v2z"/></svg>
+          <i data-lucide="sliders-horizontal" style="width:20px;height:20px;color:var(--text);stroke-width:2;"></i>
         </button>
       </div>
     </div>
@@ -1758,7 +1790,7 @@
     <!-- Search overlay fixed on top -->
     <div style="padding: 52px 16px 10px; background:white; box-shadow: 0 1px 0 var(--border);">
       <div style="display:flex; align-items:center; gap:8px; background:var(--bg); border-radius:50px; padding:10px 16px; border:1.5px solid var(--border);">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <i data-lucide="search" style="width:16px;height:16px;color:var(--text-gray);stroke-width:2;flex-shrink:0;"></i>
         <input type="text" placeholder="Rechercher une maison d'aidants" style="border:none;background:transparent;font-size:14px;font-family:'Host Grotesk',sans-serif;flex:1;outline:none;color:var(--text);">
       </div>
       <div style="display:flex;gap:8px;margin-top:10px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;">
@@ -1886,7 +1918,7 @@
     <div class="scroll-content">
       <div class="event-detail-header">
         <button class="back-btn" onclick="goTo('home')">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--purple)"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+          <i data-lucide="arrow-left" style="width:20px;height:20px;color:var(--purple);stroke-width:2.5;"></i>
           Retour
         </button>
         <div style="font-size:12px; color:var(--text-gray); margin-bottom:8px; display:flex; align-items:center; gap:6px;">
@@ -1940,7 +1972,7 @@
   <div class="screen" id="screen-forum">
     <div class="forum-header">
       <button class="back-btn" onclick="goTo('questions')">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--purple)"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg>
+        <i data-lucide="arrow-left" style="width:20px;height:20px;color:var(--purple);stroke-width:2.5;"></i>
         Retour
       </button>
       <div class="forum-title">Forum de questions</div>
@@ -2039,10 +2071,10 @@
     <div class="msg-header" style="position:relative;">
       <div class="msg-title">Messages</div>
       <button class="compose-btn" onclick="showToast('Nouveau message')">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--purple)"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+        <i data-lucide="pencil-line" style="width:18px;height:18px;color:var(--purple);stroke-width:2;"></i>
       </button>
       <div class="search-bar" style="margin-top:0;">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="#888"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <i data-lucide="search" style="width:16px;height:16px;color:var(--text-gray);stroke-width:2;flex-shrink:0;"></i>
         <input type="text" placeholder="Rechercher un message…">
       </div>
     </div>
@@ -2203,7 +2235,7 @@
           <div class="profil-row" onclick="showToast('Modifier le profil')">
             <div class="profil-row-icon" style="background:#EDE8FF;">✏️</div>
             <span class="profil-row-label">Modifier mon profil</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
           </div>
           <div class="profil-row" onclick="showToast('Mes groupes')">
             <div class="profil-row-icon" style="background:#FFF3E0;">👥</div>
@@ -2220,7 +2252,7 @@
           <div class="profil-row" onclick="showToast('Événements sauvegardés')">
             <div class="profil-row-icon" style="background:#FFF8DC;">📅</div>
             <span class="profil-row-label">Événements sauvegardés</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
           </div>
         </div>
       </div>
@@ -2232,22 +2264,22 @@
           <div class="profil-row" onclick="showToast('Notifications')">
             <div class="profil-row-icon" style="background:#F3E5F5;">🔔</div>
             <span class="profil-row-label">Notifications</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
           </div>
           <div class="profil-row" onclick="showToast('Confidentialité')">
             <div class="profil-row-icon" style="background:#E3F2FD;">🔒</div>
             <span class="profil-row-label">Confidentialité</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
           </div>
           <div class="profil-row" onclick="showToast('Aide & Support')">
             <div class="profil-row-icon" style="background:#E8F5E9;">💬</div>
             <span class="profil-row-label">Aide & Support</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
           </div>
           <div class="profil-row" onclick="showToast('À propos de WELO')">
             <div class="profil-row-icon" style="background:#FFF8DC;">💛</div>
             <span class="profil-row-label">À propos de WELO</span>
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="#ccc"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
           </div>
         </div>
       </div>
@@ -2288,27 +2320,55 @@
 
 <script>
 const screens = {
-  'splash': 'screen-splash',
-  'home': 'screen-home',
-  'community': 'screen-community',
-  'questions': 'screen-questions',
-  'map': 'screen-map',
+  'splash':       'screen-splash',
+  'home':         'screen-home',
+  'community':    'screen-community',
+  'questions':    'screen-questions',
+  'map':          'screen-map',
   'event-detail': 'screen-event-detail',
-  'forum': 'screen-forum',
-  'messages': 'screen-messages',
-  'profil': 'screen-profil',
+  'forum':        'screen-forum',
+  'messages':     'screen-messages',
+  'profil':       'screen-profil',
 };
 
+const NAV_ITEMS = [
+  { key: 'home',      icon: 'house',          label: 'Accueil' },
+  { key: 'community', icon: 'users-round',     label: 'Communauté' },
+  { key: 'map',       icon: 'map-pin',         label: 'Lieux' },
+  { key: 'messages',  icon: 'message-circle',  label: 'Messages' },
+  { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
+];
+
+const NO_NAV = ['splash', 'event-detail', 'forum'];
+
+function buildNavs(activeKey) {
+  document.querySelectorAll('.bottom-nav').forEach(nav => {
+    nav.innerHTML = NAV_ITEMS.map(item => {
+      const isActive = item.key === activeKey;
+      const color = isActive ? 'var(--purple)' : 'var(--text-gray)';
+      return `<div class="nav-item ${isActive ? 'active' : ''}" onclick="goTo('${item.key}')">
+        <div class="nav-icon-wrap">
+          <i data-lucide="${item.icon}" style="width:22px;height:22px;color:${color};stroke-width:${isActive ? '2.5' : '1.8'};"></i>
+        </div>
+        <span>${item.label}</span>
+      </div>`;
+    }).join('');
+  });
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+let currentScreen = 'splash';
 let toastTimer = null;
 
 function goTo(name) {
   const id = screens[name];
   if (!id) return;
+  currentScreen = name;
   document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
   document.getElementById(id).classList.add('active');
-  // Scroll to top
   const scroll = document.querySelector('#' + id + ' .scroll-content');
   if (scroll) scroll.scrollTop = 0;
+  if (!NO_NAV.includes(name)) buildNavs(name);
 }
 
 function switchTab(btn, tabId) {
@@ -2363,7 +2423,6 @@ function filterMap(btn, label) {
   showToast('Filtre : ' + label);
 }
 
-// Update clock
 function updateClock() {
   const now = new Date();
   const h = now.getHours().toString().padStart(2, '0');
@@ -2372,6 +2431,11 @@ function updateClock() {
 }
 updateClock();
 setInterval(updateClock, 30000);
+
+// Init navs on load
+document.addEventListener('DOMContentLoaded', () => {
+  buildNavs('home');
+});
 </script>
 
 </body>
