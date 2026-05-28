@@ -372,7 +372,7 @@
   }
   .event-title {
     font-size: 14px;
-    color: var(--purple);
+    color: var(--text);
     font-weight: 500;
     margin-bottom: 10px;
     letter-spacing: -0.1px;
@@ -1853,6 +1853,7 @@
   <!-- ===================== SCREEN 1 – HOME ===================== -->
   <div class="screen" id="screen-home">
     <div class="scroll-content">
+      <!-- Header -->
       <div class="home-header">
         <div class="home-top">
           <div>
@@ -1872,18 +1873,20 @@
         </div>
       </div>
 
-      <!-- Event card -->
-      <div style="padding: 0 20px 16px;">
-        <div class="event-card" onclick="goTo('event-detail')" style="box-shadow:var(--card-shadow-lg);">
-          <div class="event-card-header">
-            <i data-lucide="calendar" style="width:15px;height:15px;color:var(--text);stroke-width:2.5;flex-shrink:0;"></i>
-            <span>PROCHAIN ÉVÈNEMENT !</span>
-          </div>
-          <div class="event-card-body">
+      <!-- Prochain événement -->
+      <div class="section-header">
+        <div class="section-title" style="display:flex;align-items:center;gap:6px;">
+          <i data-lucide="calendar" style="width:14px;height:14px;color:var(--yellow);stroke-width:2.5;"></i>
+          PROCHAIN ÉVÉNEMENT !
+        </div>
+      </div>
+      <div style="padding: 0 20px 20px;">
+        <div class="event-card" onclick="goTo('event-detail')" style="border:1px solid var(--border);box-shadow:none;">
+          <div class="event-card-body" style="padding:18px;">
             <div class="event-type">Sophrologie</div>
             <div class="event-title">Venez profiter d'un moment de détente pour vous…</div>
             <div class="event-time">
-              <i data-lucide="clock" style="width:14px;height:14px;color:var(--text-gray);stroke-width:2;flex-shrink:0;"></i>
+              <i data-lucide="clock" style="width:14px;height:14px;color:var(--yellow);stroke-width:2;flex-shrink:0;"></i>
               6 mai 2026 14:00 – 15:00
             </div>
             <div class="event-footer">
@@ -1893,148 +1896,88 @@
         </div>
       </div>
 
-      <!-- Nearby locations -->
-      <div class="section-header">
+      <!-- Lieux près de chez vous -->
+      <div class="section-header" style="padding-top:4px;">
         <div class="section-title" style="display:flex;align-items:center;gap:6px;">
-          <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--purple);stroke-width:2.5;"></i>
+          <i data-lucide="map-pin" style="width:14px;height:14px;color:var(--yellow);stroke-width:2.5;"></i>
           LES LIEUX PRÈS DE CHEZ VOUS
         </div>
       </div>
-      <div class="locations-scroll">
+      <div class="locations-scroll" style="padding-bottom:16px;">
         <div class="location-card" onclick="goTo('map')">
-          <div class="location-card-placeholder" style="background: linear-gradient(160deg, #7B6FD4 0%, #4A3FA0 100%);">
-            <div style="width:100%; height:100%; display:flex; align-items:flex-end; padding:8px;">
-              <div>
-                <div style="font-size:10px; color:rgba(255,255,255,0.8); margin-bottom:3px;">📍 1.5 KM</div>
-                <div class="location-badge">MAISON DES AIDANTS</div>
+          <div class="location-card-placeholder" style="background:#BEC0C4;position:relative;">
+            <div style="position:absolute;top:8px;left:8px;">
+              <div style="background:white;border-radius:50px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--text);display:inline-flex;align-items:center;gap:3px;">
+                <i data-lucide="map-pin" style="width:9px;height:9px;stroke-width:2.5;color:var(--purple);"></i> 1.5 KM
               </div>
             </div>
+            <div class="location-badge">MAISON DES AIDANTS</div>
           </div>
         </div>
         <div class="location-card" onclick="goTo('map')">
-          <div class="location-card-placeholder" style="background: linear-gradient(160deg, #5B6AD4 0%, #3A4FA0 100%);">
-            <div style="width:100%; height:100%; display:flex; align-items:flex-end; padding:8px;">
-              <div>
-                <div style="font-size:10px; color:rgba(255,255,255,0.8); margin-bottom:3px;">📍 1.5 KM</div>
-                <div class="location-badge">MAISON DES AIDA…</div>
+          <div class="location-card-placeholder" style="background:#C4BEBC;position:relative;">
+            <div style="position:absolute;top:8px;left:8px;">
+              <div style="background:white;border-radius:50px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--text);display:inline-flex;align-items:center;gap:3px;">
+                <i data-lucide="map-pin" style="width:9px;height:9px;stroke-width:2.5;color:var(--purple);"></i> 1.5 KM
               </div>
             </div>
+            <div class="location-badge">MAISON DES AIDANTS</div>
           </div>
         </div>
         <div class="location-card" onclick="goTo('map')">
-          <div class="location-card-placeholder" style="background: linear-gradient(160deg, #8B7CF8 0%, #6C47FF 100%);">
-            <div style="width:100%; height:100%; display:flex; align-items:flex-end; padding:8px;">
-              <div>
-                <div style="font-size:10px; color:rgba(255,255,255,0.8); margin-bottom:3px;">📍 2.1 KM</div>
-                <div class="location-badge">CENTRE D'ÉCOUTE</div>
+          <div class="location-card-placeholder" style="background:#BEC4BE;position:relative;">
+            <div style="position:absolute;top:8px;left:8px;">
+              <div style="background:white;border-radius:50px;padding:3px 8px;font-size:10px;font-weight:700;color:var(--text);display:inline-flex;align-items:center;gap:3px;">
+                <i data-lucide="map-pin" style="width:9px;height:9px;stroke-width:2.5;color:var(--purple);"></i> 2.1 KM
               </div>
             </div>
+            <div class="location-badge">CENTRE D'ÉCOUTE</div>
           </div>
         </div>
       </div>
 
-      <!-- News -->
-      <!-- Posts témoignages -->
-      <div class="section-header" style="padding-top: 4px;">
+      <!-- L'Actualité -->
+      <div class="section-header" style="padding-top:4px;">
         <div class="section-title" style="display:flex;align-items:center;gap:6px;">
-          <i data-lucide="users-round" style="width:14px;height:14px;color:var(--purple);stroke-width:2.5;"></i>
-          TÉMOIGNAGES
-        </div>
-      </div>
-
-      <div class="post-card">
-        <div class="post-header">
-          <div class="post-avatar" style="background:linear-gradient(135deg,#FF6B8A,#FF4D6D);">L</div>
-          <div style="flex:1;">
-            <div class="post-username">Laure Green</div>
-            <div class="post-time">Il y a 2h</div>
-          </div>
-          <button class="post-more"><i data-lucide="more-horizontal" style="width:18px;height:18px;stroke-width:2;"></i></button>
-        </div>
-        <span class="post-tag">Témoignage</span>
-        <div class="post-content">"Ce groupe m'a vraiment aidée à traverser cette période difficile. Je me sens moins seule et j'ai trouvé des astuces que je n'aurais jamais trouvées seule."</div>
-        <div class="post-actions">
-          <button class="post-action-btn liked" onclick="toggleLike(this)">
-            <i data-lucide="heart" style="width:16px;height:16px;stroke-width:2;fill:currentColor;"></i> 24
-          </button>
-          <div class="post-divider"></div>
-          <button class="post-action-btn" onclick="showToast('Commentaires')">
-            <i data-lucide="message-circle" style="width:16px;height:16px;stroke-width:2;"></i> 8
-          </button>
-          <div class="post-divider"></div>
-          <button class="post-action-btn" onclick="showToast('Partagé !')">
-            <i data-lucide="share-2" style="width:16px;height:16px;stroke-width:2;"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="post-card">
-        <div class="post-header">
-          <div class="post-avatar" style="background:linear-gradient(135deg,#6B4EFF,#9B7EFF);">S</div>
-          <div style="flex:1;">
-            <div class="post-username">Safir Nahas</div>
-            <div class="post-time">Il y a 5h</div>
-          </div>
-          <button class="post-more"><i data-lucide="more-horizontal" style="width:18px;height:18px;stroke-width:2;"></i></button>
-        </div>
-        <span class="post-tag">Conseil</span>
-        <div class="post-content">"Un truc qui m'a changé la vie : bloquer 20 min chaque matin juste pour moi, avant de m'occuper de mon père. Ça paraît égoïste mais c'est vital."</div>
-        <div class="post-actions">
-          <button class="post-action-btn" onclick="toggleLike(this)">
-            <i data-lucide="heart" style="width:16px;height:16px;stroke-width:2;"></i> 41
-          </button>
-          <div class="post-divider"></div>
-          <button class="post-action-btn" onclick="showToast('Commentaires')">
-            <i data-lucide="message-circle" style="width:16px;height:16px;stroke-width:2;"></i> 13
-          </button>
-          <div class="post-divider"></div>
-          <button class="post-action-btn" onclick="showToast('Partagé !')">
-            <i data-lucide="share-2" style="width:16px;height:16px;stroke-width:2;"></i>
-          </button>
-        </div>
-      </div>
-
-      <div class="section-header" style="padding-top: 4px;">
-        <div class="section-title" style="display:flex;align-items:center;gap:6px;">
-          <i data-lucide="newspaper" style="width:14px;height:14px;color:var(--purple);stroke-width:2.5;"></i>
+          <i data-lucide="newspaper" style="width:14px;height:14px;color:var(--yellow);stroke-width:2.5;"></i>
           L'ACTUALITÉ
         </div>
       </div>
-      <div class="news-grid">
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:var(--card-shadow);">
-          <div style="height:90px;background:#EDE8FF;display:flex;align-items:center;justify-content:center;">
-            <i data-lucide="heart-handshake" style="width:36px;height:36px;color:var(--purple);stroke-width:1.5;"></i>
+      <div class="news-grid" style="padding-bottom:28px;">
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;">
+          <div style="height:110px;background:#C8C4C0;display:flex;align-items:flex-end;padding:8px;">
+            <span style="background:rgba(0,0,0,0.35);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">SANTÉ</span>
           </div>
           <div class="news-body">
-            <div class="news-title" style="color:var(--text);">Comment vos dons améliorent le quotidien à l'hôpital</div>
+            <div class="news-title">Comment vos dons améliorent le quotidien à l'hôpital ?</div>
             <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:var(--card-shadow);">
-          <div style="height:90px;background:#FFF8DC;display:flex;align-items:center;justify-content:center;">
-            <i data-lucide="sun" style="width:36px;height:36px;color:#C47A00;stroke-width:1.5;"></i>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;">
+          <div style="height:110px;background:#BEC4C8;display:flex;align-items:flex-end;padding:8px;">
+            <span style="background:rgba(0,0,0,0.35);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">BIEN-ÊTRE</span>
           </div>
           <div class="news-body">
-            <div class="news-title" style="color:var(--text);">Préserver son équilibre en accompagnant un proche</div>
-            <button class="news-btn" style="background:#FFF3DC;color:#C47A00;">Lire →</button>
+            <div class="news-title">Préserver son équilibre en accompagnant un proche</div>
+            <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:var(--card-shadow);">
-          <div style="height:90px;background:#E4F9F1;display:flex;align-items:center;justify-content:center;">
-            <i data-lucide="leaf" style="width:36px;height:36px;color:#1A7A4A;stroke-width:1.5;"></i>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;">
+          <div style="height:110px;background:#C0C8C0;display:flex;align-items:flex-end;padding:8px;">
+            <span style="background:rgba(0,0,0,0.35);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">CONSEILS</span>
           </div>
           <div class="news-body">
-            <div class="news-title" style="color:var(--text);">5 gestes pour prendre soin de vous au quotidien</div>
-            <button class="news-btn" style="background:#E4F9F1;color:#1A7A4A;">Lire →</button>
+            <div class="news-title">5 gestes pour prendre soin de vous au quotidien</div>
+            <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:var(--card-shadow);">
-          <div style="height:90px;background:#FFE8EE;display:flex;align-items:center;justify-content:center;">
-            <i data-lucide="alert-triangle" style="width:36px;height:36px;color:#C0143C;stroke-width:1.5;"></i>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;">
+          <div style="height:110px;background:#C8C0C0;display:flex;align-items:flex-end;padding:8px;">
+            <span style="background:rgba(0,0,0,0.35);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">AIDANTS</span>
           </div>
           <div class="news-body">
-            <div class="news-title" style="color:var(--text);">Burn-out des aidants : reconnaître les signaux</div>
-            <button class="news-btn" style="background:#FFE8EE;color:#C0143C;">Lire →</button>
+            <div class="news-title">Burn-out des aidants : reconnaître les signaux</div>
+            <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
           </div>
         </div>
       </div>
