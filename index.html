@@ -1553,6 +1553,7 @@
 
   /* Single choice cards */
   .choice-grid { display: grid; gap: 10px; margin-bottom: 4px; }
+  .choice-grid-1 { grid-template-columns: 1fr; }
   .choice-grid-2 { grid-template-columns: 1fr 1fr; }
   .choice-grid-3 { grid-template-columns: 1fr 1fr 1fr; }
   .choice-card {
@@ -1869,10 +1870,7 @@
       </div>
       <div class="splash-title">Bienvenue sur<br>WELO</div>
       <div class="splash-subtitle">Prends soin de toi et des autres</div>
-      <div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;">
-        <button class="splash-btn" style="width:100%;" onclick="goTo('onboard-1')">Je suis aidant·e →</button>
-        <button class="splash-btn" style="width:100%;background:white;color:var(--purple);border:2px solid var(--purple-mid);" onclick="goTo('onboard-aide-1')">Je suis une personne aidée →</button>
-      </div>
+      <button class="splash-btn" onclick="goTo('onboard-1')">Commencer →</button>
     </div>
   </div>
 
@@ -2914,6 +2912,7 @@
   </div>
 
   <!-- ===================== ONBOARDING 1 – IDENTITÉ ===================== -->
+  <!-- ===================== ONBOARDING 1 – VOUS (AIDANT) ===================== -->
   <div class="screen" id="screen-onboard-1">
     <div class="onboard-topbar">
       <button class="onboard-back" onclick="goTo('splash')">
@@ -2923,14 +2922,14 @@
       <span class="onboard-step-label">1 / 4</span>
     </div>
     <div class="onboard-content">
-      <div class="onboard-pretitle">La personne accompagnée</div>
-      <div class="onboard-title">Qui accompagnez‑vous ?</div>
-      <div class="onboard-subtitle">Ces infos nous aident à vous proposer des ressources adaptées. Tout est facultatif.</div>
+      <div class="onboard-pretitle">Vous</div>
+      <div class="onboard-title">Parlez-nous de vous</div>
+      <div class="onboard-subtitle">Votre prénom permettra de personnaliser toute l'application.</div>
 
-      <div class="onboard-label">Prénom (facultatif)</div>
-      <input class="onboard-input" type="text" placeholder="Ex : Madeleine" id="input-prenom" oninput="profile.prenom=this.value">
+      <div class="onboard-label">Votre prénom <span style="color:var(--purple);">*</span></div>
+      <input class="onboard-input" type="text" placeholder="Ex : Marie" id="input-prenom" oninput="profile.prenom=this.value">
 
-      <div class="onboard-label" style="margin-top:24px;">Genre</div>
+      <div class="onboard-label" style="margin-top:24px;">Votre genre</div>
       <div class="choice-grid choice-grid-3">
         <div class="choice-card" onclick="selectSingle(this,'genre','femme')">
           <div class="choice-card-icon"><i data-lucide="venus" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
@@ -2947,12 +2946,12 @@
       </div>
     </div>
     <div class="onboard-footer">
-      <button class="onboard-continue" onclick="goTo('onboard-2')">Continuer</button>
+      <button class="onboard-continue" onclick="saveStep1()">Continuer</button>
       <button class="onboard-skip" onclick="goTo('onboard-2')">Passer cette étape</button>
     </div>
   </div>
 
-  <!-- ===================== ONBOARDING 2 – ÂGE & LIEN ===================== -->
+  <!-- ===================== ONBOARDING 2 – VOTRE PROCHE ===================== -->
   <div class="screen" id="screen-onboard-2">
     <div class="onboard-topbar">
       <button class="onboard-back" onclick="goTo('onboard-1')">
@@ -2962,11 +2961,30 @@
       <span class="onboard-step-label">2 / 4</span>
     </div>
     <div class="onboard-content">
-      <div class="onboard-pretitle">Contexte</div>
-      <div class="onboard-title">Quelques précisions</div>
-      <div class="onboard-subtitle">Pour mieux cibler les ressources disponibles dans votre situation.</div>
+      <div class="onboard-pretitle">Votre proche</div>
+      <div class="onboard-title">Qui accompagnez-vous ?</div>
+      <div class="onboard-subtitle">Pour personnaliser les ressources selon la situation de votre proche.</div>
 
-      <div class="onboard-label">Tranche d'âge de la personne</div>
+      <div class="onboard-label">Son prénom</div>
+      <input class="onboard-input" type="text" placeholder="Ex : Madeleine" id="input-prenom-proche" oninput="profile.prenomProche=this.value">
+
+      <div class="onboard-label" style="margin-top:20px;">Son genre</div>
+      <div class="choice-grid choice-grid-3">
+        <div class="choice-card" onclick="selectSingle(this,'genreProche','femme')">
+          <div class="choice-card-icon"><i data-lucide="venus" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Femme</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'genreProche','homme')">
+          <div class="choice-card-icon"><i data-lucide="mars" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Homme</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'genreProche','autre')">
+          <div class="choice-card-icon"><i data-lucide="sparkles" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Autre</span>
+        </div>
+      </div>
+
+      <div class="onboard-label" style="margin-top:20px;">Sa tranche d'âge</div>
       <div class="choice-grid choice-grid-2">
         <div class="choice-card" onclick="selectSingle(this,'age','moins18')">
           <div class="choice-card-icon"><i data-lucide="baby" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
@@ -2990,7 +3008,7 @@
         </div>
       </div>
 
-      <div class="onboard-label">Votre lien avec cette personne</div>
+      <div class="onboard-label" style="margin-top:20px;">Votre lien avec cette personne</div>
       <div class="choice-grid choice-grid-2">
         <div class="choice-card" onclick="selectSingle(this,'lien','parent')">
           <div class="choice-card-icon"><i data-lucide="heart" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
@@ -3016,7 +3034,7 @@
     </div>
   </div>
 
-  <!-- ===================== ONBOARDING 3 – SANTÉ ===================== -->
+  <!-- ===================== ONBOARDING 3 – SA SANTÉ ===================== -->
   <div class="screen" id="screen-onboard-3">
     <div class="onboard-topbar">
       <button class="onboard-back" onclick="goTo('onboard-2')">
@@ -3026,7 +3044,7 @@
       <span class="onboard-step-label">3 / 4</span>
     </div>
     <div class="onboard-content">
-      <div class="onboard-pretitle">Situation de santé</div>
+      <div class="onboard-pretitle" id="pretitle-proche">Sa situation</div>
       <div class="onboard-title">Quelle est sa situation ?</div>
       <div class="onboard-subtitle">Sélectionnez tout ce qui correspond. Vous pouvez ne rien choisir.</div>
 
@@ -3043,6 +3061,38 @@
         <button class="choice-pill" onclick="togglePill(this,'maladies','autre-chronique')">Autre maladie chronique</button>
       </div>
 
+      <div class="onboard-label" style="margin-top:24px;">Son niveau d'autonomie</div>
+      <div class="choice-grid choice-grid-1">
+        <div class="choice-card" style="flex-direction:row;gap:12px;padding:14px 16px;" onclick="selectSingle(this,'autonomie','autonome')">
+          <div class="choice-card-icon" style="margin:0;"><i data-lucide="person-standing" style="width:20px;height:20px;color:var(--purple);stroke-width:2;"></i></div>
+          <div><span class="choice-card-label" style="text-align:left;">Autonome</span><div style="font-size:11px;color:var(--text-gray);margin-top:2px;">Se débrouille seul·e</div></div>
+        </div>
+        <div class="choice-card" style="flex-direction:row;gap:12px;padding:14px 16px;" onclick="selectSingle(this,'autonomie','partiel')">
+          <div class="choice-card-icon" style="margin:0;"><i data-lucide="hand-helping" style="width:20px;height:20px;color:var(--purple);stroke-width:2;"></i></div>
+          <div><span class="choice-card-label" style="text-align:left;">Partiellement autonome</span><div style="font-size:11px;color:var(--text-gray);margin-top:2px;">A besoin d'aide pour certaines tâches</div></div>
+        </div>
+        <div class="choice-card" style="flex-direction:row;gap:12px;padding:14px 16px;" onclick="selectSingle(this,'autonomie','peu')">
+          <div class="choice-card-icon" style="margin:0;"><i data-lucide="heart-handshake" style="width:20px;height:20px;color:var(--purple);stroke-width:2;"></i></div>
+          <div><span class="choice-card-label" style="text-align:left;">Peu autonome</span><div style="font-size:11px;color:var(--text-gray);margin-top:2px;">A besoin d'aide régulière</div></div>
+        </div>
+      </div>
+
+      <div class="onboard-label" style="margin-top:24px;">Vit-il / elle seul·e ?</div>
+      <div class="choice-grid choice-grid-3">
+        <div class="choice-card" onclick="selectSingle(this,'vieSeul','oui')">
+          <div class="choice-card-icon"><i data-lucide="user" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Oui</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'vieSeul','non')">
+          <div class="choice-card-icon"><i data-lucide="users" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label">Non</span>
+        </div>
+        <div class="choice-card" onclick="selectSingle(this,'vieSeul','ehpad')">
+          <div class="choice-card-icon"><i data-lucide="building-2" style="width:22px;height:22px;color:var(--purple);stroke-width:2;"></i></div>
+          <span class="choice-card-label" style="font-size:11px;">Établissement</span>
+        </div>
+      </div>
+
       <div style="margin-top:20px;padding:14px;background:var(--bg);border-radius:16px;display:flex;align-items:flex-start;gap:10px;">
         <i data-lucide="info" style="width:18px;height:18px;color:var(--purple);stroke-width:2;flex-shrink:0;margin-top:1px;"></i>
         <p style="font-size:13px;color:var(--text-gray);font-weight:400;line-height:1.5;">Ces informations restent confidentielles et ne sont utilisées que pour personnaliser votre expérience WELO.</p>
@@ -3054,7 +3104,7 @@
     </div>
   </div>
 
-  <!-- ===================== ONBOARDING 4 – BESOINS ===================== -->
+  <!-- ===================== ONBOARDING 4 – VOS BESOINS ===================== -->
   <div class="screen" id="screen-onboard-4">
     <div class="onboard-topbar">
       <button class="onboard-back" onclick="goTo('onboard-3')">
@@ -3064,7 +3114,7 @@
       <span class="onboard-step-label">4 / 4</span>
     </div>
     <div class="onboard-content">
-      <div class="onboard-pretitle">Vos besoins</div>
+      <div class="onboard-pretitle">Vous</div>
       <div class="onboard-title">Où avez-vous besoin de soutien ?</div>
       <div class="onboard-subtitle">Plusieurs réponses possibles. Cela nous aide à vous orienter vers les bons services.</div>
 
@@ -3078,6 +3128,18 @@
         <button class="choice-pill" onclick="togglePill(this,'besoins','coordination-medicale')">Coordination médicale</button>
         <button class="choice-pill" onclick="togglePill(this,'besoins','repit')">Répit pour moi</button>
       </div>
+
+      <div class="onboard-label" style="margin-top:24px;">Centres d'intérêt de votre proche <span style="font-size:11px;color:var(--text-gray);font-weight:400;">(pour suggestions d'activités)</span></div>
+      <div class="pills-wrap">
+        <button class="choice-pill" onclick="togglePill(this,'interets','lecture')">Lecture</button>
+        <button class="choice-pill" onclick="togglePill(this,'interets','jardinage')">Jardinage</button>
+        <button class="choice-pill" onclick="togglePill(this,'interets','musique')">Musique</button>
+        <button class="choice-pill" onclick="togglePill(this,'interets','cuisine')">Cuisine</button>
+        <button class="choice-pill" onclick="togglePill(this,'interets','sport')">Sport léger</button>
+        <button class="choice-pill" onclick="togglePill(this,'interets','jeux')">Jeux</button>
+        <button class="choice-pill" onclick="togglePill(this,'interets','television')">Télévision</button>
+        <button class="choice-pill" onclick="togglePill(this,'interets','artisanat')">Artisanat</button>
+      </div>
     </div>
     <div class="onboard-footer">
       <button class="onboard-continue" onclick="buildRecap(); goTo('onboard-recap')">Voir le récapitulatif</button>
@@ -3090,16 +3152,17 @@
     <div class="scroll-content">
       <div class="recap-hero">
         <div class="recap-avatar" id="recap-avatar">?</div>
-        <div class="recap-name" id="recap-name">Votre proche</div>
+        <div class="recap-name" id="recap-name">Votre profil</div>
         <div class="recap-sub" id="recap-sub">Profil en cours de création</div>
       </div>
 
+      <!-- VOUS (aidant) -->
       <div class="recap-section">
         <div class="recap-section-title">
-          Identité
+          Vous
           <button class="recap-edit" onclick="goTo('onboard-1')">Modifier</button>
         </div>
-        <div class="recap-card" id="recap-identite">
+        <div class="recap-card">
           <div class="recap-row">
             <div class="recap-row-icon"><i data-lucide="user" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
             <div><div class="recap-row-label">Prénom</div><div class="recap-row-value" id="rr-prenom">—</div></div>
@@ -3111,12 +3174,21 @@
         </div>
       </div>
 
+      <!-- VOTRE PROCHE -->
       <div class="recap-section">
         <div class="recap-section-title">
-          Contexte
+          Votre proche
           <button class="recap-edit" onclick="goTo('onboard-2')">Modifier</button>
         </div>
         <div class="recap-card">
+          <div class="recap-row">
+            <div class="recap-row-icon"><i data-lucide="user" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div><div class="recap-row-label">Prénom</div><div class="recap-row-value" id="rr-prenom-proche">—</div></div>
+          </div>
+          <div class="recap-row">
+            <div class="recap-row-icon"><i data-lucide="sparkles" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div><div class="recap-row-label">Genre</div><div class="recap-row-value" id="rr-genre-proche">—</div></div>
+          </div>
           <div class="recap-row">
             <div class="recap-row-icon"><i data-lucide="calendar" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
             <div><div class="recap-row-label">Tranche d'âge</div><div class="recap-row-value" id="rr-age">—</div></div>
@@ -3128,23 +3200,43 @@
         </div>
       </div>
 
+      <!-- SA SITUATION -->
       <div class="recap-section">
         <div class="recap-section-title">
-          Situation de santé
+          Sa situation
           <button class="recap-edit" onclick="goTo('onboard-3')">Modifier</button>
         </div>
         <div class="recap-card">
-          <div class="recap-pills" id="rr-maladies"></div>
+          <div class="recap-row" style="align-items:flex-start;">
+            <div class="recap-row-icon" style="margin-top:2px;"><i data-lucide="stethoscope" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div style="flex:1;"><div class="recap-row-label">Maladies / Situation</div><div class="recap-pills" style="margin-top:6px;" id="rr-maladies"></div></div>
+          </div>
+          <div class="recap-row">
+            <div class="recap-row-icon"><i data-lucide="hand-helping" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div><div class="recap-row-label">Autonomie</div><div class="recap-row-value" id="rr-autonomie">—</div></div>
+          </div>
+          <div class="recap-row">
+            <div class="recap-row-icon"><i data-lucide="home" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div><div class="recap-row-label">Vit seul·e</div><div class="recap-row-value" id="rr-vieseul">—</div></div>
+          </div>
         </div>
       </div>
 
+      <!-- VOS BESOINS -->
       <div class="recap-section">
         <div class="recap-section-title">
           Vos besoins
           <button class="recap-edit" onclick="goTo('onboard-4')">Modifier</button>
         </div>
         <div class="recap-card">
-          <div class="recap-pills" id="rr-besoins"></div>
+          <div class="recap-row" style="align-items:flex-start;">
+            <div class="recap-row-icon" style="margin-top:2px;"><i data-lucide="heart-handshake" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div style="flex:1;"><div class="recap-row-label">En tant qu'aidant</div><div class="recap-pills" style="margin-top:6px;" id="rr-besoins"></div></div>
+          </div>
+          <div class="recap-row" style="align-items:flex-start;">
+            <div class="recap-row-icon" style="margin-top:2px;"><i data-lucide="star" style="width:16px;height:16px;color:var(--purple);stroke-width:2;"></i></div>
+            <div style="flex:1;"><div class="recap-row-label">Intérêts de votre proche</div><div class="recap-pills" style="margin-top:6px;" id="rr-interets"></div></div>
+          </div>
         </div>
       </div>
 
@@ -3178,299 +3270,10 @@
       </div>
     </div>
   </div>
-
-
-  <!-- ===================== ONBOARDING AIDÉ — ÉTAPE 1 ===================== -->
-  <div class="screen" id="screen-onboard-aide-1">
-    <div class="scroll-content" style="padding:0 0 40px;">
-      <div class="onboard-header" style="padding:56px 24px 0;">
-        <button class="onboard-back" onclick="goTo('splash')"><i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i></button>
-        <div style="display:flex;gap:6px;margin-left:auto;">
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--border);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--border);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--border);"></div>
-        </div>
-      </div>
-      <div style="padding:24px 24px 0;">
-        <div class="onboard-title">Faisons connaissance 👋</div>
-        <div class="onboard-subtitle">Ces informations personnalisent votre espace WELO.</div>
-
-        <div style="margin-top:24px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Prénom <span style="color:var(--purple);">*</span></div>
-          <input class="onboard-input" id="aide-prenom" type="text" placeholder="Votre prénom">
-        </div>
-        <div style="margin-top:16px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Nom <span style="font-size:11px;color:var(--text-gray);font-weight:400;">(optionnel)</span></div>
-          <input class="onboard-input" id="aide-nom" type="text" placeholder="Votre nom">
-        </div>
-        <div style="margin-top:20px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Genre</div>
-          <div class="choice-grid" style="grid-template-columns:1fr 1fr 1fr;">
-            <div class="choice-card" onclick="selectSingleAide(this,'genre','femme')">
-              <i data-lucide="user" style="width:20px;height:20px;stroke-width:1.8;margin-bottom:6px;"></i>
-              <div class="choice-card-label">Femme</div>
-            </div>
-            <div class="choice-card" onclick="selectSingleAide(this,'genre','homme')">
-              <i data-lucide="user" style="width:20px;height:20px;stroke-width:1.8;margin-bottom:6px;"></i>
-              <div class="choice-card-label">Homme</div>
-            </div>
-            <div class="choice-card" onclick="selectSingleAide(this,'genre','autre')">
-              <i data-lucide="user-round" style="width:20px;height:20px;stroke-width:1.8;margin-bottom:6px;"></i>
-              <div class="choice-card-label">Autre</div>
-            </div>
-          </div>
-        </div>
-        <div style="margin-top:20px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:8px;">Date de naissance <span style="font-size:11px;color:var(--text-gray);font-weight:400;">(optionnel)</span></div>
-          <input class="onboard-input" id="aide-dob" type="date">
-        </div>
-        <button class="onboard-continue" style="margin-top:32px;" onclick="nextAide1()">Continuer →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== ONBOARDING AIDÉ — ÉTAPE 2 ===================== -->
-  <div class="screen" id="screen-onboard-aide-2">
-    <div class="scroll-content" style="padding:0 0 40px;">
-      <div class="onboard-header" style="padding:56px 24px 0;">
-        <button class="onboard-back" onclick="goTo('onboard-aide-1')"><i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i></button>
-        <div style="display:flex;gap:6px;margin-left:auto;">
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--border);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--border);"></div>
-        </div>
-      </div>
-      <div style="padding:24px 24px 0;">
-        <div class="onboard-title">Ma situation de santé</div>
-        <div class="onboard-subtitle">Ces informations nous aident à vous proposer des contenus adaptés.</div>
-
-        <div style="margin-top:20px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Ma situation <span style="font-size:11px;color:var(--text-gray);font-weight:400;">(plusieurs choix possibles)</span></div>
-          <div class="pill-grid">
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','alzheimer')">Alzheimer / Démence</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','parkinson')">Parkinson</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','cancer')">Cancer</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','avc')">AVC / Séquelles</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','handicap-moteur')">Handicap moteur</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','handicap-mental')">Handicap mental</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','depression')">Dépression / Anxiété</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','diabete')">Diabète</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','cardio')">Insuffisance cardiaque</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','autre-chronique')">Autre maladie chronique</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'maladies','non-precise')">Je préfère ne pas préciser</div>
-          </div>
-        </div>
-
-        <div style="margin-top:24px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Mon niveau d'autonomie</div>
-          <div class="choice-grid" style="grid-template-columns:1fr;">
-            <div class="choice-card" style="flex-direction:row;gap:12px;padding:14px 16px;" onclick="selectSingleAide(this,'autonomie','autonome')">
-              <i data-lucide="person-standing" style="width:22px;height:22px;stroke-width:1.8;flex-shrink:0;"></i>
-              <div><div class="choice-card-label" style="text-align:left;">Autonome</div><div style="font-size:11px;color:var(--text-gray);margin-top:2px;">Je me débrouille seul·e</div></div>
-            </div>
-            <div class="choice-card" style="flex-direction:row;gap:12px;padding:14px 16px;" onclick="selectSingleAide(this,'autonomie','partiel')">
-              <i data-lucide="hand-helping" style="width:22px;height:22px;stroke-width:1.8;flex-shrink:0;"></i>
-              <div><div class="choice-card-label" style="text-align:left;">Partiellement autonome</div><div style="font-size:11px;color:var(--text-gray);margin-top:2px;">J'ai besoin d'aide pour certaines tâches</div></div>
-            </div>
-            <div class="choice-card" style="flex-direction:row;gap:12px;padding:14px 16px;" onclick="selectSingleAide(this,'autonomie','peu')">
-              <i data-lucide="heart-handshake" style="width:22px;height:22px;stroke-width:1.8;flex-shrink:0;"></i>
-              <div><div class="choice-card-label" style="text-align:left;">Peu autonome</div><div style="font-size:11px;color:var(--text-gray);margin-top:2px;">J'ai besoin d'aide régulière</div></div>
-            </div>
-          </div>
-        </div>
-        <button class="onboard-continue" style="margin-top:32px;" onclick="goTo('onboard-aide-3')">Continuer →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== ONBOARDING AIDÉ — ÉTAPE 3 ===================== -->
-  <div class="screen" id="screen-onboard-aide-3">
-    <div class="scroll-content" style="padding:0 0 40px;">
-      <div class="onboard-header" style="padding:56px 24px 0;">
-        <button class="onboard-back" onclick="goTo('onboard-aide-2')"><i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i></button>
-        <div style="display:flex;gap:6px;margin-left:auto;">
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--border);"></div>
-        </div>
-      </div>
-      <div style="padding:24px 24px 0;">
-        <div class="onboard-title">Mes besoins au quotidien</div>
-        <div class="onboard-subtitle">Pour mieux vous accompagner chaque jour.</div>
-
-        <div style="margin-top:20px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">J'ai besoin d'aide pour… <span style="font-size:11px;color:var(--text-gray);font-weight:400;">(plusieurs choix)</span></div>
-          <div class="pill-grid">
-            <div class="choice-pill" onclick="togglePillAide(this,'besoins','deplacements')">Me déplacer</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'besoins','repas')">Les repas</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'besoins','toilette')">Ma toilette</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'besoins','soutien-moral')">Soutien moral</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'besoins','administratif')">Aide administrative</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'besoins','medical')">Suivi médical</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'besoins','lien-social')">Garder un lien social</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'besoins','activites')">Activités & loisirs</div>
-          </div>
-        </div>
-
-        <div style="margin-top:24px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Vivez-vous seul·e ?</div>
-          <div class="choice-grid" style="grid-template-columns:1fr 1fr 1fr;">
-            <div class="choice-card" onclick="selectSingleAide(this,'vieSeul','oui')">
-              <i data-lucide="user" style="width:20px;height:20px;stroke-width:1.8;margin-bottom:6px;"></i>
-              <div class="choice-card-label">Oui</div>
-            </div>
-            <div class="choice-card" onclick="selectSingleAide(this,'vieSeul','non')">
-              <i data-lucide="users" style="width:20px;height:20px;stroke-width:1.8;margin-bottom:6px;"></i>
-              <div class="choice-card-label">Non</div>
-            </div>
-            <div class="choice-card" onclick="selectSingleAide(this,'vieSeul','ehpad')">
-              <i data-lucide="building-2" style="width:20px;height:20px;stroke-width:1.8;margin-bottom:6px;"></i>
-              <div class="choice-card-label" style="font-size:11px;">En établissement</div>
-            </div>
-          </div>
-        </div>
-        <button class="onboard-continue" style="margin-top:32px;" onclick="goTo('onboard-aide-4')">Continuer →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== ONBOARDING AIDÉ — ÉTAPE 4 ===================== -->
-  <div class="screen" id="screen-onboard-aide-4">
-    <div class="scroll-content" style="padding:0 0 40px;">
-      <div class="onboard-header" style="padding:56px 24px 0;">
-        <button class="onboard-back" onclick="goTo('onboard-aide-3')"><i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i></button>
-        <div style="display:flex;gap:6px;margin-left:auto;">
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-          <div style="width:24px;height:4px;border-radius:4px;background:var(--purple);"></div>
-        </div>
-      </div>
-      <div style="padding:24px 24px 0;">
-        <div class="onboard-title">Mes préférences ✨</div>
-        <div class="onboard-subtitle">Pour personnaliser vos échanges avec votre aidant.</div>
-
-        <div style="margin-top:20px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Je préfère communiquer par… <span style="font-size:11px;color:var(--text-gray);font-weight:400;">(plusieurs choix)</span></div>
-          <div class="pill-grid">
-            <div class="choice-pill" onclick="togglePillAide(this,'communication','telephone')"><i data-lucide="phone" style="width:13px;height:13px;stroke-width:2;margin-right:4px;"></i>Appels</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'communication','sms')"><i data-lucide="message-square" style="width:13px;height:13px;stroke-width:2;margin-right:4px;"></i>Messages</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'communication','video')"><i data-lucide="video" style="width:13px;height:13px;stroke-width:2;margin-right:4px;"></i>Vidéo</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'communication','email')"><i data-lucide="mail" style="width:13px;height:13px;stroke-width:2;margin-right:4px;"></i>Email</div>
-          </div>
-        </div>
-
-        <div style="margin-top:20px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Fréquence de contact souhaitée</div>
-          <div class="choice-grid" style="grid-template-columns:1fr;">
-            <div class="choice-card" style="flex-direction:row;gap:10px;padding:12px 16px;" onclick="selectSingleAide(this,'frequenceContact','plusieurs-jour')">
-              <i data-lucide="zap" style="width:18px;height:18px;stroke-width:1.8;flex-shrink:0;"></i>
-              <div class="choice-card-label" style="text-align:left;font-size:13px;">Plusieurs fois par jour</div>
-            </div>
-            <div class="choice-card" style="flex-direction:row;gap:10px;padding:12px 16px;" onclick="selectSingleAide(this,'frequenceContact','une-jour')">
-              <i data-lucide="sun" style="width:18px;height:18px;stroke-width:1.8;flex-shrink:0;"></i>
-              <div class="choice-card-label" style="text-align:left;font-size:13px;">Une fois par jour</div>
-            </div>
-            <div class="choice-card" style="flex-direction:row;gap:10px;padding:12px 16px;" onclick="selectSingleAide(this,'frequenceContact','semaine')">
-              <i data-lucide="calendar" style="width:18px;height:18px;stroke-width:1.8;flex-shrink:0;"></i>
-              <div class="choice-card-label" style="text-align:left;font-size:13px;">Quelques fois par semaine</div>
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:20px;">
-          <div style="font-size:13px;font-weight:700;color:var(--text);margin-bottom:12px;">Mes centres d'intérêt <span style="font-size:11px;color:var(--text-gray);font-weight:400;">(pour les suggestions)</span></div>
-          <div class="pill-grid">
-            <div class="choice-pill" onclick="togglePillAide(this,'interets','lecture')">📖 Lecture</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'interets','jardinage')">🌱 Jardinage</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'interets','musique')">🎵 Musique</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'interets','cuisine')">🍳 Cuisine</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'interets','sport')">🚶 Sport léger</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'interets','jeux')">🎲 Jeux</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'interets','television')">📺 Télévision</div>
-            <div class="choice-pill" onclick="togglePillAide(this,'interets','artisanat')">🧶 Artisanat</div>
-          </div>
-        </div>
-        <button class="onboard-continue" style="margin-top:32px;" onclick="buildAideRecap(); goTo('onboard-aide-recap')">Voir le récapitulatif →</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ===================== ONBOARDING AIDÉ — RÉCAPITULATIF ===================== -->
-  <div class="screen" id="screen-onboard-aide-recap">
-    <div class="scroll-content" style="padding:0 0 40px;">
-
-      <!-- Hero avatar -->
-      <div style="background:white;border-bottom:1px solid var(--border);padding:56px 24px 28px;text-align:center;">
-        <div id="aide-recap-avatar" style="width:80px;height:80px;border-radius:50%;background:var(--yellow);margin:0 auto 14px;display:flex;align-items:center;justify-content:center;font-size:32px;font-weight:800;color:var(--text);border:4px solid var(--border);">?</div>
-        <div id="aide-recap-name" style="font-size:22px;font-weight:800;color:var(--text);letter-spacing:-0.4px;"></div>
-        <div id="aide-recap-sub" style="font-size:14px;color:var(--text-gray);margin-top:4px;"></div>
-      </div>
-
-      <!-- Summary sections -->
-      <div style="padding:20px 24px 0;">
-        <div style="font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-gray);margin-bottom:10px;">Identité</div>
-        <div style="background:white;border-radius:18px;border:1px solid var(--border);padding:16px;margin-bottom:16px;">
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid var(--border);">
-            <span style="font-size:13px;color:var(--text-gray);">Genre</span>
-            <span id="ar-genre" style="font-size:13px;font-weight:600;color:var(--text);">—</span>
-          </div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;">
-            <span style="font-size:13px;color:var(--text-gray);">Date de naissance</span>
-            <span id="ar-dob" style="font-size:13px;font-weight:600;color:var(--text);">—</span>
-          </div>
-        </div>
-
-        <div style="font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-gray);margin-bottom:10px;">Situation de santé</div>
-        <div style="background:white;border-radius:18px;border:1px solid var(--border);padding:16px;margin-bottom:16px;">
-          <div style="font-size:12px;color:var(--text-gray);margin-bottom:8px;">Autonomie</div>
-          <div id="ar-autonomie" style="font-size:13px;font-weight:600;color:var(--text);margin-bottom:10px;">—</div>
-          <div style="font-size:12px;color:var(--text-gray);margin-bottom:8px;">Situation</div>
-          <div id="ar-maladies" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-        </div>
-
-        <div style="font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-gray);margin-bottom:10px;">Besoins</div>
-        <div style="background:white;border-radius:18px;border:1px solid var(--border);padding:16px;margin-bottom:16px;">
-          <div id="ar-besoins" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;"></div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--border);">
-            <span style="font-size:13px;color:var(--text-gray);">Vie seule</span>
-            <span id="ar-vieseul" style="font-size:13px;font-weight:600;color:var(--text);">—</span>
-          </div>
-        </div>
-
-        <div style="font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-gray);margin-bottom:10px;">Préférences</div>
-        <div style="background:white;border-radius:18px;border:1px solid var(--border);padding:16px;margin-bottom:24px;">
-          <div style="font-size:12px;color:var(--text-gray);margin-bottom:8px;">Communication</div>
-          <div id="ar-comm" style="display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;"></div>
-          <div style="display:flex;justify-content:space-between;padding:6px 0;border-top:1px solid var(--border);margin-bottom:10px;">
-            <span style="font-size:13px;color:var(--text-gray);">Fréquence</span>
-            <span id="ar-freq" style="font-size:13px;font-weight:600;color:var(--text);">—</span>
-          </div>
-          <div style="font-size:12px;color:var(--text-gray);margin-bottom:8px;">Centres d'intérêt</div>
-          <div id="ar-interets" style="display:flex;flex-wrap:wrap;gap:6px;"></div>
-        </div>
-
-        <button class="btn-purple-outline" style="width:100%;justify-content:center;margin-bottom:12px;" onclick="goTo('onboard-aide-1')">
-          <i data-lucide="pencil" style="width:15px;height:15px;stroke-width:2;margin-right:6px;"></i>Modifier
-        </button>
-        <button class="onboard-continue" onclick="finalizeAide()">Accéder à mon espace →</button>
-      </div>
-    </div>
-  </div>
-
 </div><!-- end phone-frame -->
 
 <script>
 const screens = {
-  'splash':              'screen-splash',
-  'onboard-aide-1':      'screen-onboard-aide-1',
-  'onboard-aide-2':      'screen-onboard-aide-2',
-  'onboard-aide-3':      'screen-onboard-aide-3',
-  'onboard-aide-4':      'screen-onboard-aide-4',
-  'onboard-aide-recap':  'screen-onboard-aide-recap',
   'splash':         'screen-splash',
   'home':           'screen-home',
   'community':      'screen-community',
@@ -3488,78 +3291,8 @@ const screens = {
   'onboard-recap':  'screen-onboard-recap',
   'onboard-recos':  'screen-onboard-recos',
 };
-
-// Profil de la personne aidée
-const profileAide = {
-  prenom: '', nom: '', genre: '', dateNaissance: '',
-  maladies: [], autonomie: '',
-  besoins: [], vieSeul: '',
-  communication: [], frequenceContact: '', interets: []
-};
-
-const LABELS_AIDE = {
-  genre:   { femme:'Femme', homme:'Homme', autre:'Autre' },
-  autonomie: { autonome:'Autonome', partiel:'Partiellement autonome', peu:'Peu autonome' },
-  maladies: { alzheimer:'Alzheimer/Démence', parkinson:'Parkinson', cancer:'Cancer', avc:'AVC/Séquelles', 'handicap-moteur':'Handicap moteur', 'handicap-mental':'Handicap mental', depression:'Dépression/Anxiété', diabete:'Diabète', cardio:'Insuffisance cardiaque', 'autre-chronique':'Autre maladie', 'non-precise':'Non précisé' },
-  besoins:  { deplacements:'Déplacements', repas:'Repas', toilette:'Toilette', 'soutien-moral':'Soutien moral', administratif:'Administratif', medical:'Suivi médical', 'lien-social':'Lien social', activites:'Activités' },
-  vieSeul: { oui:'Oui', non:'Non', ehpad:'En établissement' },
-  communication: { telephone:'Appels', sms:'Messages', video:'Vidéo', email:'Email' },
-  frequenceContact: { 'plusieurs-jour':'Plusieurs fois/jour', 'une-jour':'Une fois/jour', 'semaine':'Quelques fois/semaine' },
-};
-
-function selectSingleAide(el, field, value) {
-  const grid = el.closest('.choice-grid');
-  grid.querySelectorAll('.choice-card').forEach(c => c.classList.remove('selected'));
-  el.classList.add('selected');
-  profileAide[field] = value;
-}
-
-function togglePillAide(el, field, value) {
-  el.classList.toggle('selected');
-  const arr = profileAide[field];
-  const idx = arr.indexOf(value);
-  if (idx === -1) arr.push(value); else arr.splice(idx, 1);
-}
-
-function nextAide1() {
-  const prenom = document.getElementById('aide-prenom').value.trim();
-  if (!prenom) { showToast('Veuillez entrer votre prénom'); return; }
-  profileAide.prenom = prenom;
-  profileAide.nom = document.getElementById('aide-nom').value.trim();
-  profileAide.dateNaissance = document.getElementById('aide-dob').value;
-  goTo('onboard-aide-2');
-}
-
-function buildAideRecap() {
-  const prenom = profileAide.prenom || '?';
-  const nom = profileAide.nom || '';
-  const initials = prenom[0].toUpperCase() + (nom ? nom[0].toUpperCase() : '');
-  document.getElementById('aide-recap-avatar').textContent = initials;
-  document.getElementById('aide-recap-name').textContent = prenom + (nom ? ' ' + nom : '');
-  document.getElementById('aide-recap-sub').textContent = LABELS_AIDE.autonomie[profileAide.autonomie] || 'Profil en cours';
-
-  document.getElementById('ar-genre').textContent = LABELS_AIDE.genre[profileAide.genre] || '—';
-  document.getElementById('ar-dob').textContent = profileAide.dateNaissance ? new Date(profileAide.dateNaissance).toLocaleDateString('fr-FR') : '—';
-  document.getElementById('ar-autonomie').textContent = LABELS_AIDE.autonomie[profileAide.autonomie] || '—';
-  document.getElementById('ar-vieseul').textContent = LABELS_AIDE.vieSeul[profileAide.vieSeul] || '—';
-  document.getElementById('ar-freq').textContent = LABELS_AIDE.frequenceContact[profileAide.frequenceContact] || '—';
-
-  const pill = (txt) => `<span class="recap-pill">${txt}</span>`;
-  document.getElementById('ar-maladies').innerHTML = profileAide.maladies.length ? profileAide.maladies.map(m => pill(LABELS_AIDE.maladies[m]||m)).join('') : '<span style="font-size:13px;color:var(--text-gray);">Non précisé</span>';
-  document.getElementById('ar-besoins').innerHTML = profileAide.besoins.length ? profileAide.besoins.map(b => pill(LABELS_AIDE.besoins[b]||b)).join('') : '<span style="font-size:13px;color:var(--text-gray);">Aucun sélectionné</span>';
-  document.getElementById('ar-comm').innerHTML = profileAide.communication.length ? profileAide.communication.map(c => pill(LABELS_AIDE.communication[c]||c)).join('') : '<span style="font-size:13px;color:var(--text-gray);">Non précisé</span>';
-  document.getElementById('ar-interets').innerHTML = profileAide.interets.length ? profileAide.interets.map(i => pill(i)).join('') : '<span style="font-size:13px;color:var(--text-gray);">Aucun sélectionné</span>';
-  if (typeof lucide !== 'undefined') lucide.createIcons();
-}
-
-function finalizeAide() {
-  personalizeHome();
-  personalizeProfil();
-  goTo('home');
-}
-
 function personalizeHome() {
-  const prenom = profileAide.prenom || 'Marie';
+  const prenom = profile.prenom || 'Marie';
   const h = new Date().getHours();
   const salut = h < 12 ? 'Bonne journée ☀️' : h < 18 ? 'Bon après-midi 🌤️' : 'Bonne soirée 🌙';
   const subEl = document.getElementById('home-greeting-sub');
@@ -3569,38 +3302,48 @@ function personalizeHome() {
 }
 
 function personalizeProfil() {
-  const prenom = profileAide.prenom || 'Marie';
-  const nom = profileAide.nom || 'Dupont';
-  const initials = prenom[0].toUpperCase() + (nom ? nom[0].toUpperCase() : '');
+  const prenom = profile.prenom || 'Marie';
+  const initial = prenom[0].toUpperCase();
   const avatarEl = document.getElementById('profil-avatar');
   const nameEl = document.getElementById('profil-name');
   const roleEl = document.getElementById('profil-role');
-  if (avatarEl) avatarEl.textContent = initials;
-  if (nameEl) nameEl.textContent = prenom + (nom ? ' ' + nom : '');
+  if (avatarEl) avatarEl.textContent = initial;
+  if (nameEl) nameEl.textContent = prenom;
   if (roleEl) {
-    const autonomie = LABELS_AIDE.autonomie[profileAide.autonomie] || '';
-    roleEl.textContent = autonomie ? autonomie + ' · Membre WELO' : 'Membre WELO';
+    const lien = LABELS.lien[profile.lien] || '';
+    const proche = profile.prenomProche ? 'Aidant' + (lien ? ' · ' + lien : '') : 'Membre WELO';
+    roleEl.textContent = proche;
   }
 }
 
-// Profile data
+// Profile data (aidant + proche)
 const profile = {
-  prenom: '', genre: '', age: '', lien: '',
-  maladies: [], besoins: []
+  // Aidant (step 1)
+  prenom: '', genre: '',
+  // Proche (step 2)
+  prenomProche: '', genreProche: '', age: '', lien: '',
+  // Santé du proche (step 3)
+  maladies: [], autonomie: '', vieSeul: '',
+  // Besoins aidant + intérêts proche (step 4)
+  besoins: [], interets: []
 };
 
 // Labels lisibles
 const LABELS = {
-  genre:   { femme:'Femme', homme:'Homme', autre:'Autre' },
-  age:     { 'moins18':'Moins de 18 ans','18-44':'18–44 ans','45-64':'45–64 ans','65-79':'65–79 ans','80+':'80 ans et plus' },
-  lien:    { parent:'Parent', conjoint:'Conjoint·e', enfant:'Enfant', ami:'Ami·e / Autre' },
-  maladies:{ alzheimer:'Alzheimer / Démence', parkinson:'Parkinson', cancer:'Cancer', avc:'AVC / Séquelles',
-             'handicap-moteur':'Handicap moteur','handicap-mental':'Handicap mental',
-             depression:'Dépression / Anxiété', diabete:'Diabète', cardiaque:'Insuffisance cardiaque','autre-chronique':'Autre maladie chronique' },
-  besoins: { 'gestes-quotidiens':'Aide aux gestes quotidiens','soutien-emotionnel':'Soutien émotionnel',
-             medicaments:'Gestion des médicaments', mobilite:'Déplacements / Mobilité',
-             'courses-repas':'Courses & repas', administratif:'Démarches administratives',
-             'coordination-medicale':'Coordination médicale', repit:'Répit pour moi' }
+  genre:    { femme:'Femme', homme:'Homme', autre:'Autre' },
+  age:      { 'moins18':'Moins de 18 ans','18-44':'18–44 ans','45-64':'45–64 ans','65-79':'65–79 ans','80+':'80 ans et plus' },
+  lien:     { parent:'Parent', conjoint:'Conjoint·e', enfant:'Enfant', ami:'Ami·e / Autre' },
+  autonomie:{ autonome:'Autonome', partiel:'Partiellement autonome', peu:'Peu autonome' },
+  vieSeul:  { oui:'Oui', non:'Non', ehpad:'En établissement' },
+  maladies: { alzheimer:'Alzheimer / Démence', parkinson:'Parkinson', cancer:'Cancer', avc:'AVC / Séquelles',
+              'handicap-moteur':'Handicap moteur','handicap-mental':'Handicap mental',
+              depression:'Dépression / Anxiété', diabete:'Diabète', cardiaque:'Insuffisance cardiaque','autre-chronique':'Autre maladie chronique' },
+  besoins:  { 'gestes-quotidiens':'Aide aux gestes quotidiens','soutien-emotionnel':'Soutien émotionnel',
+              medicaments:'Gestion des médicaments', mobilite:'Déplacements / Mobilité',
+              'courses-repas':'Courses & repas', administratif:'Démarches administratives',
+              'coordination-medicale':'Coordination médicale', repit:'Répit pour moi' },
+  interets: { lecture:'Lecture', jardinage:'Jardinage', musique:'Musique', cuisine:'Cuisine',
+              sport:'Sport léger', jeux:'Jeux', television:'Télévision', artisanat:'Artisanat' }
 };
 
 function selectSingle(el, field, value) {
@@ -3619,26 +3362,49 @@ function togglePill(el, field, value) {
   else arr.splice(idx, 1);
 }
 
+function saveStep1() {
+  const prenom = document.getElementById('input-prenom').value.trim();
+  if (!prenom) { showToast('Veuillez entrer votre prénom'); return; }
+  profile.prenom = prenom;
+  goTo('onboard-2');
+}
+
 function buildRecap() {
-  const prenom = profile.prenom || 'Votre proche';
+  const prenom = profile.prenom || 'Vous';
+  const prenomProche = profile.prenomProche || 'Votre proche';
   const initial = prenom[0].toUpperCase();
   document.getElementById('recap-avatar').textContent = initial;
   document.getElementById('recap-name').textContent = prenom;
-  const sub = [LABELS.lien[profile.lien], LABELS.age[profile.age]].filter(Boolean).join(' · ') || 'Profil en cours de création';
+  const sub = [LABELS.lien[profile.lien], prenomProche !== 'Votre proche' ? prenomProche : ''].filter(Boolean).join(' · ') || 'Profil en cours de création';
   document.getElementById('recap-sub').textContent = sub;
+
+  // Vous
   document.getElementById('rr-prenom').textContent = profile.prenom || '—';
   document.getElementById('rr-genre').textContent = LABELS.genre[profile.genre] || '—';
+
+  // Votre proche
+  document.getElementById('rr-prenom-proche').textContent = profile.prenomProche || '—';
+  document.getElementById('rr-genre-proche').textContent = LABELS.genre[profile.genreProche] || '—';
   document.getElementById('rr-age').textContent = LABELS.age[profile.age] || '—';
   document.getElementById('rr-lien').textContent = LABELS.lien[profile.lien] || '—';
 
+  // Sa situation
   const mEl = document.getElementById('rr-maladies');
   mEl.innerHTML = profile.maladies.length
     ? profile.maladies.map(m => `<span class="recap-pill">${LABELS.maladies[m]||m}</span>`).join('')
     : '<span style="font-size:13px;color:var(--text-gray);">Aucune sélection</span>';
+  document.getElementById('rr-autonomie').textContent = LABELS.autonomie[profile.autonomie] || '—';
+  document.getElementById('rr-vieseul').textContent = LABELS.vieSeul[profile.vieSeul] || '—';
 
+  // Vos besoins
   const bEl = document.getElementById('rr-besoins');
   bEl.innerHTML = profile.besoins.length
     ? profile.besoins.map(b => `<span class="recap-pill">${LABELS.besoins[b]||b}</span>`).join('')
+    : '<span style="font-size:13px;color:var(--text-gray);">Aucune sélection</span>';
+
+  const iEl = document.getElementById('rr-interets');
+  iEl.innerHTML = profile.interets.length
+    ? profile.interets.map(i => `<span class="recap-pill">${LABELS.interets[i]||i}</span>`).join('')
     : '<span style="font-size:13px;color:var(--text-gray);">Aucune sélection</span>';
 
   lucide.createIcons();
@@ -3745,7 +3511,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','onboard-aide-1','onboard-aide-2','onboard-aide-3','onboard-aide-4','onboard-aide-recap'];
+const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
