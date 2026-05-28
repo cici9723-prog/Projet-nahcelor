@@ -1,0 +1,10 @@
+{
+  "name": "WELO",
+  "short_name": "WELO",
+  "description": "Prends soin de toi et des autres",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff"
+}
