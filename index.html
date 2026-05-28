@@ -1869,7 +1869,10 @@
       </div>
       <div class="splash-title">Bienvenue sur<br>WELO</div>
       <div class="splash-subtitle">Prends soin de toi et des autres</div>
-      <button class="splash-btn" onclick="goTo('onboard-aide-1')">Commencer →</button>
+      <div style="display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px;">
+        <button class="splash-btn" style="width:100%;" onclick="goTo('onboard-1')">Je suis aidant·e →</button>
+        <button class="splash-btn" style="width:100%;background:white;color:var(--purple);border:2px solid var(--purple-mid);" onclick="goTo('onboard-aide-1')">Je suis une personne aidée →</button>
+      </div>
     </div>
   </div>
 
