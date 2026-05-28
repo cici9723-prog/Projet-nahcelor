@@ -62,7 +62,10 @@
       border-radius: 0;
       box-shadow: none;
     }
-    .status-bar { display: none; }
+  }
+
+  @media (max-width: 430px), (display-mode: standalone) {
+    .status-bar { display: none !important; }
     .home-header { padding-top: 20px; }
     .community-header { padding-top: 20px; }
     .questions-header { padding-top: 20px; }
