@@ -1228,9 +1228,10 @@
     flex: 1;
     background: #F0EBE0;
     position: relative;
-    overflow: hidden;
     min-height: 0;
+    cursor: grab;
   }
+  .map-warm-bg:active { cursor: grabbing; }
   .map-warm-bg::before {
     content: '';
     position: absolute;
@@ -1758,13 +1759,14 @@
     background: white;
   }
   .reco-title {
-    font-size: 24px;
+    font-size: 18px;
     font-weight: 800;
     color: var(--text);
-    letter-spacing: -0.5px;
-    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+    margin-bottom: 4px;
+    line-height: 1.2;
   }
-  .reco-sub { font-size: 14px; color: var(--text-gray); font-weight: 400; }
+  .reco-sub { font-size: 13px; color: var(--text-gray); font-weight: 400; }
   .reco-card {
     margin: 0 20px 12px;
     background: white;
@@ -2331,8 +2333,11 @@
     </div>
 
     <!-- Warm map -->
-    <div style="flex:1;min-height:0;padding:10px 12px 0;overflow:hidden;">
-    <div class="map-warm-bg" style="width:100%;height:100%;border-radius:24px;overflow:hidden;">
+    <div style="flex:1;min-height:0;padding:10px 12px 0;position:relative;">
+    <div id="map-clip" style="width:100%;height:100%;border-radius:24px;overflow:hidden;position:relative;"
+      ontouchstart="onMapTouchStart(event)" ontouchmove="onMapTouchMove(event)" ontouchend="onMapTouchEnd()"
+      onmousedown="onMapMouseDown(event)" onmousemove="onMapMouseMove(event)" onmouseup="onMapMouseUp()" onmouseleave="onMapMouseUp()">
+    <div class="map-warm-bg" id="map-zoomable" style="width:100%;height:100%;transform-origin:center center;will-change:transform;">
       <!-- Roads horizontal -->
       <div class="map-warm-road-h" style="top:28%;height:14px;"></div>
       <div class="map-warm-road-h" style="top:52%;height:20px;"></div>
@@ -2367,7 +2372,13 @@
         <div class="map-pin-bubble">🌿 Atelier Bien-être</div>
         <div class="map-pin-tail"></div>
       </div>
-    </div></div>
+    </div>
+    <!-- Zoom buttons -->
+    <div style="position:absolute;bottom:16px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:10;">
+      <button onclick="mapZoomIn()" style="width:38px;height:38px;background:white;border:none;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.18);font-size:22px;font-weight:700;cursor:pointer;color:var(--text);display:flex;align-items:center;justify-content:center;line-height:1;">+</button>
+      <button onclick="mapZoomOut()" style="width:38px;height:38px;background:white;border:none;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.18);font-size:24px;font-weight:700;cursor:pointer;color:var(--text);display:flex;align-items:center;justify-content:center;line-height:1;">−</button>
+    </div>
+    </div>
 
     <!-- Bottom sheet -->
     <div id="map-bottom-sheet" style="background:white;border-radius:24px 24px 0 0;padding:16px 20px;box-shadow:0 -4px 24px rgba(0,0,0,0.08);transition:transform 0.3s ease;">
@@ -2375,6 +2386,9 @@
       <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px;">
         <span style="font-size:14px;font-weight:800;color:var(--text);letter-spacing:-0.2px;" id="map-sheet-title">Lieux près de chez vous</span>
         <span style="font-size:12px;color:var(--text-gray);margin-left:auto;" id="map-sheet-dist"></span>
+        <button onclick="toggleMapSheet()" id="map-sheet-toggle" style="background:var(--border);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+          <i data-lucide="chevron-down" id="map-sheet-chevron" style="width:16px;height:16px;color:var(--text-gray);stroke-width:2.5;transition:transform 0.25s;"></i>
+        </button>
       </div>
 
       <!-- Collapsible content -->
@@ -2788,13 +2802,14 @@
           <div style="background:#F0F0F6;border-radius:18px 18px 18px 4px;padding:12px 14px;font-size:14px;color:var(--text);line-height:1.5;">Oui beaucoup mieux, merci 😊 On se voit mardi ?</div>
         </div>
       </div>
+      <div id="chat-dynamic-msgs"></div>
     </div>
 
     <div style="padding:10px 14px 20px;background:white;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;flex-shrink:0;">
       <div class="search-bar" style="flex:1;margin:0;">
-        <input type="text" placeholder="Message…" style="flex:1;">
+        <input type="text" id="chat-input" placeholder="Message…" style="flex:1;" onkeydown="if(event.key==='Enter')sendChatMsg()">
       </div>
-      <button onclick="showToast('Message envoyé !')" style="width:44px;height:44px;background:var(--purple);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+      <button onclick="sendChatMsg()" style="width:44px;height:44px;background:var(--purple);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
         <i data-lucide="send" style="width:18px;height:18px;color:white;stroke-width:2;"></i>
       </button>
     </div>
@@ -3253,9 +3268,9 @@
     <div class="reco-header">
       <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px;">
         <div style="width:42px;height:42px;background:var(--yellow);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--text);flex-shrink:0;" id="reco-avatar-small">M</div>
-        <div>
-          <div class="reco-title" id="reco-title">Vos recommandations</div>
-          <div class="reco-sub" id="reco-sub">Sélectionnées pour votre situation</div>
+        <div style="flex:1;min-width:0;">
+          <div class="reco-title" id="reco-title">Ce que WELO peut faire pour vous</div>
+          <div class="reco-sub" id="reco-sub">Découvrez les fonctionnalités disponibles</div>
         </div>
       </div>
     </div>
@@ -3292,7 +3307,7 @@ const screens = {
   'onboard-recos':  'screen-onboard-recos',
 };
 function personalizeHome() {
-  const prenom = profile.prenom || 'Marie';
+  const prenom = profile.prenomProche || profile.prenom || 'Marie';
   const h = new Date().getHours();
   const salut = h < 12 ? 'Bonne journée ☀️' : h < 18 ? 'Bon après-midi 🌤️' : 'Bonne soirée 🌙';
   const subEl = document.getElementById('home-greeting-sub');
@@ -3414,8 +3429,8 @@ function buildRecos() {
   const prenom = profile.prenom || 'votre proche';
   const initial = prenom[0].toUpperCase();
   document.getElementById('reco-avatar-small').textContent = initial;
-  document.getElementById('reco-title').textContent = 'Pour accompagner ' + prenom;
-  document.getElementById('reco-sub').textContent = 'Sélectionnées selon votre profil';
+  document.getElementById('reco-title').textContent = 'Ce que WELO peut faire pour vous';
+  document.getElementById('reco-sub').textContent = 'Fonctionnalités adaptées à votre situation';
 
   const recos = [];
 
@@ -3566,15 +3581,85 @@ function openChat(name, initial, color, time, msg) {
   });
   document.getElementById('chat-first-msg').textContent = msg;
   document.getElementById('chat-first-time').textContent = time;
+  // Reset dynamic messages on new chat open
+  const dyn = document.getElementById('chat-dynamic-msgs');
+  if (dyn) dyn.innerHTML = '';
   goTo('chat');
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
+function sendChatMsg() {
+  const input = document.getElementById('chat-input');
+  const text = input ? input.value.trim() : '';
+  if (!text) return;
+  const container = document.getElementById('chat-dynamic-msgs');
+  if (container) {
+    const now = new Date();
+    const hhmm = now.getHours().toString().padStart(2,'0') + ':' + now.getMinutes().toString().padStart(2,'0');
+    const bubble = document.createElement('div');
+    bubble.style.cssText = 'display:flex;justify-content:flex-end;margin-bottom:14px;';
+    bubble.innerHTML = `<div style="max-width:72%;"><div style="background:var(--purple);border-radius:18px 18px 4px 18px;padding:12px 14px;font-size:14px;color:white;line-height:1.5;">${text.replace(/</g,'&lt;')}</div><div style="font-size:11px;color:var(--text-gray);margin-top:4px;text-align:right;padding-right:4px;">${hhmm}</div></div>`;
+    container.appendChild(bubble);
+    container.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+  if (input) { input.value = ''; input.blur(); }
+}
+
 function toggleMapSheet() {
   const content = document.getElementById('map-sheet-content');
+  const chevron = document.getElementById('map-sheet-chevron');
   const isHidden = content.style.display === 'none';
   content.style.display = isHidden ? '' : 'none';
+  if (chevron) chevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
 }
+
+// Map zoom & pan
+let _mScale = 1, _mDx = 0, _mDy = 0;
+let _mDragStart = null, _mDragOrigin = null;
+const MAP_MAX = 3, MAP_MIN = 1;
+
+function _applyMapTransform() {
+  const el = document.getElementById('map-zoomable');
+  if (el) el.style.transform = `scale(${_mScale}) translate(${_mDx}px,${_mDy}px)`;
+}
+function mapZoomIn() {
+  _mScale = Math.min(_mScale + 0.5, MAP_MAX);
+  _applyMapTransform();
+}
+function mapZoomOut() {
+  _mScale = Math.max(_mScale - 0.5, MAP_MIN);
+  if (_mScale === MAP_MIN) { _mDx = 0; _mDy = 0; }
+  _applyMapTransform();
+}
+
+function onMapTouchStart(e) {
+  if (_mScale <= 1) return;
+  const t = e.touches[0];
+  _mDragStart = { x: t.clientX, y: t.clientY };
+  _mDragOrigin = { dx: _mDx, dy: _mDy };
+}
+function onMapTouchMove(e) {
+  if (!_mDragStart || _mScale <= 1) return;
+  e.preventDefault();
+  const t = e.touches[0];
+  _mDx = _mDragOrigin.dx + (t.clientX - _mDragStart.x) / _mScale;
+  _mDy = _mDragOrigin.dy + (t.clientY - _mDragStart.y) / _mScale;
+  _applyMapTransform();
+}
+function onMapTouchEnd() { _mDragStart = null; }
+
+function onMapMouseDown(e) {
+  if (_mScale <= 1) return;
+  _mDragStart = { x: e.clientX, y: e.clientY };
+  _mDragOrigin = { dx: _mDx, dy: _mDy };
+}
+function onMapMouseMove(e) {
+  if (!_mDragStart || _mScale <= 1) return;
+  _mDx = _mDragOrigin.dx + (e.clientX - _mDragStart.x) / _mScale;
+  _mDy = _mDragOrigin.dy + (e.clientY - _mDragStart.y) / _mScale;
+  _applyMapTransform();
+}
+function onMapMouseUp() { _mDragStart = null; }
 
 function showToast(msg) {
   const t = document.getElementById('toast');
