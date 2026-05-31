@@ -72,6 +72,8 @@
     .msg-header { padding-top: 20px; }
     .profil-hero { padding-top: 40px; }
     #screen-map > div:first-child { padding-top: 16px !important; }
+    .bottom-nav { height: calc(86px + env(safe-area-inset-bottom, 0px)); }
+    #screen-chat > div:first-child { padding-top: 20px !important; }
   }
 
   /* STATUS BAR */
@@ -121,6 +123,7 @@
     align-items: flex-start;
     justify-content: space-around;
     padding: 10px 4px 0;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
     background: white;
     box-shadow: 0 -1px 0 rgba(0,0,0,0.05), 0 -12px 32px rgba(107,78,255,0.04);
     flex-shrink: 0;
@@ -1828,6 +1831,40 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
+  .dem-card {
+    background: white;
+    border: 1.5px solid var(--border);
+    border-radius: 20px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: border-color 0.15s;
+  }
+  .dem-card:active { background: var(--bg); }
+  .dem-card-top { display: flex; align-items: flex-start; gap: 12px; }
+  .dem-card-icon { width: 44px; height: 44px; border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 22px; flex-shrink: 0; }
+  .dem-card-title { font-size: 15px; font-weight: 700; color: var(--text); letter-spacing: -0.2px; margin-bottom: 4px; }
+  .dem-card-desc { font-size: 13px; color: var(--text-gray); line-height: 1.45; }
+  .dem-status-row { display: flex; gap: 8px; margin-top: 12px; }
+  .dem-status-btn {
+    flex: 1;
+    padding: 8px 4px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: white;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-gray);
+    cursor: pointer;
+    font-family: 'Host Grotesk', sans-serif;
+    text-align: center;
+    transition: all 0.15s;
+  }
+  .dem-status-btn.active-todo { border-color: #FF6B35; background: #FFF3EE; color: #FF6B35; }
+  .dem-status-btn.active-doing { border-color: #F5C400; background: #FFFBEB; color: #B8920A; }
+  .dem-status-btn.active-done { border-color: #4CAF50; background: #E8F5E9; color: #2E7D32; }
+  .dem-progress-bar-wrap { height: 6px; background: var(--border); border-radius: 3px; margin: 16px 20px 0; }
+  .dem-progress-bar-fill { height: 6px; background: var(--purple); border-radius: 3px; transition: width 0.4s ease; }
 </style>
 </head>
 <body>
@@ -2865,6 +2902,11 @@
             <span class="profil-row-label">Événements sauvegardés</span>
             <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
           </div>
+          <div class="profil-row" onclick="goTo('demarches')">
+            <div class="profil-row-icon" style="background:#E4F9F1;">📋</div>
+            <span class="profil-row-label">Mes démarches</span>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
+          </div>
         </div>
       </div>
 
@@ -3286,6 +3328,29 @@
       </div>
     </div>
   </div>
+  <!-- ===================== SCREEN DÉMARCHES ===================== -->
+  <div class="screen" id="screen-demarches" style="flex-direction:column;">
+    <div style="padding:16px 20px 14px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;" id="demarches-header">
+      <button class="back-btn" onclick="goTo('profil')" style="margin:0;">
+        <i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i>
+      </button>
+      <div style="flex:1;">
+        <div style="font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;">Mes démarches</div>
+        <div style="font-size:12px;color:var(--text-gray);" id="dem-progress-label">Chargement…</div>
+      </div>
+    </div>
+
+    <!-- Mini intro (visible au 1er accès) -->
+    <div id="dem-intro" style="display:none;margin:20px;background:var(--purple-light);border-radius:20px;padding:20px;">
+      <div style="font-size:18px;font-weight:800;color:var(--purple);margin-bottom:8px;">Bienvenue 👋</div>
+      <p style="font-size:14px;color:var(--text);line-height:1.6;margin:0 0 16px;">Se faire reconnaître comme aidant ouvre des droits importants : congé, allocation, retraite… Ces démarches sont souvent méconnues mais essentielles.</p>
+      <button onclick="closeDemIntro()" style="background:var(--purple);color:white;border:none;border-radius:14px;padding:12px 24px;font-size:14px;font-weight:700;width:100%;cursor:pointer;font-family:'Host Grotesk',sans-serif;">Découvrir mes démarches</button>
+    </div>
+
+    <div class="scroll-content" style="padding:16px 20px 40px;" id="dem-list">
+      <!-- Filled by JS -->
+    </div>
+  </div>
 </div><!-- end phone-frame -->
 
 <script>
@@ -3306,6 +3371,7 @@ const screens = {
   'onboard-4':      'screen-onboard-4',
   'onboard-recap':  'screen-onboard-recap',
   'onboard-recos':  'screen-onboard-recos',
+  'demarches':      'screen-demarches',
 };
 function personalizeHome() {
   const prenom = profile.prenomProche || profile.prenom || 'Marie';
@@ -3527,7 +3593,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos'];
+const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
@@ -3559,6 +3625,7 @@ function goTo(name) {
   if (!NO_NAV.includes(name)) buildNavs(name);
   if (name === 'home') personalizeHome();
   if (name === 'profil') personalizeProfil();
+  if (name === 'demarches') renderDemarches();
 }
 
 function switchTab(btn, tabId) {
@@ -3601,7 +3668,8 @@ function sendChatMsg() {
     bubble.style.cssText = 'display:flex;justify-content:flex-end;margin-bottom:14px;';
     bubble.innerHTML = `<div style="max-width:72%;"><div style="background:var(--purple);border-radius:18px 18px 4px 18px;padding:12px 14px;font-size:14px;color:white;line-height:1.5;">${text.replace(/</g,'&lt;')}</div><div style="font-size:11px;color:var(--text-gray);margin-top:4px;text-align:right;padding-right:4px;">${hhmm}</div></div>`;
     container.appendChild(bubble);
-    container.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    const _sc = container.closest('.scroll-content');
+    if (_sc) _sc.scrollTop = _sc.scrollHeight;
   }
   if (input) { input.value = ''; input.blur(); }
 }
@@ -3633,21 +3701,44 @@ function mapZoomOut() {
   _applyMapTransform();
 }
 
+let _mPinchDist = null;
+let _mPinchScaleOrigin = null;
+
+function _getTouchDist(e) {
+  const a = e.touches[0], b = e.touches[1];
+  return Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY);
+}
+
 function onMapTouchStart(e) {
-  if (_mScale <= 1) return;
-  const t = e.touches[0];
-  _mDragStart = { x: t.clientX, y: t.clientY };
-  _mDragOrigin = { dx: _mDx, dy: _mDy };
+  if (e.touches.length === 2) {
+    _mPinchDist = _getTouchDist(e);
+    _mPinchScaleOrigin = _mScale;
+    _mDragStart = null;
+  } else if (e.touches.length === 1 && _mScale > 1) {
+    const t = e.touches[0];
+    _mDragStart = { x: t.clientX, y: t.clientY };
+    _mDragOrigin = { dx: _mDx, dy: _mDy };
+  }
 }
 function onMapTouchMove(e) {
-  if (!_mDragStart || _mScale <= 1) return;
-  e.preventDefault();
-  const t = e.touches[0];
-  _mDx = _mDragOrigin.dx + (t.clientX - _mDragStart.x) / _mScale;
-  _mDy = _mDragOrigin.dy + (t.clientY - _mDragStart.y) / _mScale;
-  _applyMapTransform();
+  if (e.touches.length === 2 && _mPinchDist !== null) {
+    e.preventDefault();
+    const dist = _getTouchDist(e);
+    _mScale = Math.min(Math.max(_mPinchScaleOrigin * (dist / _mPinchDist), MAP_MIN), MAP_MAX);
+    if (_mScale === MAP_MIN) { _mDx = 0; _mDy = 0; }
+    _applyMapTransform();
+  } else if (e.touches.length === 1 && _mDragStart && _mScale > 1) {
+    e.preventDefault();
+    const t = e.touches[0];
+    _mDx = _mDragOrigin.dx + (t.clientX - _mDragStart.x) / _mScale;
+    _mDy = _mDragOrigin.dy + (t.clientY - _mDragStart.y) / _mScale;
+    _applyMapTransform();
+  }
 }
-function onMapTouchEnd() { _mDragStart = null; }
+function onMapTouchEnd() {
+  if (event.touches.length < 2) _mPinchDist = null;
+  if (event.touches.length === 0) _mDragStart = null;
+}
 
 function onMapMouseDown(e) {
   if (_mScale <= 1) return;
@@ -3735,6 +3826,93 @@ setInterval(updateClock, 30000);
 document.addEventListener('DOMContentLoaded', () => {
   buildNavs('home');
 });
+
+// =================== DÉMARCHES ===================
+const DEMARCHES = [
+  { id:'cpam', icon:'🏥', bg:'#EDE8FF', title:'Déclaration aidant à la CPAM', desc:'Déclarez votre statut d\'aidant auprès de l\'Assurance Maladie pour accéder aux droits spécifiques.' },
+  { id:'conge', icon:'🗓️', bg:'#FFF3DC', title:'Congé proche aidant', desc:'Droit à un congé (non rémunéré, 3 mois renouvelables) pour accompagner votre proche au quotidien.' },
+  { id:'ajpa', icon:'💶', bg:'#E8F5E9', title:'Allocation journalière (AJPA)', desc:'Compensation financière lors d\'un congé proche aidant. Versée par la CNSA, environ 62€/jour.' },
+  { id:'mdph', icon:'📄', bg:'#E3F2FD', title:'Reconnaissance MDPH', desc:'Faire reconnaître le handicap ou la perte d\'autonomie de votre proche pour obtenir des aides adaptées.' },
+  { id:'apa', icon:'🤝', bg:'#FCE4EC', title:'APA – Allocation Personnalisée Autonomie', desc:'Aide financière pour les proches de 60 ans et plus en perte d\'autonomie (GIR 1 à 4).' },
+  { id:'retraite', icon:'⏳', bg:'#F3E5F5', title:'Majoration retraite aidant', desc:'Sous conditions, des trimestres de retraite peuvent être accordés pour votre rôle d\'aidant.' },
+];
+
+const DEM_STATUS_KEY = 'welo_dem_status';
+
+function getDemStatuses() {
+  try { return JSON.parse(localStorage.getItem(DEM_STATUS_KEY)) || {}; } catch { return {}; }
+}
+function saveDemStatus(id, status) {
+  const s = getDemStatuses();
+  s[id] = status;
+  localStorage.setItem(DEM_STATUS_KEY, JSON.stringify(s));
+  renderDemProgress();
+}
+
+function renderDemProgress() {
+  const s = getDemStatuses();
+  const done = DEMARCHES.filter(d => s[d.id] === 'done').length;
+  const total = DEMARCHES.length;
+  const pct = Math.round((done / total) * 100);
+  const lbl = document.getElementById('dem-progress-label');
+  if (lbl) lbl.textContent = `${done}/${total} démarche${done > 1 ? 's' : ''} complétée${done > 1 ? 's' : ''}`;
+  const fill = document.getElementById('dem-progress-fill');
+  if (fill) fill.style.width = pct + '%';
+}
+
+function setDemStatus(id, status, el) {
+  saveDemStatus(id, status);
+  // Update buttons in this card
+  const card = el.closest('.dem-card');
+  card.querySelectorAll('.dem-status-btn').forEach(b => {
+    b.classList.remove('active-todo','active-doing','active-done');
+  });
+  el.classList.add('active-' + status);
+  // Update card border
+  const colors = { todo:'#FF6B35', doing:'#F5C400', done:'#4CAF50' };
+  card.style.borderColor = colors[status] || 'var(--border)';
+}
+
+function closeDemIntro() {
+  localStorage.setItem('welo_dem_intro_seen', '1');
+  const intro = document.getElementById('dem-intro');
+  if (intro) intro.style.display = 'none';
+}
+
+function renderDemarches() {
+  const s = getDemStatuses();
+  const introSeen = localStorage.getItem('welo_dem_intro_seen');
+  const intro = document.getElementById('dem-intro');
+  if (intro) intro.style.display = introSeen ? 'none' : 'block';
+
+  const list = document.getElementById('dem-list');
+  if (!list) return;
+
+  // Progress bar
+  list.innerHTML = `<div class="dem-progress-bar-wrap"><div class="dem-progress-bar-fill" id="dem-progress-fill" style="width:0%"></div></div><div style="height:16px;"></div>` +
+    DEMARCHES.map(d => {
+      const st = s[d.id] || '';
+      const borderColor = st === 'done' ? '#4CAF50' : st === 'doing' ? '#F5C400' : st === 'todo' ? '#FF6B35' : 'var(--border)';
+      return `<div class="dem-card" style="border-color:${borderColor};">
+        <div class="dem-card-top">
+          <div class="dem-card-icon" style="background:${d.bg};">${d.icon}</div>
+          <div>
+            <div class="dem-card-title">${d.title}</div>
+            <div class="dem-card-desc">${d.desc}</div>
+          </div>
+        </div>
+        <div class="dem-status-row">
+          <button class="dem-status-btn${st==='todo'?' active-todo':''}" onclick="setDemStatus('${d.id}','todo',this)">À faire</button>
+          <button class="dem-status-btn${st==='doing'?' active-doing':''}" onclick="setDemStatus('${d.id}','doing',this)">En cours</button>
+          <button class="dem-status-btn${st==='done'?' active-done':''}" onclick="setDemStatus('${d.id}','done',this)">Fait ✓</button>
+        </div>
+      </div>`;
+    }).join('');
+
+  renderDemProgress();
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+// =================== FIN DÉMARCHES ===================
 </script>
 
 </body>
