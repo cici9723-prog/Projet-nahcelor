@@ -1125,17 +1125,15 @@
     border-bottom: 1px solid var(--border);
   }
   .profil-avatar-wrap {
-    width: 84px;
-    height: 84px;
+    width: 90px;
+    height: 90px;
     border-radius: 50%;
     background: var(--yellow);
-    border: 4px solid var(--border);
+    border: 3px solid var(--border);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 34px;
-    font-weight: 800;
-    color: var(--text);
+    overflow: hidden;
     margin-bottom: 14px;
   }
   .profil-name {
@@ -1916,7 +1914,7 @@
             <div class="home-greeting-sub" id="home-greeting-sub">Prends soin de toi et des autres</div>
             <div class="home-greeting-name" id="home-greeting-name">Bonjour Marie !</div>
           </div>
-          <img src="images/Mascotte qui tend la main.png" class="home-mascot-small" style="object-fit:contain;" alt="Mascotte WELO">
+          <img src="images/Mascotte qui fait coucou.png" class="home-mascot-small" style="object-fit:contain;" alt="Mascotte WELO">
         </div>
       </div>
 
@@ -2331,7 +2329,7 @@
 
     <!-- Floating mascot -->
     <div style="position:absolute; bottom:88px; right:16px; pointer-events:none;">
-      <img src="images/Mascotte qui tend la main.png" style="width:56px;height:auto;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));" alt="Mascotte WELO">
+      <img src="images/Mascotte qui fait coucou.png" style="width:56px;height:auto;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));" alt="Mascotte WELO">
     </div>
 
     <div class="bottom-nav">
@@ -2825,7 +2823,9 @@
   <div class="screen" id="screen-profil">
     <div class="scroll-content">
       <div class="profil-hero">
-        <div class="profil-avatar-wrap" id="profil-avatar">M</div>
+        <div class="profil-avatar-wrap" id="profil-avatar">
+          <img src="images/Mascotte qui fait coucou.png" style="width:80px;height:80px;object-fit:contain;" alt="Mascotte">
+        </div>
         <div class="profil-name" id="profil-name">Marie Dupont</div>
         <div class="profil-role" id="profil-role">Membre WELO</div>
         <div class="profil-stats">
@@ -3529,11 +3529,10 @@ function personalizeHome() {
 
 function personalizeProfil() {
   const prenom = profile.prenom || 'Marie';
-  const initial = prenom[0].toUpperCase();
   const avatarEl = document.getElementById('profil-avatar');
   const nameEl = document.getElementById('profil-name');
   const roleEl = document.getElementById('profil-role');
-  if (avatarEl) avatarEl.textContent = initial;
+  // Keep mascot image — don't overwrite with initials
   if (nameEl) nameEl.textContent = prenom;
   if (roleEl) {
     const lien = LABELS.lien[profile.lien] || '';
