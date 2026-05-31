@@ -15,6 +15,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
@@ -66,14 +68,15 @@
 
   @media (max-width: 430px), (display-mode: standalone) {
     .status-bar { display: none !important; }
-    .home-header { padding-top: 20px; }
-    .community-header { padding-top: 20px; }
-    .questions-header { padding-top: 20px; }
-    .msg-header { padding-top: 20px; }
-    .profil-hero { padding-top: 40px; }
-    #screen-map > div:first-child { padding-top: 16px !important; }
-    .bottom-nav { height: calc(86px + env(safe-area-inset-bottom, 0px)); }
-    #screen-chat > div:first-child { padding-top: 20px !important; }
+    .home-header { padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
+    .community-header { padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
+    .questions-header { padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
+    .msg-header { padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
+    .profil-hero { padding-top: calc(40px + env(safe-area-inset-top, 0px)); }
+    #screen-map > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
+    .bottom-nav { height: calc(86px + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px); }
+    #screen-chat > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
+    #screen-demarches > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
   }
 
   /* STATUS BAR */
@@ -1225,86 +1228,52 @@
   }
 
   /* ========================
-     MAP IMPROVED
+     MAP – Leaflet
   ======================== */
-  .map-warm-bg {
-    flex: 1;
-    background: #F0EBE0;
-    position: relative;
-    min-height: 0;
-    cursor: grab;
-  }
-  .map-warm-bg:active { cursor: grabbing; }
-  .map-warm-bg::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(200,190,170,0.4) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,190,170,0.4) 1px, transparent 1px);
-    background-size: 36px 36px;
-  }
-  .map-warm-road-h {
-    position: absolute;
-    left: 0; right: 0;
-    background: #DDD5C2;
-    border-top: 1px solid #CCC4B0;
-    border-bottom: 1px solid #CCC4B0;
-  }
-  .map-warm-road-v {
-    position: absolute;
-    top: 0; bottom: 0;
-    background: #DDD5C2;
-    border-left: 1px solid #CCC4B0;
-    border-right: 1px solid #CCC4B0;
-  }
-  .map-park {
-    position: absolute;
-    background: #C8DDB8;
-    border-radius: 50%;
-  }
-  .map-water {
-    position: absolute;
-    background: rgba(130,190,255,0.35);
-  }
-  .map-warm-pin {
-    position: absolute;
-    cursor: pointer;
-    transform: translate(-50%, -100%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0;
-    transition: transform 0.15s;
-  }
-  .map-warm-pin:active { transform: translate(-50%, -100%) scale(1.15); }
-  .map-pin-bubble {
+  #leaflet-map { width: 100%; height: 100%; border-radius: 24px; }
+  .welo-marker { background: none !important; border: none !important; }
+  .welo-pin {
     background: white;
     border-radius: 50px;
     padding: 6px 12px;
     font-size: 12px;
     font-weight: 700;
-    color: var(--text);
-    box-shadow: 0 4px 16px rgba(0,0,0,0.15);
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    color: #0D0D1A;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
     white-space: nowrap;
     font-family: 'Host Grotesk', sans-serif;
+    display: inline-block;
   }
-  .map-pin-bubble.selected {
-    background: var(--purple);
-    color: white;
-  }
-  .map-pin-tail {
-    width: 0;
-    height: 0;
+  .welo-pin.selected { background: #6B4EFF; color: white; }
+  .welo-pin-tail {
+    width: 0; height: 0;
     border-left: 6px solid transparent;
     border-right: 6px solid transparent;
     border-top: 8px solid white;
-    margin-top: -1px;
+    margin: -1px auto 0;
   }
-  .map-pin-tail.selected { border-top-color: var(--purple); }
+  .welo-pin.selected + .welo-pin-tail { border-top-color: #6B4EFF; }
+  .leaflet-control-zoom {
+    border: none !important;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.15) !important;
+    border-radius: 14px !important;
+    overflow: hidden;
+    margin-right: 14px !important;
+    margin-bottom: 14px !important;
+  }
+  .leaflet-control-zoom a {
+    background: white !important;
+    color: #0D0D1A !important;
+    border: none !important;
+    font-size: 20px !important;
+    font-weight: 700 !important;
+    width: 38px !important;
+    height: 38px !important;
+    line-height: 38px !important;
+  }
+  .leaflet-control-zoom-in { border-bottom: 1px solid #f0f0f5 !important; }
+  .leaflet-control-attribution { display: none !important; }
+  .leaflet-control-zoom a:hover { background: #f8f8fc !important; }
   .map-sheet-handle {
     width: 36px;
     height: 4px;
@@ -2369,53 +2338,9 @@
       </div>
     </div>
 
-    <!-- Warm map -->
-    <div style="flex:1;min-height:0;padding:10px 12px 0;position:relative;">
-    <div id="map-clip" style="width:100%;height:100%;border-radius:24px;overflow:hidden;position:relative;"
-      ontouchstart="onMapTouchStart(event)" ontouchmove="onMapTouchMove(event)" ontouchend="onMapTouchEnd()"
-      onmousedown="onMapMouseDown(event)" onmousemove="onMapMouseMove(event)" onmouseup="onMapMouseUp()" onmouseleave="onMapMouseUp()">
-    <div class="map-warm-bg" id="map-zoomable" style="width:100%;height:100%;transform-origin:center center;will-change:transform;">
-      <!-- Roads horizontal -->
-      <div class="map-warm-road-h" style="top:28%;height:14px;"></div>
-      <div class="map-warm-road-h" style="top:52%;height:20px;"></div>
-      <div class="map-warm-road-h" style="top:74%;height:10px;"></div>
-      <!-- Roads vertical -->
-      <div class="map-warm-road-v" style="left:22%;width:14px;"></div>
-      <div class="map-warm-road-v" style="left:58%;width:20px;"></div>
-      <!-- Park (green circle) -->
-      <div class="map-park" style="width:70px;height:70px;left:65%;top:55%;opacity:0.8;"></div>
-      <div class="map-park" style="width:40px;height:40px;left:38%;top:70%;opacity:0.6;"></div>
-      <!-- Water -->
-      <div class="map-water" style="right:-10px;top:15%;width:60px;height:180px;border-radius:30px;transform:rotate(12deg);"></div>
-      <!-- Block fills -->
-      <div style="position:absolute;left:23%;top:29%;width:34%;height:22%;background:#E8E0CE;border-radius:4px;opacity:0.5;"></div>
-      <div style="position:absolute;left:59%;top:10%;width:30%;height:17%;background:#E8E0CE;border-radius:4px;opacity:0.5;"></div>
-      <div style="position:absolute;left:0;top:53%;width:21%;height:20%;background:#E8E0CE;border-radius:4px;opacity:0.5;"></div>
-
-      <!-- Warm pins -->
-      <div class="map-warm-pin" style="left:38%;top:44%;" onclick="selectPin(this,'La Maison des Aidants','Paris 11e','1.5 km','☕ Pause café · 🧠 Aide psy · 🎨 Ateliers')">
-        <div class="map-pin-bubble selected">💛 Maison des Aidants</div>
-        <div class="map-pin-tail selected"></div>
-      </div>
-      <div class="map-warm-pin" style="left:62%;top:30%;" onclick="selectPin(this,'Maison des Aidants','Paris 12e','2.1 km','☕ Café · 💆 Sophrologie · 🌿 Bien-être')">
-        <div class="map-pin-bubble">💛 Maison des Aidants</div>
-        <div class="map-pin-tail"></div>
-      </div>
-      <div class="map-warm-pin" style="left:18%;top:62%;" onclick="selectPin(this,'Centre d\'Écoute','Paris 10e','2.8 km','🎧 Écoute · 💬 Soutien · 🤝 Accompagnement')">
-        <div class="map-pin-bubble">🎧 Centre d'Écoute</div>
-        <div class="map-pin-tail"></div>
-      </div>
-      <div class="map-warm-pin" style="left:75%;top:62%;" onclick="selectPin(this,'Atelier Bien-être','Paris 13e','3.2 km','🎨 Ateliers · 🌿 Nature · 🎵 Musique')">
-        <div class="map-pin-bubble">🌿 Atelier Bien-être</div>
-        <div class="map-pin-tail"></div>
-      </div>
-    </div>
-    <!-- Zoom buttons -->
-    <div style="position:absolute;bottom:16px;right:24px;display:flex;flex-direction:column;gap:8px;z-index:10;">
-      <button onclick="mapZoomIn()" style="width:38px;height:38px;background:white;border:none;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.18);font-size:22px;font-weight:700;cursor:pointer;color:var(--text);display:flex;align-items:center;justify-content:center;line-height:1;">+</button>
-      <button onclick="mapZoomOut()" style="width:38px;height:38px;background:white;border:none;border-radius:12px;box-shadow:0 2px 12px rgba(0,0,0,0.18);font-size:24px;font-weight:700;cursor:pointer;color:var(--text);display:flex;align-items:center;justify-content:center;line-height:1;">−</button>
-    </div>
-    </div>
+    <!-- Leaflet map -->
+    <div style="flex:1;min-height:0;padding:10px 12px 0;">
+      <div id="leaflet-map"></div>
     </div>
 
     <!-- Bottom sheet -->
@@ -3626,6 +3551,7 @@ function goTo(name) {
   if (name === 'home') personalizeHome();
   if (name === 'profil') personalizeProfil();
   if (name === 'demarches') renderDemarches();
+  if (name === 'map') setTimeout(initLeafletMap, 80);
 }
 
 function switchTab(btn, tabId) {
@@ -3682,76 +3608,97 @@ function toggleMapSheet() {
   if (chevron) chevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(180deg)';
 }
 
-// Map zoom & pan
-let _mScale = 1, _mDx = 0, _mDy = 0;
-let _mDragStart = null, _mDragOrigin = null;
-const MAP_MAX = 3, MAP_MIN = 1;
+// ============ LEAFLET MAP ============
+let _leafletMap = null;
+const MAP_PLACES = [
+  { id:'mda11', emoji:'💛', name:'La Maison des Aidants', city:'Paris 11e', dist:'1.5 km', services:'☕ Pause café · 🧠 Aide psy · 🎨 Ateliers', lat:48.8535, lng:2.3793, filters:'repit,ateliers' },
+  { id:'mda12', emoji:'💛', name:'Maison des Aidants',    city:'Paris 12e', dist:'2.1 km', services:'☕ Café · 💆 Sophrologie · 🌿 Bien-être',        lat:48.8455, lng:2.3871, filters:'repit' },
+  { id:'ecoute',emoji:'🎧', name:"Centre d'Écoute",      city:'Paris 10e', dist:'2.8 km', services:'🎧 Écoute · 💬 Soutien · 🤝 Accompagnement',     lat:48.8748, lng:2.3594, filters:'ecoute,accompagnement' },
+  { id:'atelier',emoji:'🌿',name:'Atelier Bien-être',    city:'Paris 13e', dist:'3.2 km', services:'🎨 Ateliers · 🌿 Nature · 🎵 Musique',            lat:48.8366, lng:2.3560, filters:'ateliers,accompagnement' },
+];
+let _leafletMarkers = {};
+let _activeFilter = null;
 
-function _applyMapTransform() {
-  const el = document.getElementById('map-zoomable');
-  if (el) el.style.transform = `scale(${_mScale}) translate(${_mDx}px,${_mDy}px)`;
-}
-function mapZoomIn() {
-  _mScale = Math.min(_mScale + 0.5, MAP_MAX);
-  _applyMapTransform();
-}
-function mapZoomOut() {
-  _mScale = Math.max(_mScale - 0.5, MAP_MIN);
-  if (_mScale === MAP_MIN) { _mDx = 0; _mDy = 0; }
-  _applyMapTransform();
-}
+function initLeafletMap() {
+  if (typeof L === 'undefined') return;
+  const el = document.getElementById('leaflet-map');
+  if (!el) return;
+  if (_leafletMap) { _leafletMap.invalidateSize(); return; }
 
-let _mPinchDist = null;
-let _mPinchScaleOrigin = null;
+  _leafletMap = L.map('leaflet-map', {
+    center: [48.858, 2.365],
+    zoom: 13,
+    zoomControl: true,
+    attributionControl: false,
+    tap: true
+  });
 
-function _getTouchDist(e) {
-  const a = e.touches[0], b = e.touches[1];
-  return Math.hypot(b.clientX - a.clientX, b.clientY - a.clientY);
-}
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 19 }).addTo(_leafletMap);
 
-function onMapTouchStart(e) {
-  if (e.touches.length === 2) {
-    _mPinchDist = _getTouchDist(e);
-    _mPinchScaleOrigin = _mScale;
-    _mDragStart = null;
-  } else if (e.touches.length === 1 && _mScale > 1) {
-    const t = e.touches[0];
-    _mDragStart = { x: t.clientX, y: t.clientY };
-    _mDragOrigin = { dx: _mDx, dy: _mDy };
-  }
-}
-function onMapTouchMove(e) {
-  if (e.touches.length === 2 && _mPinchDist !== null) {
-    e.preventDefault();
-    const dist = _getTouchDist(e);
-    _mScale = Math.min(Math.max(_mPinchScaleOrigin * (dist / _mPinchDist), MAP_MIN), MAP_MAX);
-    if (_mScale === MAP_MIN) { _mDx = 0; _mDy = 0; }
-    _applyMapTransform();
-  } else if (e.touches.length === 1 && _mDragStart && _mScale > 1) {
-    e.preventDefault();
-    const t = e.touches[0];
-    _mDx = _mDragOrigin.dx + (t.clientX - _mDragStart.x) / _mScale;
-    _mDy = _mDragOrigin.dy + (t.clientY - _mDragStart.y) / _mScale;
-    _applyMapTransform();
-  }
-}
-function onMapTouchEnd() {
-  if (event.touches.length < 2) _mPinchDist = null;
-  if (event.touches.length === 0) _mDragStart = null;
+  MAP_PLACES.forEach(p => {
+    const icon = L.divIcon({
+      className: 'welo-marker',
+      html: `<div class="welo-pin" id="pin-${p.id}">${p.emoji} ${p.name}</div><div class="welo-pin-tail" id="pintail-${p.id}"></div>`,
+      iconAnchor: [80, 42],
+      iconSize: [180, 42]
+    });
+    const m = L.marker([p.lat, p.lng], { icon }).addTo(_leafletMap);
+    m.on('click', () => selectLeafletPin(p));
+    _leafletMarkers[p.id] = m;
+  });
 }
 
-function onMapMouseDown(e) {
-  if (_mScale <= 1) return;
-  _mDragStart = { x: e.clientX, y: e.clientY };
-  _mDragOrigin = { dx: _mDx, dy: _mDy };
+function selectLeafletPin(p) {
+  // Reset all pins
+  MAP_PLACES.forEach(pl => {
+    const pin = document.getElementById('pin-' + pl.id);
+    const tail = document.getElementById('pintail-' + pl.id);
+    if (pin) pin.classList.remove('selected');
+    if (tail) { tail.style.borderTopColor = 'white'; }
+  });
+  // Select clicked pin
+  const pin = document.getElementById('pin-' + p.id);
+  const tail = document.getElementById('pintail-' + p.id);
+  if (pin) pin.classList.add('selected');
+  if (tail) tail.style.borderTopColor = '#6B4EFF';
+
+  // Update bottom sheet
+  document.getElementById('map-sheet-title').textContent = p.name + ' · ' + p.city;
+  document.getElementById('map-sheet-dist').textContent = p.dist;
+  document.getElementById('map-detail-address').textContent = p.city;
+  document.getElementById('map-detail-services').textContent = p.services;
+  document.getElementById('map-detail').style.display = 'block';
+  document.getElementById('map-list').style.display = 'none';
+  const content = document.getElementById('map-sheet-content');
+  if (content) content.style.display = '';
+  const chevron = document.getElementById('map-sheet-chevron');
+  if (chevron) chevron.style.transform = 'rotate(0deg)';
+  if (_leafletMap) _leafletMap.setView([p.lat, p.lng], 15, { animate: true });
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
-function onMapMouseMove(e) {
-  if (!_mDragStart || _mScale <= 1) return;
-  _mDx = _mDragOrigin.dx + (e.clientX - _mDragStart.x) / _mScale;
-  _mDy = _mDragOrigin.dy + (e.clientY - _mDragStart.y) / _mScale;
-  _applyMapTransform();
+
+function filterMap(btn, filterKey) {
+  document.querySelectorAll('#screen-map button[data-filter]').forEach(b => {
+    b.style.background = 'white'; b.style.color = 'var(--text)';
+    b.style.border = '1.5px solid var(--border)'; b.style.fontWeight = '600';
+  });
+  btn.style.background = 'var(--purple)'; btn.style.color = 'white';
+  btn.style.border = 'none'; btn.style.fontWeight = '700';
+
+  _activeFilter = filterKey;
+  document.querySelectorAll('#map-list .location-list-item').forEach(item => {
+    const filters = item.getAttribute('data-filters') || '';
+    item.style.display = filters.split(',').includes(filterKey) ? 'flex' : 'none';
+  });
+  document.getElementById('map-detail').style.display = 'none';
+  document.getElementById('map-list').style.display = 'block';
+
+  // Fly to first visible place
+  const match = MAP_PLACES.find(p => p.filters.split(',').includes(filterKey));
+  if (match && _leafletMap) _leafletMap.setView([match.lat, match.lng], 14, { animate: true });
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
-function onMapMouseUp() { _mDragStart = null; }
+// ============ END MAP ============
 
 function showToast(msg) {
   const t = document.getElementById('toast');
@@ -3759,47 +3706,6 @@ function showToast(msg) {
   t.classList.add('show');
   if (toastTimer) clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove('show'), 2000);
-}
-
-function selectPin(el, name, city, dist, services) {
-  // Reset all pins
-  document.querySelectorAll('.map-pin-bubble').forEach(b => b.classList.remove('selected'));
-  document.querySelectorAll('.map-pin-tail').forEach(t => t.classList.remove('selected'));
-  // Highlight clicked pin
-  if (el) {
-    const bubble = el.querySelector ? el.querySelector('.map-pin-bubble') : null;
-    const tail = el.querySelector ? el.querySelector('.map-pin-tail') : null;
-    if (bubble) bubble.classList.add('selected');
-    if (tail) tail.classList.add('selected');
-  }
-  // Update bottom sheet
-  document.getElementById('map-sheet-title').textContent = name + ' · ' + city;
-  document.getElementById('map-sheet-dist').textContent = dist;
-  document.getElementById('map-detail-address').textContent = city;
-  document.getElementById('map-detail-services').textContent = services;
-  document.getElementById('map-detail').style.display = 'block';
-  document.getElementById('map-list').style.display = 'none';
-}
-
-function filterMap(btn, filterKey) {
-  document.querySelectorAll('#screen-map button[data-filter]').forEach(b => {
-    b.style.background = 'white';
-    b.style.color = 'var(--text)';
-    b.style.border = '1.5px solid var(--border)';
-    b.style.fontWeight = '600';
-  });
-  btn.style.background = 'var(--purple)';
-  btn.style.color = 'white';
-  btn.style.border = 'none';
-  btn.style.fontWeight = '700';
-
-  document.querySelectorAll('#map-list .location-list-item').forEach(item => {
-    const filters = item.getAttribute('data-filters') || '';
-    item.style.display = filters.split(',').includes(filterKey) ? 'flex' : 'none';
-  });
-  document.getElementById('map-detail').style.display = 'none';
-  document.getElementById('map-list').style.display = 'block';
-  lucide.createIcons();
 }
 
 function toggleLike(btn) {
