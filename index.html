@@ -2113,15 +2113,15 @@
 
     <!-- Tabs -->
     <div class="tabs">
-      <button class="tab active" onclick="switchTab(this, 'tab-groupes')">Groupes</button>
-      <button class="tab" onclick="switchTab(this, 'tab-publications')">Publications</button>
-      <button class="tab" onclick="switchTab(this, 'tab-questions')">Questions</button>
+      <button class="tab active" onclick="switchTab(this, 'tab-publications')">Publications</button>
+      <button class="tab" onclick="switchTab(this, 'tab-groupes')">Groupes</button>
       <button class="tab" onclick="switchTab(this, 'tab-personnes')">Personnes</button>
+      <button class="tab" onclick="switchTab(this, 'tab-questions')">Questions</button>
     </div>
 
     <div class="scroll-content">
       <!-- Tab: Groupes -->
-      <div id="tab-groupes">
+      <div id="tab-groupes" style="display:none;">
         <div class="section-header">
           <div class="section-title" style="display:flex;align-items:center;gap:6px;">
             <i data-lucide="users-round" style="width:14px;height:14px;color:var(--yellow);stroke-width:2.5;"></i>
@@ -2173,7 +2173,7 @@
       </div>
 
       <!-- Tab: Publications (hidden) -->
-      <div id="tab-publications" style="display:none;">
+      <div id="tab-publications">
         <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 8px;">
           <div style="font-size:13px;color:var(--text-gray);font-weight:500;">Moments partagés par la communauté</div>
           <button onclick="goTo('new-post')" style="background:var(--purple);color:white;border:none;border-radius:50px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Host Grotesk',sans-serif;display:flex;align-items:center;gap:5px;">
@@ -3771,6 +3771,7 @@ function goTo(name) {
   if (name === 'profil') personalizeProfil();
   if (name === 'demarches') renderDemarches();
   if (name === 'map') setTimeout(initLeafletMap, 80);
+  if (name === 'community') renderFeed();
 }
 
 function switchTab(btn, tabId) {
