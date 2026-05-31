@@ -66,9 +66,14 @@
     }
   }
 
-  /* Status-bar clearance for screens with inline-styled headers */
-  #screen-chat > div:first-child { padding-top: 56px !important; }
+  /* Status-bar clearance — base (browser/desktop) */
+  #screen-chat > div:first-child,
+  #screen-group-chat > div:first-child,
+  #screen-forum-thread > div:first-child,
+  #screen-dem-detail > div:first-child,
+  #screen-new-post > div:first-child { padding-top: 56px !important; }
   #screen-demarches > div:first-child { padding-top: 56px !important; }
+  #screen-article-detail > div:first-child { padding-top: 16px !important; }
 
   @media (max-width: 430px), (display-mode: standalone) {
     .status-bar { display: none !important; }
@@ -79,8 +84,13 @@
     .profil-hero { padding-top: calc(40px + env(safe-area-inset-top, 0px)); }
     #screen-map > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
     .bottom-nav { height: calc(86px + env(safe-area-inset-bottom, 0px)); padding-bottom: env(safe-area-inset-bottom, 0px); }
-    #screen-chat > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
+    #screen-chat > div:first-child,
+    #screen-group-chat > div:first-child,
+    #screen-forum-thread > div:first-child,
+    #screen-dem-detail > div:first-child,
+    #screen-new-post > div:first-child,
     #screen-demarches > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
+    #screen-article-detail > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
   }
 
   /* STATUS BAR */
