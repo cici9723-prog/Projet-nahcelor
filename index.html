@@ -481,6 +481,8 @@
     box-shadow: var(--card-shadow);
     cursor: pointer;
     transition: transform 0.15s;
+    display: flex;
+    flex-direction: column;
   }
   .news-card:active { transform: scale(0.97); }
   .news-img-placeholder {
@@ -490,8 +492,9 @@
     align-items: center;
     justify-content: center;
     font-size: 32px;
+    flex-shrink: 0;
   }
-  .news-body { padding: 10px; }
+  .news-body { padding: 10px; display: flex; flex-direction: column; justify-content: space-between; flex: 1; }
   .news-title {
     font-size: 12px;
     font-weight: 600;
@@ -511,6 +514,7 @@
     border-radius: 50px;
     border: none;
     cursor: pointer;
+    align-self: flex-start;
   }
 
   /* ========================
@@ -955,6 +959,14 @@
   }
   .question-text { font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 8px; line-height: 1.4; }
   .question-meta { display: flex; align-items: center; gap: 12px; font-size: 12px; color: var(--text-gray); }
+  /* Thread screen */
+  .thread-question-block { padding: 20px; border-bottom: 1px solid var(--border); background: var(--bg); }
+  .thread-question-text { font-size: 17px; font-weight: 700; color: var(--text); line-height: 1.45; margin: 10px 0 12px; }
+  .thread-reply { display: flex; gap: 10px; padding: 14px 20px; border-bottom: 1px solid var(--border); }
+  .thread-reply-avatar { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 800; color: white; flex-shrink: 0; }
+  .thread-reply-bubble { background: #F0F0F6; border-radius: 4px 18px 18px 18px; padding: 10px 14px; font-size: 14px; color: var(--text); line-height: 1.5; }
+  .thread-reply-meta { font-size: 11px; color: var(--text-gray); margin-bottom: 5px; font-weight: 600; }
+  .thread-input-row { padding: 10px 14px 20px; background: white; border-top: 1px solid var(--border); display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
   .ask-fab {
     position: absolute;
     bottom: 96px;
@@ -1990,6 +2002,21 @@
         </div>
       </div>
 
+      <!-- Bloc Démarches -->
+      <div style="padding:0 20px 20px;">
+        <div id="home-demarches-block" onclick="goTo('demarches')" style="background:linear-gradient(135deg,#EDE8FF 0%,#E0DAFF 100%);border-radius:20px;padding:16px 18px;border:1.5px solid var(--purple-mid);cursor:pointer;display:flex;align-items:center;gap:14px;">
+          <div style="width:44px;height:44px;background:var(--purple);border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;">📋</div>
+          <div style="flex:1;min-width:0;">
+            <div id="dem-home-title" style="font-size:14px;font-weight:800;color:var(--purple);letter-spacing:-0.2px;">Commencer mes démarches</div>
+            <div id="dem-home-sub" style="font-size:12px;color:#6B4EFF;opacity:0.75;margin-top:2px;">Congé, allocation, CPAM… vos droits d'aidant</div>
+            <div id="dem-home-bar-wrap" style="display:none;margin-top:8px;height:5px;background:rgba(107,78,255,0.2);border-radius:3px;">
+              <div id="dem-home-bar-fill" style="height:5px;background:var(--purple);border-radius:3px;width:0%;transition:width 0.4s;"></div>
+            </div>
+          </div>
+          <i data-lucide="chevron-right" style="width:18px;height:18px;color:var(--purple);stroke-width:2.5;flex-shrink:0;"></i>
+        </div>
+      </div>
+
       <!-- L'Actualité -->
       <div class="section-header" style="padding-top:4px;">
         <div class="section-title" style="display:flex;align-items:center;gap:6px;">
@@ -1998,40 +2025,44 @@
         </div>
       </div>
       <div class="news-grid" style="padding-bottom:28px;">
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;">
-          <div style="height:110px;background:#C8C4C0;display:flex;align-items:flex-end;padding:8px;">
-            <span style="background:rgba(0,0,0,0.35);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">SANTÉ</span>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="showToast('Article ouvert')">
+          <div style="height:110px;background:linear-gradient(135deg,#E8F5E9 0%,#A5D6A7 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;">
+            <span style="font-size:36px;">🏥</span>
+            <span style="position:absolute;bottom:8px;left:8px;background:rgba(46,125,50,0.85);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">SANTÉ</span>
           </div>
           <div class="news-body">
             <div class="news-title">Comment vos dons améliorent le quotidien à l'hôpital ?</div>
-            <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
+            <button class="news-btn">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;">
-          <div style="height:110px;background:#BEC4C8;display:flex;align-items:flex-end;padding:8px;">
-            <span style="background:rgba(0,0,0,0.35);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">BIEN-ÊTRE</span>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="showToast('Article ouvert')">
+          <div style="height:110px;background:linear-gradient(135deg,#EDE8FF 0%,#C7BFFF 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;">
+            <span style="font-size:36px;">🌿</span>
+            <span style="position:absolute;bottom:8px;left:8px;background:rgba(107,78,255,0.85);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">BIEN-ÊTRE</span>
           </div>
           <div class="news-body">
             <div class="news-title">Préserver son équilibre en accompagnant un proche</div>
-            <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
+            <button class="news-btn">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;">
-          <div style="height:110px;background:#C0C8C0;display:flex;align-items:flex-end;padding:8px;">
-            <span style="background:rgba(0,0,0,0.35);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">CONSEILS</span>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="showToast('Article ouvert')">
+          <div style="height:110px;background:linear-gradient(135deg,#FFF9E6 0%,#FFE082 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;">
+            <span style="font-size:36px;">✨</span>
+            <span style="position:absolute;bottom:8px;left:8px;background:rgba(158,107,0,0.85);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">CONSEILS</span>
           </div>
           <div class="news-body">
             <div class="news-title">5 gestes pour prendre soin de vous au quotidien</div>
-            <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
+            <button class="news-btn">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;">
-          <div style="height:110px;background:#C8C0C0;display:flex;align-items:flex-end;padding:8px;">
-            <span style="background:rgba(0,0,0,0.35);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">AIDANTS</span>
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="showToast('Article ouvert')">
+          <div style="height:110px;background:linear-gradient(135deg,#FCE4EC 0%,#F48FB1 100%);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;position:relative;">
+            <span style="font-size:36px;">❤️</span>
+            <span style="position:absolute;bottom:8px;left:8px;background:rgba(173,20,87,0.85);color:white;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px;letter-spacing:0.3px;">AIDANTS</span>
           </div>
           <div class="news-body">
             <div class="news-title">Burn-out des aidants : reconnaître les signaux</div>
-            <button class="news-btn" style="background:var(--purple-light);color:var(--purple);">Lire →</button>
+            <button class="news-btn">Lire →</button>
           </div>
         </div>
       </div>
@@ -2509,7 +2540,7 @@
       <div class="forum-subtitle">Posez vos questions à la communauté</div>
     </div>
     <div class="scroll-content">
-      <div class="question-item" onclick="showToast('Question ouverte')">
+      <div class="question-item" onclick="openQuestion(0)">
         <div class="question-tags">
           <span class="question-tag">Administratif</span>
           <span class="question-tag">Droits</span>
@@ -2521,7 +2552,7 @@
           <span>Il y a 2 jours</span>
         </div>
       </div>
-      <div class="question-item" onclick="showToast('Question ouverte')">
+      <div class="question-item" onclick="openQuestion(1)">
         <div class="question-tags">
           <span class="question-tag">Bien-être</span>
         </div>
@@ -2532,7 +2563,7 @@
           <span>Il y a 3 jours</span>
         </div>
       </div>
-      <div class="question-item" onclick="showToast('Question ouverte')">
+      <div class="question-item" onclick="openQuestion(2)">
         <div class="question-tags">
           <span class="question-tag">Médical</span>
           <span class="question-tag">Conseils</span>
@@ -2544,7 +2575,7 @@
           <span>Il y a 5 jours</span>
         </div>
       </div>
-      <div class="question-item" onclick="showToast('Question ouverte')">
+      <div class="question-item" onclick="openQuestion(3)">
         <div class="question-tags">
           <span class="question-tag">Finances</span>
         </div>
@@ -2555,7 +2586,7 @@
           <span>Il y a 1 semaine</span>
         </div>
       </div>
-      <div class="question-item" onclick="showToast('Question ouverte')">
+      <div class="question-item" onclick="openQuestion(4)">
         <div class="question-tags">
           <span class="question-tag">Émotionnel</span>
         </div>
@@ -3280,6 +3311,38 @@
       <!-- Filled by JS -->
     </div>
   </div>
+  <!-- ===================== SCREEN FORUM THREAD ===================== -->
+  <div class="screen" id="screen-forum-thread" style="flex-direction:column;">
+    <div style="padding:56px 20px 14px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <button class="back-btn" onclick="goTo('forum')" style="margin:0;">
+        <i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i>
+      </button>
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:16px;font-weight:800;color:var(--text);">Forum WELO</div>
+        <div style="font-size:12px;color:var(--text-gray);" id="thread-reply-count"></div>
+      </div>
+    </div>
+
+    <div class="scroll-content" id="thread-scroll">
+      <div class="thread-question-block">
+        <div id="thread-tags" class="question-tags"></div>
+        <div class="thread-question-text" id="thread-question"></div>
+        <div class="question-meta" id="thread-meta"></div>
+      </div>
+      <div id="thread-replies"></div>
+      <div style="height:16px;"></div>
+    </div>
+
+    <div class="thread-input-row">
+      <div class="search-bar" style="flex:1;margin:0;">
+        <input type="text" id="thread-input" placeholder="Votre réponse…" style="flex:1;" onkeydown="if(event.key==='Enter')sendThreadReply()">
+      </div>
+      <button onclick="sendThreadReply()" style="width:44px;height:44px;background:var(--purple);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+        <i data-lucide="send" style="width:18px;height:18px;color:white;stroke-width:2;"></i>
+      </button>
+    </div>
+  </div>
+
 </div><!-- end phone-frame -->
 
 <script>
@@ -3301,6 +3364,7 @@ const screens = {
   'onboard-recap':  'screen-onboard-recap',
   'onboard-recos':  'screen-onboard-recos',
   'demarches':      'screen-demarches',
+  'forum-thread':   'screen-forum-thread',
 };
 function personalizeHome() {
   const prenom = profile.prenomProche || profile.prenom || 'Marie';
@@ -3310,6 +3374,28 @@ function personalizeHome() {
   const nameEl = document.getElementById('home-greeting-name');
   if (subEl) subEl.textContent = salut;
   if (nameEl) nameEl.textContent = 'Bonjour ' + prenom + ' !';
+
+  // Update demarches block
+  try {
+    const s = getDemStatuses();
+    const done = DEMARCHES.filter(d => s[d.id] === 'done').length;
+    const total = DEMARCHES.length;
+    const titleEl = document.getElementById('dem-home-title');
+    const subDEl = document.getElementById('dem-home-sub');
+    const barWrap = document.getElementById('dem-home-bar-wrap');
+    const barFill = document.getElementById('dem-home-bar-fill');
+    if (done === 0) {
+      if (titleEl) titleEl.textContent = 'Commencer mes démarches';
+      if (subDEl) subDEl.textContent = 'Congé, allocation, CPAM… vos droits d\'aidant';
+      if (barWrap) barWrap.style.display = 'none';
+    } else {
+      if (titleEl) titleEl.textContent = 'Voir où j\'en suis';
+      if (subDEl) subDEl.textContent = `${done} démarche${done>1?'s':''} sur ${total} complétée${done>1?'s':''}`;
+      if (barWrap) barWrap.style.display = '';
+      if (barFill) barFill.style.width = Math.round(done/total*100) + '%';
+    }
+  } catch(e) {}
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function personalizeProfil() {
@@ -3522,7 +3608,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches'];
+const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
@@ -3731,6 +3817,96 @@ function updateClock() {
 }
 updateClock();
 setInterval(updateClock, 30000);
+
+// =================== FORUM THREADS ===================
+const FORUM_DATA = [
+  {
+    tags:['Administratif','Droits'], views:124, repCount:8, date:'Il y a 2 jours',
+    question:"Comment obtenir le statut d'aidant familial et quels sont les droits associés ?",
+    answers:[
+      {av:'S',col:'#6B4EFF',name:'Sophie M.',time:'Il y a 2 jours',text:"Le statut s'obtient en déclarant votre situation à la CPAM. Vous bénéficiez du congé proche aidant, d'une allocation journalière et de droits retraite spécifiques."},
+      {av:'J',col:'#4CAF50',name:'Jean-Luc P.',time:'Il y a 2 jours',text:"N'oubliez pas la reconnaissance MDPH si votre proche a moins de 60 ans — ça ouvre d'autres droits importants."},
+      {av:'A',col:'#FF7043',name:'Amélie R.',time:'Hier',text:"La Maison des Aidants de votre quartier peut vous accompagner dans ces démarches gratuitement !"}
+    ]
+  },
+  {
+    tags:['Bien-être'], views:89, repCount:15, date:'Il y a 3 jours',
+    question:"Comment gérer les nuits difficiles quand on accompagne un parent malade ?",
+    answers:[
+      {av:'M',col:'#E8736B',name:'Marie T.',time:'Il y a 3 jours',text:"J'ai découvert la sophrologie et ça m'a vraiment aidée. Il y a des séances gratuites à la Maison des Aidants 🌿"},
+      {av:'P',col:'#9C5FB5',name:'Pierre F.',time:'Il y a 3 jours',text:"Mettre en place un relais avec d'autres membres de la famille ou un service d'aide à domicile pour les nuits est souvent la seule vraie solution."},
+      {av:'L',col:'#26A69A',name:'Laura D.',time:'Il y a 2 jours',text:"Faites des micro-siestes en journée et n'hésitez pas à demander de l'aide. Vous ne pouvez pas vous oublier complètement."}
+    ]
+  },
+  {
+    tags:['Médical','Conseils'], views:67, repCount:6, date:'Il y a 5 jours',
+    question:"Y a-t-il des formations pour mieux comprendre les traitements de mon proche ?",
+    answers:[
+      {av:'C',col:'#0288D1',name:'Claire B.',time:'Il y a 5 jours',text:"Oui ! La CPAM propose des programmes d'éducation thérapeutique. L'hôpital de suivi de votre proche peut aussi orienter vers des ateliers."},
+      {av:'R',col:'#4CAF50',name:'René A.',time:'Il y a 4 jours',text:"L'association France Alzheimer organise des formations gratuites pour les aidants de personnes atteintes de démence."}
+    ]
+  },
+  {
+    tags:['Finances'], views:203, repCount:22, date:'Il y a 1 semaine',
+    question:"Quelles aides financières peut-on obtenir en tant qu'aidant non professionnel ?",
+    answers:[
+      {av:'N',col:'#FF7043',name:'Nathalie G.',time:'Il y a 1 semaine',text:"L'AJPA (Allocation Journalière du Proche Aidant) est la principale aide : ~62€/jour pendant le congé. Renseignez-vous aussi sur l'APA si votre proche a plus de 60 ans."},
+      {av:'T',col:'#6B4EFF',name:'Thomas K.',time:'Il y a 6 jours',text:"Il y a aussi des aides locales via les CCAS (centres communaux d'action sociale). Certaines communes proposent des chèques emploi service pour financer une aide à domicile."},
+      {av:'S',col:'#E8736B',name:'Sylvie M.',time:'Il y a 5 jours',text:"Ne négligez pas les exonérations fiscales : vous pouvez déduire les frais d'hébergement et d'aide à domicile de vos impôts."}
+    ]
+  },
+  {
+    tags:['Émotionnel'], views:45, repCount:9, date:'Il y a 1 semaine',
+    question:"Comment parler à mes enfants du fait que je m'occupe de leur grand-parent malade ?",
+    answers:[
+      {av:'E',col:'#4CAF50',name:'Emma R.',time:'Il y a 1 semaine',text:"Adaptez le vocabulaire à leur âge. Pour les plus petits, expliquez simplement que mamie ou papi a besoin d'aide et que c'est normal de prendre soin de ceux qu'on aime."},
+      {av:'F',col:'#9C5FB5',name:'François L.',time:'Il y a 6 jours',text:"Impliquez-les à leur mesure : dessiner un dessin pour le proche malade, préparer une activité ensemble. Ça les aide à ne pas se sentir exclus."}
+    ]
+  }
+];
+
+let _currentThread = null;
+
+function openQuestion(idx) {
+  _currentThread = FORUM_DATA[idx];
+  const d = _currentThread;
+  document.getElementById('thread-reply-count').textContent = `${d.repCount} réponses · ${d.date}`;
+  document.getElementById('thread-question').textContent = d.question;
+  document.getElementById('thread-meta').innerHTML = `<span>👁 ${d.views} vues</span><span>💬 ${d.repCount} réponses</span><span>${d.date}</span>`;
+  document.getElementById('thread-tags').innerHTML = d.tags.map(t => `<span class="question-tag">${t}</span>`).join('');
+  const repliesEl = document.getElementById('thread-replies');
+  repliesEl.innerHTML = d.answers.map(a => `
+    <div class="thread-reply">
+      <div class="thread-reply-avatar" style="background:${a.col};">${a.av}</div>
+      <div style="flex:1;min-width:0;">
+        <div class="thread-reply-meta">${a.name} · ${a.time}</div>
+        <div class="thread-reply-bubble">${a.text}</div>
+      </div>
+    </div>`).join('');
+  goTo('forum-thread');
+}
+
+function sendThreadReply() {
+  const input = document.getElementById('thread-input');
+  const text = input ? input.value.trim() : '';
+  if (!text) return;
+  const repliesEl = document.getElementById('thread-replies');
+  const prenom = profile.prenom || 'Moi';
+  const initial = prenom[0].toUpperCase();
+  const bubble = document.createElement('div');
+  bubble.className = 'thread-reply';
+  bubble.innerHTML = `
+    <div class="thread-reply-avatar" style="background:var(--purple);">${initial}</div>
+    <div style="flex:1;min-width:0;">
+      <div class="thread-reply-meta">${prenom} · À l'instant</div>
+      <div class="thread-reply-bubble">${text.replace(/</g,'&lt;')}</div>
+    </div>`;
+  repliesEl.appendChild(bubble);
+  const sc = document.getElementById('thread-scroll');
+  if (sc) sc.scrollTop = sc.scrollHeight;
+  input.value = ''; input.blur();
+}
+// =================== END FORUM THREADS ===================
 
 // Init navs on load
 document.addEventListener('DOMContentLoaded', () => {
