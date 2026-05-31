@@ -555,6 +555,9 @@
     padding: 18px;
     cursor: pointer;
     transition: box-shadow 0.15s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
   .group-card:active { transform: scale(0.97); box-shadow: var(--card-shadow); }
   .group-card-title {
@@ -1852,6 +1855,26 @@
   .dem-status-btn.active-done { border-color: #4CAF50; background: #E8F5E9; color: #2E7D32; }
   .dem-progress-bar-wrap { height: 6px; background: var(--border); border-radius: 3px; margin: 16px 20px 0; }
   .dem-progress-bar-fill { height: 6px; background: var(--purple); border-radius: 3px; transition: width 0.4s ease; }
+  /* Démarche detail */
+  .dem-detail-header { padding:56px 20px 16px;background:white;border-bottom:1px solid var(--border);flex-shrink:0; }
+  .dem-step { display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border); }
+  .dem-step-num { width:28px;height:28px;border-radius:50%;background:var(--purple);color:white;font-size:12px;font-weight:800;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px; }
+  .dem-step-text { font-size:14px;color:var(--text);line-height:1.5;flex:1; }
+  .dem-info-block { background:var(--bg);border-radius:16px;padding:14px 16px;margin-bottom:16px; }
+  .dem-info-label { font-size:11px;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;color:var(--text-gray);margin-bottom:6px; }
+  .dem-info-text { font-size:14px;color:var(--text);line-height:1.55; }
+  /* Community feed */
+  .feed-post { background:white;border-radius:24px;border:1px solid var(--border);overflow:hidden;margin:0 20px 16px; }
+  .feed-post-header { display:flex;align-items:center;gap:10px;padding:12px 14px 8px; }
+  .feed-post-avatar { width:38px;height:38px;border-radius:50%;object-fit:cover;flex-shrink:0; }
+  .feed-post-name { font-size:14px;font-weight:700;color:var(--text);letter-spacing:-0.2px; }
+  .feed-post-time { font-size:12px;color:var(--text-gray); }
+  .feed-post-img { width:100%;aspect-ratio:4/3;object-fit:cover;display:block; }
+  .feed-post-body { padding:12px 14px; }
+  .feed-post-text { font-size:14px;color:var(--text);line-height:1.55;margin-bottom:10px; }
+  .feed-post-actions { display:flex;gap:16px; }
+  .feed-like-btn { background:none;border:none;font-size:13px;font-weight:600;color:var(--text-gray);cursor:pointer;display:flex;align-items:center;gap:5px;padding:0; }
+  .feed-like-btn.liked { color:#E91E63; }
 </style>
 </head>
 <body>
@@ -1977,6 +2000,19 @@
           </div>
         </div>
       </div>
+
+      <!-- Fil communautaire -->
+      <div class="section-header">
+        <div class="section-title" style="display:flex;align-items:center;gap:6px;">
+          <i data-lucide="users-round" style="width:14px;height:14px;color:var(--yellow);stroke-width:2.5;"></i>
+          COMMUNAUTÉ
+        </div>
+        <button onclick="goTo('new-post')" style="background:var(--purple);color:white;border:none;border-radius:50px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Host Grotesk',sans-serif;display:flex;align-items:center;gap:5px;">
+          <i data-lucide="plus" style="width:13px;height:13px;stroke-width:2.5;"></i>
+          Publier
+        </button>
+      </div>
+      <div id="home-feed" style="margin-bottom:4px;"></div>
 
       <!-- Bloc Démarches -->
       <div style="padding:0 20px 20px;">
@@ -3348,6 +3384,68 @@
     </div>
   </div>
 
+  <!-- ===================== SCREEN DEM DETAIL ===================== -->
+  <div class="screen" id="screen-dem-detail" style="flex-direction:column;">
+    <div class="dem-detail-header" style="display:flex;align-items:center;gap:12px;">
+      <button class="back-btn" onclick="goTo('demarches')" style="margin:0;">
+        <i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i>
+      </button>
+      <div style="flex:1;">
+        <div id="dem-d-title" style="font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;"></div>
+      </div>
+      <div id="dem-d-icon" style="width:44px;height:44px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;"></div>
+    </div>
+
+    <div class="scroll-content" style="padding:20px;">
+      <div class="dem-info-block">
+        <div class="dem-info-label">C'est quoi ?</div>
+        <div class="dem-info-text" id="dem-d-what"></div>
+      </div>
+      <div class="dem-info-block">
+        <div class="dem-info-label">Pour qui ?</div>
+        <div class="dem-info-text" id="dem-d-who"></div>
+      </div>
+
+      <div style="font-size:13px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-gray);margin-bottom:8px;">Comment faire ?</div>
+      <div id="dem-d-steps" style="margin-bottom:20px;"></div>
+
+      <div style="background:var(--purple-light);border-radius:16px;padding:14px 16px;margin-bottom:20px;display:flex;gap:10px;align-items:flex-start;">
+        <i data-lucide="link" style="width:16px;height:16px;color:var(--purple);stroke-width:2;flex-shrink:0;margin-top:2px;"></i>
+        <div>
+          <div style="font-size:13px;font-weight:700;color:var(--purple);margin-bottom:3px;">Lien utile</div>
+          <div id="dem-d-link" style="font-size:13px;color:var(--purple);"></div>
+        </div>
+      </div>
+
+      <div style="font-size:13px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-gray);margin-bottom:10px;">Mon statut</div>
+      <div style="display:flex;gap:8px;margin-bottom:40px;" id="dem-d-status-row"></div>
+    </div>
+  </div>
+
+  <!-- ===================== SCREEN NOUVELLE PUBLICATION ===================== -->
+  <div class="screen" id="screen-new-post" style="flex-direction:column;">
+    <div style="padding:56px 20px 14px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <button class="back-btn" onclick="goTo('home')" style="margin:0;">
+        <i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i>
+      </button>
+      <div style="font-size:17px;font-weight:800;color:var(--text);flex:1;letter-spacing:-0.3px;">Nouvelle publication</div>
+      <button onclick="publishPost()" style="background:var(--purple);color:white;border:none;border-radius:12px;padding:9px 18px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Host Grotesk',sans-serif;">Publier</button>
+    </div>
+
+    <div class="scroll-content" style="padding:20px;">
+      <div style="background:var(--bg);border-radius:20px;height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:pointer;border:2px dashed var(--border);margin-bottom:16px;position:relative;overflow:hidden;" onclick="document.getElementById('photo-input').click()">
+        <div id="photo-preview-wrap" style="display:none;position:absolute;inset:0;">
+          <img id="photo-preview" style="width:100%;height:100%;object-fit:cover;">
+        </div>
+        <i data-lucide="image-plus" style="width:36px;height:36px;color:var(--text-gray);stroke-width:1.5;" id="photo-icon"></i>
+        <div id="photo-label" style="font-size:14px;color:var(--text-gray);font-weight:600;">Ajouter une photo</div>
+        <input type="file" id="photo-input" accept="image/*" style="display:none;" onchange="previewPhoto(this)">
+      </div>
+
+      <textarea id="post-text" placeholder="Partagez un moment de votre quotidien d'aidant…" style="width:100%;min-height:120px;border:1.5px solid var(--border);border-radius:16px;padding:14px;font-size:15px;font-family:'Host Grotesk',sans-serif;color:var(--text);resize:none;outline:none;box-sizing:border-box;line-height:1.55;"></textarea>
+    </div>
+  </div>
+
 </div><!-- end phone-frame -->
 
 <script>
@@ -3369,6 +3467,8 @@ const screens = {
   'onboard-recap':  'screen-onboard-recap',
   'onboard-recos':  'screen-onboard-recos',
   'demarches':      'screen-demarches',
+  'dem-detail':     'screen-dem-detail',
+  'new-post':       'screen-new-post',
   'forum-thread':   'screen-forum-thread',
   'group-chat':     'screen-group-chat',
 };
@@ -3401,6 +3501,7 @@ function personalizeHome() {
       if (barFill) barFill.style.width = Math.round(done/total*100) + '%';
     }
   } catch(e) {}
+  renderFeed();
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
@@ -3614,7 +3715,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat'];
+const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat','dem-detail','new-post'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
@@ -4023,6 +4124,103 @@ function sendThreadReply() {
 }
 // =================== END FORUM THREADS ===================
 
+// =================== COMMUNITY FEED ===================
+const FEED_POSTS = [
+  { avatar:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=76&h=76&fit=crop&crop=faces&q=80', name:'Marie D.', time:'Il y a 2h',
+    img:'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&h=300&fit=crop&q=80',
+    text:'Ce matin, j\'ai réussi à faire sourire ma maman pour la première fois depuis longtemps. Un tout petit moment, mais qui compte énormément. 🌸', likes:14 },
+  { avatar:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=76&h=76&fit=crop&crop=faces&q=80', name:'Thomas K.', time:'Il y a 5h',
+    img:'https://images.unsplash.com/photo-1484981184820-2e84ea0af397?w=400&h=300&fit=crop&q=80',
+    text:'Séance de sophrologie ce midi à la Maison des Aidants. Une heure pour souffler et recharger les batteries. Merci à l\'équipe 🙏', likes:22 },
+  { avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=76&h=76&fit=crop&crop=faces&q=80', name:'Sophie L.', time:'Hier',
+    img:'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop&q=80',
+    text:'On a cuisiné ensemble aujourd\'hui. C\'est tellement plus simple depuis qu\'on y va à notre rythme 🍲', likes:9 },
+];
+let _userPosts = [];
+
+function renderFeed() {
+  const el = document.getElementById('home-feed');
+  if (!el) return;
+  const all = [..._userPosts, ...FEED_POSTS];
+  el.innerHTML = all.map((p, i) => `
+    <div class="feed-post">
+      <div class="feed-post-header">
+        <img class="feed-post-avatar" src="${p.avatar}" loading="lazy">
+        <div>
+          <div class="feed-post-name">${p.name}</div>
+          <div class="feed-post-time">${p.time}</div>
+        </div>
+      </div>
+      <img class="feed-post-img" src="${p.img}" loading="lazy">
+      <div class="feed-post-body">
+        <div class="feed-post-text">${p.text}</div>
+        <div class="feed-post-actions">
+          <button class="feed-like-btn" id="like-${i}" onclick="toggleFeedLike(${i},${p.likes})">
+            <i data-lucide="heart" style="width:16px;height:16px;stroke-width:2;"></i>
+            ${p.likes}
+          </button>
+          <button class="feed-like-btn">
+            <i data-lucide="message-circle" style="width:16px;height:16px;stroke-width:2;"></i>
+            Commenter
+          </button>
+        </div>
+      </div>
+    </div>`).join('');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function toggleFeedLike(i, baseCount) {
+  const btn = document.getElementById('like-' + i);
+  if (!btn) return;
+  btn.classList.toggle('liked');
+  const liked = btn.classList.contains('liked');
+  const icon = btn.querySelector('i');
+  if (icon) icon.style.fill = liked ? '#E91E63' : 'none';
+  btn.innerHTML = btn.innerHTML.replace(/\d+/, liked ? baseCount + 1 : baseCount);
+}
+// =================== END FEED ===================
+
+function previewPhoto(input) {
+  const file = input.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const wrap = document.getElementById('photo-preview-wrap');
+    const img = document.getElementById('photo-preview');
+    const icon = document.getElementById('photo-icon');
+    const label = document.getElementById('photo-label');
+    img.src = e.target.result;
+    wrap.style.display = '';
+    if (icon) icon.style.display = 'none';
+    if (label) label.style.display = 'none';
+  };
+  reader.readAsDataURL(file);
+}
+
+function publishPost() {
+  const text = (document.getElementById('post-text').value || '').trim();
+  const preview = document.getElementById('photo-preview');
+  const hasPhoto = preview && preview.src && preview.src !== window.location.href;
+  if (!text && !hasPhoto) { showToast('Ajoutez une photo ou un texte'); return; }
+  const prenom = profile.prenom || 'Moi';
+  const newPost = {
+    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=76&h=76&fit=crop&q=80',
+    name: prenom, time: 'À l\'instant',
+    img: hasPhoto ? preview.src : 'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=300&fit=crop&q=80',
+    text: text || 'Un nouveau moment partagé 🌸', likes: 0
+  };
+  _userPosts.unshift(newPost);
+  document.getElementById('post-text').value = '';
+  const wrap = document.getElementById('photo-preview-wrap');
+  if (wrap) wrap.style.display = 'none';
+  const icon = document.getElementById('photo-icon');
+  if (icon) icon.style.display = '';
+  const label = document.getElementById('photo-label');
+  if (label) label.style.display = '';
+  goTo('home');
+  showToast('Publication partagée ! 🎉');
+}
+
 // Init navs on load
 document.addEventListener('DOMContentLoaded', () => {
   buildNavs('home');
@@ -4030,12 +4228,36 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // =================== DÉMARCHES ===================
 const DEMARCHES = [
-  { id:'cpam', icon:'🏥', bg:'#EDE8FF', title:'Déclaration aidant à la CPAM', desc:'Déclarez votre statut d\'aidant auprès de l\'Assurance Maladie pour accéder aux droits spécifiques.' },
-  { id:'conge', icon:'🗓️', bg:'#FFF3DC', title:'Congé proche aidant', desc:'Droit à un congé (non rémunéré, 3 mois renouvelables) pour accompagner votre proche au quotidien.' },
-  { id:'ajpa', icon:'💶', bg:'#E8F5E9', title:'Allocation journalière (AJPA)', desc:'Compensation financière lors d\'un congé proche aidant. Versée par la CNSA, environ 62€/jour.' },
-  { id:'mdph', icon:'📄', bg:'#E3F2FD', title:'Reconnaissance MDPH', desc:'Faire reconnaître le handicap ou la perte d\'autonomie de votre proche pour obtenir des aides adaptées.' },
-  { id:'apa', icon:'🤝', bg:'#FCE4EC', title:'APA – Allocation Personnalisée Autonomie', desc:'Aide financière pour les proches de 60 ans et plus en perte d\'autonomie (GIR 1 à 4).' },
-  { id:'retraite', icon:'⏳', bg:'#F3E5F5', title:'Majoration retraite aidant', desc:'Sous conditions, des trimestres de retraite peuvent être accordés pour votre rôle d\'aidant.' },
+  { id:'cpam', icon:'🏥', bg:'#EDE8FF', title:'Déclaration aidant à la CPAM', desc:'Déclarez votre statut auprès de la Sécu pour accéder à vos droits spécifiques.',
+    what:'La déclaration aidant à la CPAM vous reconnaît officiellement comme aidant. C\'est souvent la première étape pour accéder à vos droits et aux aides financières.',
+    who:'Toute personne qui accompagne régulièrement un proche malade, handicapé ou en perte d\'autonomie, qu\'il soit de la famille ou non.',
+    steps:['Connectez-vous sur ameli.fr avec votre compte','Allez dans "Mes démarches" > "Je déclare ma situation d\'aidant"','Joignez une attestation médicale de votre proche (hôpital ou médecin)','Validation sous 15 jours ouvrés par votre CPAM'],
+    link:'ameli.fr — rubrique "Mes démarches"' },
+  { id:'conge', icon:'🗓️', bg:'#FFF3DC', title:'Congé proche aidant', desc:'Un droit à stopper temporairement le travail pour accompagner votre proche.',
+    what:'Le congé proche aidant vous permet de suspendre votre activité professionnelle pour vous occuper de votre proche. Il dure 3 mois renouvelables, jusqu\'à 1 an sur toute votre carrière.',
+    who:'Tout salarié (CDI, CDD, temps partiel), fonctionnaire ou indépendant qui accompagne un proche en situation de handicap ou de perte d\'autonomie sévère.',
+    steps:['Informez votre employeur au moins 1 mois avant (lettre recommandée ou remise en main propre)','Joignez la déclaration sur l\'honneur de votre lien avec le proche','Fournissez un justificatif du handicap ou de la perte d\'autonomie','Demandez l\'AJPA à la CAF en parallèle pour être compensé'],
+    link:'travail-emploi.gouv.fr — "Congé proche aidant"' },
+  { id:'ajpa', icon:'💶', bg:'#E8F5E9', title:'Allocation journalière (AJPA)', desc:'Une aide financière quotidienne pendant votre congé proche aidant.',
+    what:'L\'AJPA (Allocation Journalière du Proche Aidant) est une compensation versée pendant le congé proche aidant. Elle est d\'environ 62€/jour pour une personne seule et 52€ pour un couple.',
+    who:'Tout aidant qui prend un congé proche aidant, une disponibilité ou une réduction de son temps de travail pour accompagner son proche.',
+    steps:['Déposez votre demande sur caf.fr ou à votre CAF locale','Joignez le justificatif du congé accordé par votre employeur','Indiquez le nombre de jours concernés','Le versement démarre le mois suivant la validation'],
+    link:'caf.fr — rechercher "AJPA"' },
+  { id:'mdph', icon:'📄', bg:'#E3F2FD', title:'Reconnaissance MDPH', desc:'Faire reconnaître officiellement le handicap de votre proche pour obtenir des aides.',
+    what:'La MDPH (Maison Départementale des Personnes Handicapées) instruit les demandes de reconnaissance du handicap. Cette reconnaissance ouvre des droits spécifiques pour votre proche et pour vous.',
+    who:'Aidants de proches souffrant d\'un handicap ou d\'une maladie chronique invalidante, quel que soit l\'âge (enfant, adulte).',
+    steps:['Téléchargez le formulaire de demande sur mdph.fr ou au guichet de votre MDPH','Remplissez le volet administratif + le volet médical (à faire remplir par le médecin)','Déposez le dossier complet à votre MDPH départementale','Le délai de traitement est de 4 à 6 mois en général'],
+    link:'mdph.fr — formulaire cerfa n°13788' },
+  { id:'apa', icon:'🤝', bg:'#FCE4EC', title:'APA – Allocation Personnalisée Autonomie', desc:'Une aide financière pour couvrir les frais liés à la perte d\'autonomie de votre proche.',
+    what:'L\'APA finance une partie des dépenses d\'aide à domicile (aide-soignant, aide ménagère, matériel…) pour les personnes de 60 ans et plus en perte d\'autonomie (GIR 1 à 4).',
+    who:'Les proches de 60 ans et plus résidant en France, classés GIR 1 à 4 après évaluation. L\'aidant qui fait la demande au nom du proche.',
+    steps:['Retirez le dossier de demande à votre CCAS ou au Conseil Départemental','Remplissez les volets administratifs et médicaux','Déposez le dossier — une équipe viendra évaluer l\'autonomie de votre proche à domicile','L\'APA est versée directement à votre proche ou à son service d\'aide'],
+    link:'service-public.fr — "APA"' },
+  { id:'retraite', icon:'⏳', bg:'#F3E5F5', title:'Majoration retraite aidant', desc:'Des trimestres de retraite supplémentaires pour votre rôle d\'aidant.',
+    what:'Sous certaines conditions, votre rôle d\'aidant peut vous permettre d\'obtenir des trimestres de retraite supplémentaires (Assurance Vieillesse des Parents au Foyer ou AVPF).',
+    who:'Aidants qui réduisent ou cessent leur activité professionnelle pour accompagner un proche reconnu handicapé ou en GIR 1 à 4, et dont les ressources n\'excèdent pas un plafond.',
+    steps:['Vérifiez votre éligibilité avec votre caisse de retraite (Carsat, MSA, RSI)','Signalez votre situation à votre CPAM pour le rattachement à l\'AVPF','Le versement des cotisations est automatique si vous remplissez les conditions','Consultez votre relevé de carrière sur lassuranceretraite.fr pour vérifier'],
+    link:'lassuranceretraite.fr — "AVPF"' },
 ];
 
 const DEM_STATUS_KEY = 'welo_dem_status';
@@ -4059,6 +4281,41 @@ function renderDemProgress() {
   if (lbl) lbl.textContent = `${done}/${total} démarche${done > 1 ? 's' : ''} complétée${done > 1 ? 's' : ''}`;
   const fill = document.getElementById('dem-progress-fill');
   if (fill) fill.style.width = pct + '%';
+}
+
+function openDemDetail(id) {
+  const d = DEMARCHES.find(x => x.id === id);
+  if (!d) return;
+  const s = getDemStatuses();
+  const st = s[id] || '';
+
+  document.getElementById('dem-d-title').textContent = d.title;
+  const iconEl = document.getElementById('dem-d-icon');
+  iconEl.textContent = d.icon;
+  iconEl.style.background = d.bg;
+  document.getElementById('dem-d-what').textContent = d.what;
+  document.getElementById('dem-d-who').textContent = d.who;
+  document.getElementById('dem-d-link').textContent = d.link;
+
+  document.getElementById('dem-d-steps').innerHTML = d.steps.map((step, i) =>
+    `<div class="dem-step"><div class="dem-step-num">${i+1}</div><div class="dem-step-text">${step}</div></div>`
+  ).join('');
+
+  const statusRow = document.getElementById('dem-d-status-row');
+  statusRow.innerHTML = `
+    <button class="dem-status-btn${st==='todo'?' active-todo':''}" style="flex:1;" onclick="setDemStatusDetail('${id}','todo',this)">À faire</button>
+    <button class="dem-status-btn${st==='doing'?' active-doing':''}" style="flex:1;" onclick="setDemStatusDetail('${id}','doing',this)">En cours</button>
+    <button class="dem-status-btn${st==='done'?' active-done':''}" style="flex:1;" onclick="setDemStatusDetail('${id}','done',this)">Fait ✓</button>`;
+
+  goTo('dem-detail');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function setDemStatusDetail(id, status, el) {
+  saveDemStatus(id, status);
+  const row = el.closest('#dem-d-status-row');
+  row.querySelectorAll('.dem-status-btn').forEach(b => b.classList.remove('active-todo','active-doing','active-done'));
+  el.classList.add('active-' + status);
 }
 
 function setDemStatus(id, status, el) {
@@ -4095,7 +4352,7 @@ function renderDemarches() {
       const st = s[d.id] || '';
       const borderColor = st === 'done' ? '#4CAF50' : st === 'doing' ? '#F5C400' : st === 'todo' ? '#FF6B35' : 'var(--border)';
       return `<div class="dem-card" style="border-color:${borderColor};">
-        <div class="dem-card-top">
+        <div class="dem-card-top" style="cursor:pointer;" onclick="openDemDetail('${d.id}')">
           <div class="dem-card-icon" style="background:${d.bg};">${d.icon}</div>
           <div>
             <div class="dem-card-title">${d.title}</div>
