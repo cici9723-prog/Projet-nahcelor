@@ -296,6 +296,8 @@
     justify-content: center;
     font-weight: 700;
     color: white;
+    overflow: hidden;
+    flex-shrink: 0;
   }
   .avatar-stack .av:first-child { margin-left: 0; }
 
@@ -1873,24 +1875,7 @@
   <div class="screen active" id="screen-splash">
     <div style="flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; padding: 40px;">
       <div class="splash-mascot">
-        <svg width="120" height="140" viewBox="0 0 120 140" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <!-- Arms -->
-          <line x1="20" y1="75" x2="5" y2="90" stroke="#F5C400" stroke-width="8" stroke-linecap="round"/>
-          <line x1="100" y1="75" x2="115" y2="90" stroke="#F5C400" stroke-width="8" stroke-linecap="round"/>
-          <!-- Legs -->
-          <line x1="48" y1="115" x2="40" y2="135" stroke="#F5C400" stroke-width="8" stroke-linecap="round"/>
-          <line x1="72" y1="115" x2="80" y2="135" stroke="#F5C400" stroke-width="8" stroke-linecap="round"/>
-          <!-- Heart body -->
-          <path d="M60 108 C30 95 10 75 10 52 C10 35 23 22 38 22 C48 22 57 28 60 35 C63 28 72 22 82 22 C97 22 110 35 110 52 C110 75 90 95 60 108Z" fill="#F5C400"/>
-          <!-- Face - closed eyes -->
-          <path d="M43 55 Q47 51 51 55" stroke="#1A1A2E" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <path d="M69 55 Q73 51 77 55" stroke="#1A1A2E" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <!-- Smile -->
-          <path d="M48 70 Q60 80 72 70" stroke="#1A1A2E" stroke-width="3" stroke-linecap="round" fill="none"/>
-          <!-- Cheeks -->
-          <ellipse cx="40" cy="67" rx="6" ry="4" fill="#FF8C69" opacity="0.5"/>
-          <ellipse cx="80" cy="67" rx="6" ry="4" fill="#FF8C69" opacity="0.5"/>
-        </svg>
+        <img src="images/Mascotte qui tend la main.png" style="width:130px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(245,196,0,0.3));" alt="Mascotte WELO">
       </div>
       <div class="splash-title">Bienvenue sur<br>WELO</div>
       <div class="splash-subtitle">Prends soin de toi et des autres</div>
@@ -1908,16 +1893,7 @@
             <div class="home-greeting-sub" id="home-greeting-sub">Prends soin de toi et des autres</div>
             <div class="home-greeting-name" id="home-greeting-name">Bonjour Marie !</div>
           </div>
-          <svg class="home-mascot-small" viewBox="0 0 80 95" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <line x1="14" y1="50" x2="3" y2="62" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
-            <line x1="66" y1="50" x2="77" y2="62" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
-            <line x1="32" y1="78" x2="27" y2="93" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
-            <line x1="48" y1="78" x2="53" y2="93" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
-            <path d="M40 75 C20 65 5 50 5 33 C5 21 14 12 24 12 C31 12 37 16 40 22 C43 16 49 12 56 12 C66 12 75 21 75 33 C75 50 60 65 40 75Z" fill="#F5C400"/>
-            <path d="M28 36 Q31 32 34 36" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-            <path d="M46 36 Q49 32 52 36" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-            <path d="M32 47 Q40 54 48 47" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-          </svg>
+          <img src="images/Mascotte qui tend la main.png" class="home-mascot-small" style="object-fit:contain;" alt="Mascotte WELO">
         </div>
       </div>
 
@@ -2130,44 +2106,44 @@
           <span style="font-size:13px; color:var(--purple); font-weight:600; cursor:pointer">Voir tout</span>
         </div>
         <div class="groups-grid">
-          <div class="group-card" onclick="goTo('forum')">
+          <div class="group-card" onclick="openGroup(0)">
             <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av" style="background:#F5C400;">M</div>
-              <div class="av" style="background:#6C47FF;">S</div>
-              <div class="av" style="background:#FF6B6B;">L</div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
             </div>
             <div class="group-card-title">Conseils et astuces</div>
             <div class="group-card-desc">Mieux vivre le quotidien à l'hôpital et autour.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Découvrir →</button>
+            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
           </div>
-          <div class="group-card" onclick="goTo('forum')">
+          <div class="group-card" onclick="openGroup(1)">
             <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av" style="background:#4CAF50;">G</div>
-              <div class="av" style="background:#E91E63;">A</div>
-              <div class="av" style="background:#2196F3;">P</div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
             </div>
             <div class="group-card-title">Se soutenir</div>
             <div class="group-card-desc">Parler à des personnes qui comprennent.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Découvrir →</button>
+            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
           </div>
-          <div class="group-card" onclick="goTo('forum')">
+          <div class="group-card" onclick="openGroup(2)">
             <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av" style="background:#FF9800;">T</div>
-              <div class="av" style="background:#9C27B0;">C</div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
             </div>
             <div class="group-card-title">Témoignages</div>
             <div class="group-card-desc">Partagez vos expériences d'aidant.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Découvrir →</button>
+            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
           </div>
-          <div class="group-card" onclick="goTo('forum')">
+          <div class="group-card" onclick="openGroup(3)">
             <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av" style="background:#00BCD4;">N</div>
-              <div class="av" style="background:#8BC34A;">D</div>
-              <div class="av" style="background:#FF5722;">R</div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              <div class="av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
             </div>
             <div class="group-card-title">Bien-être & détente</div>
             <div class="group-card-desc">Des ressources pour prendre soin de vous.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Découvrir →</button>
+            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
           </div>
         </div>
       </div>
@@ -2319,21 +2295,7 @@
 
     <!-- Floating mascot -->
     <div style="position:absolute; bottom:88px; right:16px; pointer-events:none;">
-      <svg width="48" height="56" viewBox="0 0 80 95" fill="none">
-        <line x1="14" y1="50" x2="3" y2="62" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
-        <line x1="66" y1="50" x2="77" y2="62" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
-        <line x1="32" y1="78" x2="27" y2="93" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
-        <line x1="48" y1="78" x2="53" y2="93" stroke="#F5C400" stroke-width="6" stroke-linecap="round"/>
-        <path d="M40 75 C20 65 5 50 5 33 C5 21 14 12 24 12 C31 12 37 16 40 22 C43 16 49 12 56 12 C66 12 75 21 75 33 C75 50 60 65 40 75Z" fill="#F5C400"/>
-        <path d="M28 36 Q31 32 34 36" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <path d="M46 36 Q49 32 52 36" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <circle cx="34" cy="37" r="1.5" fill="#1A1A2E"/>
-        <circle cx="52" cy="37" r="1.5" fill="#1A1A2E"/>
-        <path d="M34 47 Q40 52 46 47" stroke="#1A1A2E" stroke-width="2.5" stroke-linecap="round" fill="none"/>
-        <!-- Question mark -->
-        <circle cx="62" cy="15" r="12" fill="white" stroke="#F5C400" stroke-width="2"/>
-        <text x="62" y="20" text-anchor="middle" font-size="14" font-weight="800" fill="#1A1A2E">?</text>
-      </svg>
+      <img src="images/Mascotte qui tend la main.png" style="width:56px;height:auto;object-fit:contain;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));" alt="Mascotte WELO">
     </div>
 
     <div class="bottom-nav">
@@ -3321,6 +3283,39 @@
       <!-- Filled by JS -->
     </div>
   </div>
+  <!-- ===================== SCREEN GROUP CHAT ===================== -->
+  <div class="screen" id="screen-group-chat" style="flex-direction:column;">
+    <div style="padding:56px 20px 12px;background:white;border-bottom:1px solid var(--border);flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <button class="back-btn" onclick="goTo('community')" style="margin:0;">
+          <i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i>
+        </button>
+        <div style="flex:1;min-width:0;">
+          <div id="group-name" style="font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;"></div>
+          <div id="group-member-count" style="font-size:12px;color:var(--text-gray);"></div>
+        </div>
+        <button onclick="showToast('Informations du groupe')" style="background:var(--bg);border:none;border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+          <i data-lucide="info" style="width:18px;height:18px;color:var(--text-gray);stroke-width:2;"></i>
+        </button>
+      </div>
+      <!-- Member strip -->
+      <div style="display:flex;gap:12px;margin-top:12px;overflow-x:auto;scrollbar-width:none;padding-bottom:4px;" id="group-members-strip"></div>
+    </div>
+
+    <div class="scroll-content" id="group-msg-scroll" style="display:flex;flex-direction:column;gap:0;">
+      <div id="group-messages" style="padding:12px 0;"></div>
+    </div>
+
+    <div style="padding:10px 14px 20px;background:white;border-top:1px solid var(--border);display:flex;gap:10px;align-items:center;flex-shrink:0;">
+      <div class="search-bar" style="flex:1;margin:0;">
+        <input type="text" id="group-input" placeholder="Message…" style="flex:1;" onkeydown="if(event.key==='Enter')sendGroupMsg()">
+      </div>
+      <button onclick="sendGroupMsg()" style="width:44px;height:44px;background:var(--purple);border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0;">
+        <i data-lucide="send" style="width:18px;height:18px;color:white;stroke-width:2;"></i>
+      </button>
+    </div>
+  </div>
+
   <!-- ===================== SCREEN FORUM THREAD ===================== -->
   <div class="screen" id="screen-forum-thread" style="flex-direction:column;">
     <div style="padding:56px 20px 14px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;">
@@ -3375,6 +3370,7 @@ const screens = {
   'onboard-recos':  'screen-onboard-recos',
   'demarches':      'screen-demarches',
   'forum-thread':   'screen-forum-thread',
+  'group-chat':     'screen-group-chat',
 };
 function personalizeHome() {
   const prenom = profile.prenomProche || profile.prenom || 'Marie';
@@ -3618,7 +3614,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread'];
+const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
@@ -3830,6 +3826,112 @@ function updateClock() {
 }
 updateClock();
 setInterval(updateClock, 30000);
+
+// =================== GROUPS ===================
+const _P = {
+  marie:    { photo:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=72&h=72&fit=crop&crop=faces&q=80', name:'Marie' },
+  sophie:   { photo:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=72&h=72&fit=crop&crop=faces&q=80', name:'Sophie' },
+  thomas:   { photo:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=72&h=72&fit=crop&crop=faces&q=80', name:'Thomas' },
+  pierre:   { photo:'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=72&h=72&fit=crop&crop=faces&q=80', name:'Pierre' },
+  nadia:    { photo:'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=72&h=72&fit=crop&crop=faces&q=80', name:'Nadia' },
+  david:    { photo:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=72&h=72&fit=crop&crop=faces&q=80', name:'David' },
+  gabrielle:{ photo:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=72&h=72&fit=crop&crop=faces&q=80', name:'Gabrielle' },
+  laure:    { photo:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=72&h=72&fit=crop&crop=faces&q=80', name:'Laure' },
+};
+
+const GROUP_DATA = [
+  {
+    name: 'Conseils et astuces', desc: 'Mieux vivre le quotidien', members: 12,
+    people: [_P.marie, _P.thomas, _P.sophie, _P.pierre, _P.david],
+    messages: [
+      { p:_P.marie,    time:'09:14', text:'Bonjour à tous ! Quelqu\'un a des astuces pour gérer les rendez-vous médicaux en semaine ?' },
+      { p:_P.thomas,   time:'09:31', text:'J\'utilise un calendrier partagé avec les médecins référents — ça évite vraiment les doublons.' },
+      { p:_P.sophie,   time:'09:45', text:'Voilà le lien utile 👉 service-public.fr/aidants — il y a toutes les démarches regroupées.' },
+      { p:_P.pierre,   time:'10:02', text:'Merci Sophie ! Je savais pas que ça existait. C\'est vraiment pratique.' },
+      { p:_P.marie,    time:'10:18', text:'Et pensez aussi à demander une assistante sociale à l\'hôpital, elles connaissent toutes les aides locales 🙏' },
+    ]
+  },
+  {
+    name: 'Se soutenir', desc: 'Parler à des personnes qui comprennent', members: 24,
+    people: [_P.sophie, _P.david, _P.pierre, _P.nadia, _P.gabrielle],
+    messages: [
+      { p:_P.sophie,   time:'08:02', text:'Ce matin a été très difficile... Mon père ne me reconnaît plus certains jours. Je ne sais plus quoi faire.' },
+      { p:_P.david,    time:'08:15', text:'Je t\'entends Sophie. C\'est tellement dur. Tu n\'es pas seule dans ce que tu traverses 💙' },
+      { p:_P.nadia,    time:'08:23', text:'Courage à tous. Ces journées existent, et elles passent. On est là.' },
+      { p:_P.pierre,   time:'08:47', text:'J\'ai vécu la même chose il y a 2 ans. Ce qui m\'a aidé : écrire ce que je ressentais. Ça libère.' },
+      { p:_P.sophie,   time:'09:01', text:'Merci à tous... Je me sens déjà moins seule. ❤️' },
+    ]
+  },
+  {
+    name: 'Témoignages', desc: 'Partagez vos expériences d\'aidant', members: 8,
+    people: [_P.nadia, _P.thomas, _P.marie],
+    messages: [
+      { p:_P.nadia,    time:'14:10', text:'Je voulais partager : ça fait 3 ans que j\'accompagne ma mère atteinte de Parkinson. Le plus dur, c\'est d\'accepter qu\'on ne peut pas tout contrôler.' },
+      { p:_P.thomas,   time:'14:28', text:'Ton témoignage m\'aide vraiment. J\'en suis au début avec mon père et je me sens submergé.' },
+      { p:_P.marie,    time:'14:45', text:'Nadia, tu mets des mots sur quelque chose d\'important. Merci de partager ça avec nous.' },
+      { p:_P.nadia,    time:'15:02', text:'Si ça peut aider quelqu\'un... J\'aurais aimé lire ce genre de chose quand j\'ai commencé.' },
+    ]
+  },
+  {
+    name: 'Bien-être & détente', desc: 'Des ressources pour prendre soin de vous', members: 15,
+    people: [_P.laure, _P.david, _P.pierre, _P.gabrielle],
+    messages: [
+      { p:_P.laure,    time:'19:05', text:'Nouveau atelier sophrologie vendredi prochain à la Maison des Aidants Paris 11e ! Places limitées 🌿' },
+      { p:_P.david,    time:'19:17', text:'J\'y étais le mois dernier — c\'était vraiment ressourçant. Je recommande à tous.' },
+      { p:_P.gabrielle,time:'19:34', text:'Est-ce que c\'est adapté aux débutants ? Je n\'ai jamais essayé la sophrologie.' },
+      { p:_P.laure,    time:'19:42', text:'Oui complètement ! La sophrologue est très pédagogue. On repart vraiment apaisés 😊' },
+      { p:_P.pierre,   time:'20:01', text:'J\'ai réservé ma place. Merci pour l\'info Laure !' },
+    ]
+  },
+];
+
+let _currentGroup = null;
+
+function openGroup(idx) {
+  _currentGroup = GROUP_DATA[idx];
+  const g = _currentGroup;
+
+  document.getElementById('group-name').textContent = g.name;
+  document.getElementById('group-member-count').textContent = g.members + ' membres';
+
+  // Member strip
+  const strip = document.getElementById('group-members-strip');
+  strip.innerHTML = g.people.map(p => `
+    <div style="display:flex;flex-direction:column;align-items:center;gap:4px;flex-shrink:0;">
+      <img src="${p.photo}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid var(--border);" loading="lazy">
+      <span style="font-size:10px;font-weight:600;color:var(--text-gray);white-space:nowrap;">${p.name}</span>
+    </div>`).join('');
+
+  // Messages
+  const msgs = document.getElementById('group-messages');
+  msgs.innerHTML = g.messages.map(m => `
+    <div style="display:flex;gap:10px;padding:10px 16px;align-items:flex-start;">
+      <img src="${m.p.photo}" style="width:36px;height:36px;border-radius:50%;object-fit:cover;flex-shrink:0;" loading="lazy">
+      <div style="flex:1;min-width:0;">
+        <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:4px;">${m.p.name} <span style="font-weight:400;color:var(--text-gray);">${m.time}</span></div>
+        <div style="background:#F0F0F6;border-radius:4px 18px 18px 18px;padding:10px 14px;font-size:14px;color:var(--text);line-height:1.5;">${m.text}</div>
+      </div>
+    </div>`).join('');
+
+  goTo('group-chat');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function sendGroupMsg() {
+  const input = document.getElementById('group-input');
+  const text = input ? input.value.trim() : '';
+  if (!text) return;
+  const prenom = profile.prenom || 'Moi';
+  const msgs = document.getElementById('group-messages');
+  const div = document.createElement('div');
+  div.style.cssText = 'display:flex;justify-content:flex-end;padding:10px 16px;';
+  div.innerHTML = `<div style="max-width:75%;"><div style="background:var(--purple);border-radius:18px 18px 4px 18px;padding:10px 14px;font-size:14px;color:white;line-height:1.5;">${text.replace(/</g,'&lt;')}</div><div style="font-size:11px;color:var(--text-gray);margin-top:3px;text-align:right;">${prenom} · maintenant</div></div>`;
+  msgs.appendChild(div);
+  const sc = document.getElementById('group-msg-scroll');
+  if (sc) sc.scrollTop = sc.scrollHeight;
+  input.value = ''; input.blur();
+}
+// =================== END GROUPS ===================
 
 // =================== FORUM THREADS ===================
 const FORUM_DATA = [
