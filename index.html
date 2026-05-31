@@ -2001,19 +2001,6 @@
         </div>
       </div>
 
-      <!-- Fil communautaire -->
-      <div class="section-header">
-        <div class="section-title" style="display:flex;align-items:center;gap:6px;">
-          <i data-lucide="users-round" style="width:14px;height:14px;color:var(--yellow);stroke-width:2.5;"></i>
-          COMMUNAUTÉ
-        </div>
-        <button onclick="goTo('new-post')" style="background:var(--purple);color:white;border:none;border-radius:50px;padding:6px 12px;font-size:12px;font-weight:700;cursor:pointer;font-family:'Host Grotesk',sans-serif;display:flex;align-items:center;gap:5px;">
-          <i data-lucide="plus" style="width:13px;height:13px;stroke-width:2.5;"></i>
-          Publier
-        </button>
-      </div>
-      <div id="home-feed" style="margin-bottom:4px;"></div>
-
       <!-- Bloc Démarches -->
       <div style="padding:0 20px 20px;">
         <div id="home-demarches-block" onclick="goTo('demarches')" style="background:linear-gradient(135deg,#EDE8FF 0%,#E0DAFF 100%);border-radius:20px;padding:16px 18px;border:1.5px solid var(--purple-mid);cursor:pointer;display:flex;align-items:center;gap:14px;">
@@ -2037,7 +2024,7 @@
         </div>
       </div>
       <div class="news-grid" style="padding-bottom:28px;">
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="showToast('Article ouvert')">
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="openArticle(0)">
           <div style="height:110px;position:relative;overflow:hidden;">
             <img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=400&h=220&fit=crop&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy" alt="Santé">
             <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.45));"></div>
@@ -2048,7 +2035,7 @@
             <button class="news-btn">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="showToast('Article ouvert')">
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="openArticle(1)">
           <div style="height:110px;position:relative;overflow:hidden;">
             <img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&h=220&fit=crop&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy" alt="Bien-être">
             <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.45));"></div>
@@ -2059,7 +2046,7 @@
             <button class="news-btn">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="showToast('Article ouvert')">
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="openArticle(2)">
           <div style="height:110px;position:relative;overflow:hidden;">
             <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400&h=220&fit=crop&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy" alt="Conseils">
             <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.45));"></div>
@@ -2070,7 +2057,7 @@
             <button class="news-btn">Lire →</button>
           </div>
         </div>
-        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="showToast('Article ouvert')">
+        <div class="news-card" style="border:1px solid var(--border);box-shadow:none;" onclick="openArticle(3)">
           <div style="height:110px;position:relative;overflow:hidden;">
             <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?w=400&h=220&fit=crop&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy" alt="Aidants">
             <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 30%,rgba(0,0,0,0.45));"></div>
@@ -2126,9 +2113,10 @@
 
     <!-- Tabs -->
     <div class="tabs">
-      <button class="tab" onclick="switchTab(this, 'tab-personnes')">Personnes</button>
       <button class="tab active" onclick="switchTab(this, 'tab-groupes')">Groupes</button>
+      <button class="tab" onclick="switchTab(this, 'tab-publications')">Publications</button>
       <button class="tab" onclick="switchTab(this, 'tab-questions')">Questions</button>
+      <button class="tab" onclick="switchTab(this, 'tab-personnes')">Personnes</button>
     </div>
 
     <div class="scroll-content">
@@ -2182,6 +2170,18 @@
             <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
           </div>
         </div>
+      </div>
+
+      <!-- Tab: Publications (hidden) -->
+      <div id="tab-publications" style="display:none;">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 8px;">
+          <div style="font-size:13px;color:var(--text-gray);font-weight:500;">Moments partagés par la communauté</div>
+          <button onclick="goTo('new-post')" style="background:var(--purple);color:white;border:none;border-radius:50px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Host Grotesk',sans-serif;display:flex;align-items:center;gap:5px;">
+            <i data-lucide="plus" style="width:14px;height:14px;stroke-width:2.5;"></i>
+            Publier
+          </button>
+        </div>
+        <div id="community-feed" style="padding-bottom:20px;"></div>
       </div>
 
       <!-- Tab: Personnes (hidden) -->
@@ -3319,6 +3319,28 @@
       <!-- Filled by JS -->
     </div>
   </div>
+  <!-- ===================== SCREEN ARTICLE DETAIL ===================== -->
+  <div class="screen" id="screen-article-detail" style="flex-direction:column;">
+    <div style="position:absolute;top:0;left:0;right:0;z-index:20;padding:16px 16px 0;display:flex;">
+      <button onclick="goTo('home')" style="background:rgba(0,0,0,0.4);backdrop-filter:blur(4px);border:none;border-radius:50%;width:40px;height:40px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+        <i data-lucide="arrow-left" style="width:20px;height:20px;color:white;stroke-width:2.5;"></i>
+      </button>
+    </div>
+    <div class="scroll-content">
+      <div style="position:relative;height:240px;overflow:hidden;flex-shrink:0;">
+        <img id="art-hero-img" style="width:100%;height:100%;object-fit:cover;" loading="lazy">
+        <div style="position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(0,0,0,0.6));"></div>
+        <div style="position:absolute;bottom:16px;left:16px;right:16px;">
+          <span id="art-category" style="background:rgba(255,255,255,0.2);backdrop-filter:blur(4px);color:white;font-size:10px;font-weight:800;padding:3px 8px;border-radius:4px;letter-spacing:0.8px;"></span>
+          <div id="art-title" style="font-size:20px;font-weight:800;color:white;letter-spacing:-0.4px;line-height:1.25;margin-top:8px;"></div>
+        </div>
+      </div>
+      <div style="padding:20px 20px 40px;">
+        <div id="art-body" style="font-size:15px;color:var(--text);line-height:1.75;"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ===================== SCREEN GROUP CHAT ===================== -->
   <div class="screen" id="screen-group-chat" style="flex-direction:column;">
     <div style="padding:56px 20px 12px;background:white;border-bottom:1px solid var(--border);flex-shrink:0;">
@@ -3469,6 +3491,7 @@ const screens = {
   'demarches':      'screen-demarches',
   'dem-detail':     'screen-dem-detail',
   'new-post':       'screen-new-post',
+  'article-detail': 'screen-article-detail',
   'forum-thread':   'screen-forum-thread',
   'group-chat':     'screen-group-chat',
 };
@@ -3501,7 +3524,6 @@ function personalizeHome() {
       if (barFill) barFill.style.width = Math.round(done/total*100) + '%';
     }
   } catch(e) {}
-  renderFeed();
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
@@ -3715,7 +3737,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat','dem-detail','new-post'];
+const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat','dem-detail','new-post','article-detail'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
@@ -3756,11 +3778,13 @@ function switchTab(btn, tabId) {
   btn.closest('.tabs').querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   btn.classList.add('active');
   // Show/hide tab content
-  const allTabs = ['tab-groupes', 'tab-personnes', 'tab-questions'];
+  const allTabs = ['tab-groupes', 'tab-personnes', 'tab-questions', 'tab-publications'];
   allTabs.forEach(t => {
     const el = document.getElementById(t);
     if (el) el.style.display = t === tabId ? 'block' : 'none';
   });
+  if (tabId === 'tab-publications') renderFeed();
+  if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 
 function openChat(name, initial, color, time, msg, photo) {
@@ -4124,6 +4148,62 @@ function sendThreadReply() {
 }
 // =================== END FORUM THREADS ===================
 
+// =================== ARTICLES ===================
+const ARTICLES = [
+  { img:'https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&h=480&fit=crop&q=80',
+    cat:'SANTÉ', title:'Comment vos dons améliorent le quotidien à l\'hôpital ?',
+    body:`<p style="margin:0 0 16px;">Chaque année, des milliers de familles font des dons aux associations qui soutiennent les patients et les soignants dans les hôpitaux. Mais à quoi servent concrètement ces dons ? Et comment impactent-ils le quotidien des aidants présents auprès de leurs proches ?</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Des équipements qui changent tout</p>
+<p style="margin:0 0 16px;">Grâce aux donations, de nombreux hôpitaux ont pu acquérir des fauteuils confortables dans les chambres, des espaces de repos pour les familles, ou encore du matériel pédagogique pour que les aidants apprennent à accompagner leur proche dans les soins à domicile.</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Un soutien psychologique accessible</p>
+<p style="margin:0 0 16px;">Les dons permettent aussi de financer des psychologues disponibles pour les aidants, souvent épuisés. Ces professionnels organisent des groupes de parole, des séances individuelles, et des ateliers bien-être dans les espaces dédiés aux familles.</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Comment contribuer ?</p>
+<p style="margin:0;">La plupart des CHU et hôpitaux locaux ont leur propre fondation. Vous pouvez aussi soutenir des associations comme France Aidants, la Croix-Rouge ou la Fondation de France. Même un petit don peut faire une grande différence dans le quotidien d'un aidant.</p>` },
+  { img:'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=800&h=480&fit=crop&q=80',
+    cat:'BIEN-ÊTRE', title:'Préserver son équilibre en accompagnant un proche',
+    body:`<p style="margin:0 0 16px;">Être aidant, c\'est donner une part immense de soi. Mais pour accompagner durablement, il faut d'abord prendre soin de soi. Voici comment trouver cet équilibre fragile entre présence et préservation de soi.</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Accepter de ne pas tout porter</p>
+<p style="margin:0 0 16px;">Le premier pas est souvent le plus difficile : accepter qu\'on ne peut pas tout faire seul. Solliciter un proche, une aide à domicile, ou un service de répit n\'est pas un aveu de faiblesse. C\'est une décision sage et courageuse.</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Préserver ses rituels personnels</p>
+<p style="margin:0 0 16px;">Une promenade le matin, un café seul, un livre avant de dormir… Ces petits rituels sont vos ancres. Ils ne sont pas du luxe. Ils font partie de votre équilibre et vous permettent de rester disponible pour votre proche.</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Mettre des mots sur ce qu\'on ressent</p>
+<p style="margin:0;">Parler à un ami, rejoindre un groupe de soutien, ou consulter un psychologue permet de ne pas être submergé par ses émotions. Les Maisons des Aidants proposent souvent ces espaces de parole gratuitement.</p>` },
+  { img:'https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&h=480&fit=crop&q=80',
+    cat:'CONSEILS', title:'5 gestes pour prendre soin de vous au quotidien',
+    body:`<p style="margin:0 0 16px;">Prendre soin d\'un proche prend souvent tout l\'espace. Voici 5 gestes simples, concrets et efficaces pour ne pas vous oublier au quotidien.</p>
+<p style="margin:0 0 14px;font-weight:700;font-size:15px;">1. Marchez 20 minutes par jour</p>
+<p style="margin:0 0 16px;">Même un court trajet à pied libère des endorphines et oxygène le cerveau. Profitez d\'un moment de relais pour sortir, même brièvement.</p>
+<p style="margin:0 0 14px;font-weight:700;font-size:15px;">2. Mangez assis, sans écran</p>
+<p style="margin:0 0 16px;">Un repas pris debout en gérant d\'autres choses n\'est pas vraiment un repas. Accordez-vous 15 minutes assise, sans téléphone ni télévision.</p>
+<p style="margin:0 0 14px;font-weight:700;font-size:15px;">3. Dormez en priorité</p>
+<p style="margin:0 0 16px;">Le sommeil est votre premier médicament. Si les nuits sont perturbées, essayez des siestes courtes (20 min) dès que possible.</p>
+<p style="margin:0 0 14px;font-weight:700;font-size:15px;">4. Dites non sans vous justifier</p>
+<p style="margin:0 0 16px;">Vous avez le droit de refuser une sollicitation, de déléguer une tâche, de prendre du recul. Protéger votre énergie est une nécessité, pas de l\'égoïsme.</p>
+<p style="margin:0 0 14px;font-weight:700;font-size:15px;">5. Notez une chose positive chaque soir</p>
+<p style="margin:0;">Un mot gentil de votre proche, un rayon de soleil, un bon café. Tenir un mini-journal de gratitude entraîne le cerveau à percevoir aussi le positif.</p>` },
+  { img:'https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&h=480&fit=crop&q=80',
+    cat:'AIDANTS', title:'Burn-out des aidants : reconnaître les signaux',
+    body:`<p style="margin:0 0 16px;">Le burn-out de l\'aidant est une réalité méconnue. Il touche 40 à 50 % des aidants à un moment de leur parcours. Reconnaître les signaux précoces est crucial pour agir avant l\'épuisement total.</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Les signes qui ne trompent pas</p>
+<p style="margin:0 0 16px;">Irritabilité inhabituelle, fatigue qui ne passe pas avec le sommeil, sentiment d\'être piégé ou de ne plus "ressentir" les choses, isolement progressif, oublis fréquents, douleurs physiques sans explication médicale… Ces signaux sont le corps qui parle.</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Le burn-out n\'est pas une faiblesse</p>
+<p style="margin:0 0 16px;">Il est la conséquence d\'un trop-plein non reconnu. Vous n\'avez pas "craqué" : vous avez simplement été humain face à une situation qui dépasse les capacités d\'une seule personne.</p>
+<p style="margin:0 0 16px;font-weight:700;font-size:16px;">Quoi faire si vous vous reconnaissez ?</p>
+<p style="margin:0;">Parlez-en à votre médecin traitant. Contactez un service de répit. Appelez le 09 72 72 09 02 (numéro national des aidants) pour être orienté. Et rappelez-vous : demander de l\'aide pour vous, c\'est aussi prendre soin de votre proche.</p>` },
+];
+
+function openArticle(idx) {
+  const a = ARTICLES[idx];
+  if (!a) return;
+  document.getElementById('art-hero-img').src = a.img;
+  document.getElementById('art-category').textContent = a.cat;
+  document.getElementById('art-title').textContent = a.title;
+  document.getElementById('art-body').innerHTML = a.body;
+  goTo('article-detail');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+// =================== END ARTICLES ===================
+
 // =================== COMMUNITY FEED ===================
 const FEED_POSTS = [
   { avatar:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=76&h=76&fit=crop&crop=faces&q=80', name:'Marie D.', time:'Il y a 2h',
@@ -4139,7 +4219,7 @@ const FEED_POSTS = [
 let _userPosts = [];
 
 function renderFeed() {
-  const el = document.getElementById('home-feed');
+  const el = document.getElementById('community-feed');
   if (!el) return;
   const all = [..._userPosts, ...FEED_POSTS];
   el.innerHTML = all.map((p, i) => `
@@ -4217,7 +4297,12 @@ function publishPost() {
   if (icon) icon.style.display = '';
   const label = document.getElementById('photo-label');
   if (label) label.style.display = '';
-  goTo('home');
+  // Navigate to community > publications tab
+  goTo('community');
+  setTimeout(() => {
+    const btn = document.querySelector('.tab[onclick*="tab-publications"]');
+    if (btn) btn.click();
+  }, 50);
   showToast('Publication partagée ! 🎉');
 }
 
