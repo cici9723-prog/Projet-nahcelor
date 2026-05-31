@@ -66,6 +66,10 @@
     }
   }
 
+  /* Status-bar clearance for screens with inline-styled headers */
+  #screen-chat > div:first-child { padding-top: 56px; }
+  #screen-demarches > div:first-child { padding-top: 56px; }
+
   @media (max-width: 430px), (display-mode: standalone) {
     .status-bar { display: none !important; }
     .home-header { padding-top: calc(20px + env(safe-area-inset-top, 0px)); }
