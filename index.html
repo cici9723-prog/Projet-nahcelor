@@ -71,7 +71,8 @@
   #screen-group-chat > div:first-child,
   #screen-forum-thread > div:first-child,
   #screen-dem-detail > div:first-child,
-  #screen-new-post > div:first-child { padding-top: 56px !important; }
+  #screen-new-post > div:first-child,
+  #screen-repit > div:first-child { padding-top: 56px !important; }
   #screen-demarches > div:first-child { padding-top: 56px !important; }
   #screen-article-detail > div:first-child { padding-top: 16px !important; }
 
@@ -89,6 +90,7 @@
     #screen-forum-thread > div:first-child,
     #screen-dem-detail > div:first-child,
     #screen-new-post > div:first-child,
+    #screen-repit > div:first-child,
     #screen-demarches > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
     #screen-article-detail > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
   }
@@ -1883,6 +1885,21 @@
   .feed-post-actions { display:flex;gap:16px; }
   .feed-like-btn { background:none;border:none;font-size:13px;font-weight:600;color:var(--text-gray);cursor:pointer;display:flex;align-items:center;gap:5px;padding:0; }
   .feed-like-btn.liked { color:#E91E63; }
+
+  /* Répit screen */
+  .repit-card { background:white;border:1.5px solid var(--border);border-radius:20px;padding:16px;margin-bottom:12px;cursor:pointer;transition:border-color 0.15s; }
+  .repit-card:active { background:var(--bg); }
+  .repit-card-top { display:flex;align-items:flex-start;gap:12px;margin-bottom:10px; }
+  .repit-avatar { width:52px;height:52px;border-radius:50%;object-fit:cover;flex-shrink:0; }
+  .repit-name { font-size:15px;font-weight:700;color:var(--text);margin-bottom:2px; }
+  .repit-role { font-size:12px;color:var(--text-gray); }
+  .repit-tags { display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px; }
+  .repit-tag { background:var(--bg);color:var(--text);font-size:11px;font-weight:600;padding:3px 8px;border-radius:50px; }
+  .repit-tag.purple { background:var(--purple-light);color:var(--purple); }
+  .repit-dispo { font-size:12px;color:#4CAF50;font-weight:600;display:flex;align-items:center;gap:4px; }
+  .repit-filter-row { display:flex;gap:8px;padding:0 20px 12px;overflow-x:auto;scrollbar-width:none; }
+  .repit-filter-btn { flex-shrink:0;background:white;color:var(--text);border:1.5px solid var(--border);border-radius:50px;padding:7px 14px;font-size:13px;font-weight:600;font-family:'Host Grotesk',sans-serif;cursor:pointer; }
+  .repit-filter-btn.active { background:var(--purple);color:white;border-color:var(--purple); }
 </style>
 </head>
 <body>
@@ -1909,7 +1926,7 @@
         <img src="images/Mascotte qui fait coucou.png" style="width:130px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 24px rgba(245,196,0,0.3));" alt="Mascotte WELO">
       </div>
       <div class="splash-title">Bienvenue sur<br>WELO</div>
-      <div class="splash-subtitle">Prends soin de toi et des autres</div>
+      <div class="splash-subtitle">L'app pensée pour les aidants — accompagnez votre proche et prenez soin de vous</div>
       <button class="splash-btn" onclick="goTo('onboard-1')">Commencer →</button>
     </div>
   </div>
@@ -2024,6 +2041,18 @@
         </div>
       </div>
 
+      <!-- Répit CTA -->
+      <div style="padding:0 20px 20px;">
+        <div onclick="goTo('repit')" style="background:linear-gradient(135deg,#FCE4EC 0%,#F8BBD0 100%);border-radius:20px;padding:16px 18px;border:1.5px solid #F48FB1;cursor:pointer;display:flex;align-items:center;gap:14px;">
+          <div style="font-size:28px;flex-shrink:0;">🤲</div>
+          <div style="flex:1;min-width:0;">
+            <div style="font-size:14px;font-weight:800;color:#880E4F;letter-spacing:-0.2px;">Trouver du répit</div>
+            <div style="font-size:12px;color:#AD1457;opacity:0.85;margin-top:2px;">Aide à domicile · Accueil de jour · Ateliers</div>
+          </div>
+          <i data-lucide="chevron-right" style="width:18px;height:18px;color:#880E4F;stroke-width:2.5;flex-shrink:0;"></i>
+        </div>
+      </div>
+
       <!-- L'Actualité -->
       <div class="section-header" style="padding-top:4px;">
         <div class="section-title" style="display:flex;align-items:center;gap:6px;">
@@ -2119,122 +2148,96 @@
       </div>
     </div>
 
-    <!-- Tabs -->
-    <div class="tabs">
-      <button class="tab active" onclick="switchTab(this, 'tab-publications')">Publications</button>
-      <button class="tab" onclick="switchTab(this, 'tab-groupes')">Groupes</button>
-      <button class="tab" onclick="switchTab(this, 'tab-personnes')">Personnes</button>
-      <button class="tab" onclick="switchTab(this, 'tab-questions')">Questions</button>
+    <!-- Unified feed header -->
+    <div style="padding:0 20px 12px;display:flex;align-items:center;justify-content:space-between;">
+      <div style="font-size:13px;color:var(--text-gray);">Publications, groupes et questions</div>
+      <button onclick="goTo('new-post')" style="background:var(--purple);color:white;border:none;border-radius:50px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Host Grotesk',sans-serif;display:flex;align-items:center;gap:5px;">
+        <i data-lucide="plus" style="width:14px;height:14px;stroke-width:2.5;"></i>
+        Publier
+      </button>
     </div>
 
     <div class="scroll-content">
-      <!-- Tab: Groupes -->
-      <div id="tab-groupes" style="display:none;">
-        <div class="section-header">
-          <div class="section-title" style="display:flex;align-items:center;gap:6px;">
-            <i data-lucide="users-round" style="width:14px;height:14px;color:var(--yellow);stroke-width:2.5;"></i>
-            GROUPES POPULAIRES
-          </div>
-          <span style="font-size:13px; color:var(--purple); font-weight:600; cursor:pointer">Voir tout</span>
-        </div>
-        <div class="groups-grid">
-          <div class="group-card" onclick="openGroup(0)">
-            <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-              <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-              <div class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-            </div>
-            <div class="group-card-title">Conseils et astuces</div>
-            <div class="group-card-desc">Mieux vivre le quotidien à l'hôpital et autour.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
-          </div>
-          <div class="group-card" onclick="openGroup(1)">
-            <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-              <div class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-              <div class="av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-            </div>
-            <div class="group-card-title">Se soutenir</div>
-            <div class="group-card-desc">Parler à des personnes qui comprennent.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
-          </div>
-          <div class="group-card" onclick="openGroup(2)">
-            <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-              <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-            </div>
-            <div class="group-card-title">Témoignages</div>
-            <div class="group-card-desc">Partagez vos expériences d'aidant.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
-          </div>
-          <div class="group-card" onclick="openGroup(3)">
-            <div class="avatar-stack" style="margin-bottom:10px;">
-              <div class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-              <div class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-              <div class="av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
-            </div>
-            <div class="group-card-title">Bien-être & détente</div>
-            <div class="group-card-desc">Des ressources pour prendre soin de vous.</div>
-            <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
-          </div>
-        </div>
-      </div>
+      <!-- Unified community feed -->
+      <div id="community-unified-feed">
+        <!-- Publications section -->
+        <div style="padding:4px 20px 8px;font-size:11px;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;color:var(--text-gray);">Publications récentes</div>
+        <div id="community-feed" style="padding-bottom:8px;"></div>
+        <div style="margin:0 20px 20px;"><button onclick="goTo('new-post')" style="width:100%;background:var(--bg);border:1.5px dashed var(--border);border-radius:16px;padding:12px;font-size:14px;font-weight:600;color:var(--text-gray);cursor:pointer;font-family:'Host Grotesk',sans-serif;">+ Partager un moment</button></div>
 
-      <!-- Tab: Publications (hidden) -->
-      <div id="tab-publications">
-        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px 8px;">
-          <div style="font-size:13px;color:var(--text-gray);font-weight:500;">Moments partagés par la communauté</div>
-          <button onclick="goTo('new-post')" style="background:var(--purple);color:white;border:none;border-radius:50px;padding:7px 14px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Host Grotesk',sans-serif;display:flex;align-items:center;gap:5px;">
-            <i data-lucide="plus" style="width:14px;height:14px;stroke-width:2.5;"></i>
-            Publier
-          </button>
+        <!-- Groupes section -->
+        <div style="padding:4px 20px 8px;font-size:11px;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;color:var(--text-gray);">Groupes populaires</div>
+        <div id="tab-groupes">
+          <div class="groups-grid">
+            <div class="group-card" onclick="openGroup(0)">
+              <div class="avatar-stack" style="margin-bottom:10px;">
+                <div class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+                <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+                <div class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              </div>
+              <div class="group-card-title">Conseils et astuces</div>
+              <div class="group-card-desc">Mieux vivre le quotidien à l'hôpital et autour.</div>
+              <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
+            </div>
+            <div class="group-card" onclick="openGroup(1)">
+              <div class="avatar-stack" style="margin-bottom:10px;">
+                <div class="av"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+                <div class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+                <div class="av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              </div>
+              <div class="group-card-title">Se soutenir</div>
+              <div class="group-card-desc">Parler à des personnes qui comprennent.</div>
+              <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
+            </div>
+            <div class="group-card" onclick="openGroup(2)">
+              <div class="avatar-stack" style="margin-bottom:10px;">
+                <div class="av"><img src="https://images.unsplash.com/photo-1517841905240-472988babdf9?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+                <div class="av"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              </div>
+              <div class="group-card-title">Témoignages</div>
+              <div class="group-card-desc">Partagez vos expériences d'aidant.</div>
+              <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
+            </div>
+            <div class="group-card" onclick="openGroup(3)">
+              <div class="avatar-stack" style="margin-bottom:10px;">
+                <div class="av"><img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+                <div class="av"><img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+                <div class="av"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=56&h=56&fit=crop&crop=faces&q=80" style="width:100%;height:100%;object-fit:cover;" loading="lazy"></div>
+              </div>
+              <div class="group-card-title">Bien-être & détente</div>
+              <div class="group-card-desc">Des ressources pour prendre soin de vous.</div>
+              <button class="btn-purple" style="font-size:13px; padding:10px 14px;">Rejoindre →</button>
+            </div>
+          </div>
         </div>
-        <div id="community-feed" style="padding-bottom:20px;"></div>
-      </div>
 
+        <!-- Questions récentes section -->
+        <div style="padding:12px 20px 8px;font-size:11px;font-weight:800;letter-spacing:0.6px;text-transform:uppercase;color:var(--text-gray);">Questions de la communauté</div>
+        <div style="margin:0 20px 16px;background:white;border-radius:18px;border:1px solid var(--border);overflow:hidden;">
+          <div style="padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;" onclick="openQuestion(0)">
+            <div style="display:flex;gap:8px;margin-bottom:4px;"><span class="question-tag">Administratif</span><span class="question-tag">Droits</span></div>
+            <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.4;">Comment obtenir le statut d'aidant familial ?</div>
+            <div style="font-size:12px;color:var(--text-gray);">124 vues · 8 réponses</div>
+          </div>
+          <div style="padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;" onclick="openQuestion(1)">
+            <div style="display:flex;gap:8px;margin-bottom:4px;"><span class="question-tag">Bien-être</span></div>
+            <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;line-height:1.4;">Comment gérer les nuits difficiles ?</div>
+            <div style="font-size:12px;color:var(--text-gray);">89 vues · 15 réponses</div>
+          </div>
+          <div style="padding:14px 16px;cursor:pointer;" onclick="goTo('forum')">
+            <div style="font-size:14px;font-weight:600;color:var(--purple);">Voir toutes les questions →</div>
+          </div>
+        </div>
+      </div><!-- end community-unified-feed -->
+
+      <!-- Hidden tab divs kept for compatibility but unused -->
+      <div id="tab-publications" style="display:none;"></div>
       <!-- Tab: Personnes (hidden) -->
       <div id="tab-personnes" style="display:none; padding:20px;">
         <div style="font-size:15px; color:var(--text-gray); text-align:center; padding:40px 0;">Recherchez des personnes dans la communauté WELO</div>
       </div>
-
       <!-- Tab: Questions (hidden) -->
-      <div id="tab-questions" style="display:none;">
-        <div style="padding:20px;">
-          <div style="background:var(--purple-light);border-radius:24px;padding:24px;cursor:pointer;border:1px solid var(--purple-mid);" onclick="goTo('forum')">
-            <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
-              <div style="width:48px;height:48px;background:white;border-radius:16px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">
-                <i data-lucide="help-circle" style="width:24px;height:24px;color:var(--purple);stroke-width:2;"></i>
-              </div>
-              <div>
-                <div style="font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;">Forum de questions</div>
-                <div style="font-size:13px;color:var(--text-gray);margin-top:2px;">Posez vos questions à la communauté</div>
-              </div>
-            </div>
-            <div style="background:var(--purple);border-radius:50px;padding:14px;text-align:center;font-size:14px;font-weight:800;color:white;font-family:'Host Grotesk',sans-serif;letter-spacing:-0.2px;">
-              Accéder au forum →
-            </div>
-          </div>
-
-          <!-- Recent questions preview -->
-          <div style="margin-top:16px;">
-            <div style="font-size:12px;font-weight:800;letter-spacing:0.8px;text-transform:uppercase;color:var(--text-gray);margin-bottom:12px;">Questions récentes</div>
-            <div style="background:white;border-radius:18px;border:1px solid var(--border);overflow:hidden;">
-              <div style="padding:14px 16px;border-bottom:1px solid var(--border);cursor:pointer;" onclick="goTo('forum')">
-                <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Comment obtenir le statut d'aidant familial ?</div>
-                <div style="font-size:12px;color:var(--text-gray);display:flex;gap:10px;">
-                  <span>124 vues</span><span>8 réponses</span>
-                </div>
-              </div>
-              <div style="padding:14px 16px;cursor:pointer;" onclick="goTo('forum')">
-                <div style="font-size:14px;font-weight:600;color:var(--text);margin-bottom:4px;">Comment gérer les nuits difficiles ?</div>
-                <div style="font-size:12px;color:var(--text-gray);display:flex;gap:10px;">
-                  <span>89 vues</span><span>15 réponses</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div id="tab-questions" style="display:none;"></div>
     </div>
 
     <!-- Mascot floating -->
@@ -2488,6 +2491,11 @@
           ÉVÉNEMENT
         </div>
         <div class="event-detail-title">Séance de Sophrologie</div>
+        <div style="display:flex;align-items:center;gap:8px;margin:8px 0;padding:8px 12px;background:#E8F5E9;border-radius:12px;width:fit-content;">
+          <i data-lucide="shield-check" style="width:16px;height:16px;color:#2E7D32;stroke-width:2;"></i>
+          <span style="font-size:13px;font-weight:600;color:#2E7D32;">Prise en charge de votre proche disponible</span>
+        </div>
+        <div style="font-size:12px;color:var(--text-gray);margin-bottom:12px;">🤲 Aide à domicile ou accueil de jour coordonné par la Maison des Aidants</div>
         <div class="event-detail-type">Un moment de détente rien que pour vous</div>
       </div>
       <div class="event-detail-body">
@@ -2875,6 +2883,81 @@
             <div class="profil-row-icon" style="background:#E4F9F1;">📋</div>
             <span class="profil-row-label">Mes démarches</span>
             <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
+          </div>
+          <div class="profil-row" onclick="goTo('repit')">
+            <div class="profil-row-icon" style="background:#FCE4EC;">🤲</div>
+            <span class="profil-row-label">Trouver du répit</span>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recommandations -->
+      <div class="profil-section">
+        <div class="profil-section-title">Mes recommandations</div>
+        <div class="profil-card" id="profil-recos-card">
+          <div class="profil-row" onclick="goTo('onboard-recos')">
+            <div class="profil-row-icon" style="background:#EDE8FF;">🗺️</div>
+            <div style="flex:1;">
+              <span class="profil-row-label">La Maison des Aidants</span>
+              <div style="font-size:12px;color:var(--text-gray);margin-top:2px;">Un espace de rencontre et d'écoute près de chez vous</div>
+            </div>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
+          </div>
+          <div class="profil-row" onclick="goTo('forum')">
+            <div class="profil-row-icon" style="background:#FFF3DC;">💬</div>
+            <div style="flex:1;">
+              <span class="profil-row-label">Forum de questions</span>
+              <div style="font-size:12px;color:var(--text-gray);margin-top:2px;">Posez vos questions à la communauté</div>
+            </div>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
+          </div>
+          <div class="profil-row" onclick="goTo('demarches')">
+            <div class="profil-row-icon" style="background:#E8F5E9;">📋</div>
+            <div style="flex:1;">
+              <span class="profil-row-label">Mes démarches aidant</span>
+              <div style="font-size:12px;color:var(--text-gray);margin-top:2px;">Congé, allocation, CPAM — vos droits</div>
+            </div>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
+          </div>
+          <div class="profil-row" onclick="goTo('repit')">
+            <div class="profil-row-icon" style="background:#FCE4EC;">🤲</div>
+            <div style="flex:1;">
+              <span class="profil-row-label">Trouver du répit</span>
+              <div style="font-size:12px;color:var(--text-gray);margin-top:2px;">Aide à domicile et solutions de garde</div>
+            </div>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
+          </div>
+        </div>
+      </div>
+
+      <!-- Questionnaires -->
+      <div class="profil-section">
+        <div class="profil-section-title">Mes questionnaires</div>
+        <div class="profil-card">
+          <div class="profil-row" onclick="goTo('onboard-1')">
+            <div class="profil-row-icon" style="background:#EDE8FF;">👤</div>
+            <div style="flex:1;">
+              <span class="profil-row-label">Mon profil aidant</span>
+              <div style="font-size:12px;color:var(--text-gray);margin-top:2px;" id="profil-q-status">Compléter ou modifier mon profil</div>
+            </div>
+            <i data-lucide="chevron-right" style="width:18px;height:18px;color:#ccc;stroke-width:2;"></i>
+          </div>
+          <div class="profil-row" onclick="showToast('Questionnaire bien-être bientôt disponible')">
+            <div class="profil-row-icon" style="background:#FFF3DC;">🌿</div>
+            <div style="flex:1;">
+              <span class="profil-row-label">Évaluation bien-être</span>
+              <div style="font-size:12px;color:var(--text-gray);margin-top:2px;">Comment vous sentez-vous en ce moment ?</div>
+            </div>
+            <span style="font-size:11px;background:var(--bg);color:var(--text-gray);padding:3px 8px;border-radius:50px;font-weight:600;white-space:nowrap;">Bientôt</span>
+          </div>
+          <div class="profil-row" onclick="showToast('Questionnaire charge aidant bientôt disponible')">
+            <div class="profil-row-icon" style="background:#E3F2FD;">📊</div>
+            <div style="flex:1;">
+              <span class="profil-row-label">Charge d'aidant</span>
+              <div style="font-size:12px;color:var(--text-gray);margin-top:2px;">Mesurer votre niveau d'épuisement</div>
+            </div>
+            <span style="font-size:11px;background:var(--bg);color:var(--text-gray);padding:3px 8px;border-radius:50px;font-weight:600;white-space:nowrap;">Bientôt</span>
           </div>
         </div>
       </div>
@@ -3469,6 +3552,115 @@
     </div>
   </div>
 
+  <!-- ===================== SCREEN RÉPIT ===================== -->
+  <div class="screen" id="screen-repit" style="flex-direction:column;">
+    <div style="padding:56px 20px 12px;background:white;border-bottom:1px solid var(--border);flex-shrink:0;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <button class="back-btn" onclick="goTo('home')" style="margin:0;">
+          <i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i>
+        </button>
+        <div style="flex:1;">
+          <div style="font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;">Trouver du répit</div>
+          <div style="font-size:12px;color:var(--text-gray);">Aide à domicile et solutions de garde partenaires</div>
+        </div>
+      </div>
+      <div class="repit-filter-row" style="padding:0;margin:0 0 0 0;">
+        <button class="repit-filter-btn active" onclick="filterRepit(this,'all')">Tous</button>
+        <button class="repit-filter-btn" onclick="filterRepit(this,'domicile')">À domicile</button>
+        <button class="repit-filter-btn" onclick="filterRepit(this,'depot')">Je dépose</button>
+        <button class="repit-filter-btn" onclick="filterRepit(this,'alzheimer')">Alzheimer</button>
+        <button class="repit-filter-btn" onclick="filterRepit(this,'parkinson')">Parkinson</button>
+      </div>
+    </div>
+
+    <div class="scroll-content" style="padding:16px 20px 40px;">
+      <!-- Info banner -->
+      <div style="background:var(--purple-light);border-radius:16px;padding:14px 16px;margin-bottom:16px;display:flex;gap:10px;">
+        <i data-lucide="info" style="width:18px;height:18px;color:var(--purple);stroke-width:2;flex-shrink:0;margin-top:1px;"></i>
+        <p style="font-size:13px;color:var(--purple);font-weight:500;line-height:1.5;margin:0;">Tous nos partenaires sont certifiés. Pendant votre répit, votre proche est pris en charge par un professionnel qualifié.</p>
+      </div>
+
+      <!-- Repit cards -->
+      <div id="repit-list">
+        <div class="repit-card" data-type="domicile alzheimer parkinson all">
+          <div class="repit-card-top">
+            <img class="repit-avatar" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=104&h=104&fit=crop&crop=faces&q=80" loading="lazy">
+            <div style="flex:1;">
+              <div class="repit-name">Laurence M.</div>
+              <div class="repit-role">Auxiliaire de vie · Petits-fils Paris 11e</div>
+              <div class="repit-dispo"><i data-lucide="circle" style="width:8px;height:8px;fill:#4CAF50;stroke:none;"></i> Disponible dès demain</div>
+            </div>
+          </div>
+          <div class="repit-tags">
+            <span class="repit-tag purple">À domicile</span>
+            <span class="repit-tag">Toilette & soins</span>
+            <span class="repit-tag">Compagnie</span>
+            <span class="repit-tag">Alzheimer</span>
+            <span class="repit-tag">Parkinson</span>
+          </div>
+          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="showToast('Demande envoyée à Laurence !')">Contacter pour une séance →</button>
+        </div>
+
+        <div class="repit-card" data-type="domicile alzheimer all">
+          <div class="repit-card-top">
+            <img class="repit-avatar" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=104&h=104&fit=crop&crop=faces&q=80" loading="lazy">
+            <div style="flex:1;">
+              <div class="repit-name">Marc T.</div>
+              <div class="repit-role">Aide-soignant · ADMR Paris</div>
+              <div class="repit-dispo"><i data-lucide="circle" style="width:8px;height:8px;fill:#4CAF50;stroke:none;"></i> Disponible cette semaine</div>
+            </div>
+          </div>
+          <div class="repit-tags">
+            <span class="repit-tag purple">À domicile</span>
+            <span class="repit-tag">Soins infirmiers</span>
+            <span class="repit-tag">Médicaments</span>
+            <span class="repit-tag">Alzheimer</span>
+          </div>
+          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="showToast('Demande envoyée à Marc !')">Contacter pour une séance →</button>
+        </div>
+
+        <div class="repit-card" data-type="depot alzheimer parkinson all">
+          <div class="repit-card-top">
+            <img class="repit-avatar" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=104&h=104&fit=crop&crop=faces&q=80" loading="lazy">
+            <div style="flex:1;">
+              <div class="repit-name">Centre Accueil de Jour</div>
+              <div class="repit-role">Espace Claude Pompidou · Paris 11e</div>
+              <div class="repit-dispo"><i data-lucide="circle" style="width:8px;height:8px;fill:#4CAF50;stroke:none;"></i> Places disponibles</div>
+            </div>
+          </div>
+          <div class="repit-tags">
+            <span class="repit-tag purple">Je dépose mon proche</span>
+            <span class="repit-tag">Activités thérapeutiques</span>
+            <span class="repit-tag">Repas inclus</span>
+            <span class="repit-tag">Alzheimer</span>
+            <span class="repit-tag">Parkinson</span>
+          </div>
+          <div style="font-size:13px;color:var(--text-gray);margin-bottom:10px;">🕐 Lun-Ven 9h–17h · Dépôt et récupération flexibles</div>
+          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="showToast('Réservation envoyée !')">Réserver une journée →</button>
+        </div>
+
+        <div class="repit-card" data-type="depot all">
+          <div class="repit-card-top">
+            <img class="repit-avatar" src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=104&h=104&fit=crop&crop=faces&q=80" loading="lazy">
+            <div style="flex:1;">
+              <div class="repit-name">Atelier Mémoire & Lien</div>
+              <div class="repit-role">Maison des Aidants Paris 12e</div>
+              <div class="repit-dispo"><i data-lucide="circle" style="width:8px;height:8px;fill:#F5C400;stroke:none;"></i> Inscriptions ouvertes</div>
+            </div>
+          </div>
+          <div class="repit-tags">
+            <span class="repit-tag purple">Je dépose mon proche</span>
+            <span class="repit-tag">Ateliers cognitifs</span>
+            <span class="repit-tag">Lien social</span>
+            <span class="repit-tag">Toutes pathologies</span>
+          </div>
+          <div style="font-size:13px;color:var(--text-gray);margin-bottom:10px;">📅 Mardi et jeudi 14h–17h · Gratuit avec orientation CPAM</div>
+          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="showToast('Inscription envoyée !')">S'inscrire →</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </div><!-- end phone-frame -->
 
 <script>
@@ -3495,6 +3687,7 @@ const screens = {
   'article-detail': 'screen-article-detail',
   'forum-thread':   'screen-forum-thread',
   'group-chat':     'screen-group-chat',
+  'repit':          'screen-repit',
 };
 function personalizeHome() {
   const prenom = profile.prenomProche || profile.prenom || 'Marie';
@@ -3737,7 +3930,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat','dem-detail','new-post','article-detail'];
+const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat','dem-detail','new-post','article-detail','repit'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
@@ -3771,7 +3964,8 @@ function goTo(name) {
   if (name === 'profil') personalizeProfil();
   if (name === 'demarches') renderDemarches();
   if (name === 'map') setTimeout(initLeafletMap, 80);
-  if (name === 'community') renderFeed();
+  if (name === 'repit') { if (typeof lucide !== 'undefined') lucide.createIcons(); }
+  if (name === 'community') { renderFeed(); if (typeof lucide !== 'undefined') lucide.createIcons(); }
 }
 
 function switchTab(btn, tabId) {
@@ -4307,6 +4501,15 @@ function publishPost() {
   showToast('Publication partagée ! 🎉');
 }
 
+function filterRepit(btn, type) {
+  document.querySelectorAll('.repit-filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('#repit-list .repit-card').forEach(card => {
+    const types = card.getAttribute('data-type') || '';
+    card.style.display = type === 'all' || types.includes(type) ? '' : 'none';
+  });
+}
+
 // Init navs on load
 document.addEventListener('DOMContentLoaded', () => {
   buildNavs('home');
@@ -4344,6 +4547,31 @@ const DEMARCHES = [
     who:'Aidants qui réduisent ou cessent leur activité professionnelle pour accompagner un proche reconnu handicapé ou en GIR 1 à 4, et dont les ressources n\'excèdent pas un plafond.',
     steps:['Vérifiez votre éligibilité avec votre caisse de retraite (Carsat, MSA, RSI)','Signalez votre situation à votre CPAM pour le rattachement à l\'AVPF','Le versement des cotisations est automatique si vous remplissez les conditions','Consultez votre relevé de carrière sur lassuranceretraite.fr pour vérifier'],
     link:'lassuranceretraite.fr — "AVPF"' },
+  { id:'aide-domicile', icon:'🏠', bg:'#E8F5E9', title:'Aides au financement aide à domicile', desc:'Plusieurs dispositifs peuvent financer tout ou partie d\'une aide professionnelle à domicile.',
+    what:'L\'aide à domicile peut être financée par plusieurs sources : l\'APA (si proche de 60 ans+), la PCH (si handicap reconnu), les caisses de retraite (Carsat), et les mutuelles. Ces aides sont souvent cumulables.',
+    who:'Tout aidant dont le proche bénéficie d\'une reconnaissance de perte d\'autonomie ou de handicap. Les revenus du proche peuvent influencer le montant accordé.',
+    steps:['Évaluez les droits de votre proche (APA, PCH) via la MDPH ou le Conseil Départemental','Contactez votre caisse de retraite (Carsat) pour une aide complémentaire','Vérifiez les conditions de votre mutuelle (certaines remboursent 1 à 3h/semaine)','Choisissez un prestataire agréé pour bénéficier des déductions fiscales'],
+    link:'service-public.fr — "Aide à domicile personne âgée"' },
+  { id:'protection', icon:'🛡️', bg:'#E3F2FD', title:'Remboursement frais de protection', desc:'Les protections (couches, alèses) peuvent être remboursées partiellement par l\'Assurance Maladie.',
+    what:'Les protections anatomiques pour incontinence sont remboursées à 60% par l\'Assurance Maladie sous conditions médicales. Le reste peut être pris en charge par la mutuelle ou l\'APA.',
+    who:'Personnes reconnues en état de dépendance ou souffrant d\'incontinence sur prescription médicale. L\'aidant fait la demande au nom de son proche.',
+    steps:['Demandez une ordonnance médicale spécifiant le besoin de protections','Transmettez l\'ordonnance à votre pharmacie ou prestataire agréé','La CPAM rembourse automatiquement sur la base du tarif de responsabilité','Le complément peut être pris en charge par l\'APA ou la mutuelle'],
+    link:'ameli.fr — "Dispositifs médicaux incontinence"' },
+  { id:'credit-impot', icon:'📑', bg:'#FFF9C4', title:'Crédit d\'impôt aide à domicile', desc:'50% des dépenses d\'aide à domicile sont déductibles des impôts, même sans en payer.',
+    what:'Les services à la personne (aide-soignante, auxiliaire de vie, garde à domicile) ouvrent droit à un crédit d\'impôt de 50% des dépenses, plafonné à 12 000€/an. Ce crédit est versé même si vous ne payez pas d\'impôts.',
+    who:'Tout aidant payant pour des services à la personne agréés pour accompagner son proche. Le proche doit être fiscalement rattaché ou bénéficier d\'une allocation spécifique.',
+    steps:['Conservez toutes les factures de votre prestataire d\'aide à domicile','Sur votre déclaration d\'impôts, renseignez la case "Emploi à domicile"','Le crédit est calculé automatiquement et remboursé si supérieur à votre impôt','Si emploi direct (CESU), déclarez sur net-entreprises.fr ou pajemploi.fr'],
+    link:'impots.gouv.fr — "Crédit impôt services à la personne"' },
+  { id:'rdv-medical', icon:'📅', bg:'#E3F2FD', title:'Organiser les rendez-vous médicaux', desc:'Outils et astuces pour coordonner le suivi médical de votre proche sans vous épuiser.',
+    what:'Coordonner les rendez-vous médicaux d\'un proche (médecin généraliste, spécialistes, kinésithérapeute, infirmière…) est chronophage. Des outils et droits spécifiques existent pour simplifier cette coordination.',
+    who:'Tout aidant qui gère le suivi médical de son proche, qu\'il soit à domicile ou en établissement.',
+    steps:['Créez un dossier médical partagé sur mssanté.fr ou via votre médecin traitant','Demandez la désignation comme "personne de confiance" par écrit auprès du médecin','Utilisez le carnet de liaison WELO (disponible bientôt) pour centraliser les infos','Renseignez-vous sur le "Pack Coordination" de votre CPAM pour les cas complexes'],
+    link:'service-public.fr — "Personne de confiance"' },
+  { id:'coordination-admin', icon:'🗂️', bg:'#F3E5F5', title:'Suivi administratif et déclaration aux impôts', desc:'Gérer les papiers, les remboursements et les déclarations pour votre proche.',
+    what:'L\'aidant gère souvent une charge administrative importante : remboursements de soins, déclarations fiscales, courriers CPAM, MDPH, CAF… Des dispositifs existent pour alléger cette charge.',
+    who:'Tout aidant gérant tout ou partie de la vie administrative de son proche, avec ou sans mandat officiel.',
+    steps:['Demandez une procuration simple ou un mandat de protection future chez un notaire','Créez un compte ameli.fr au nom de votre proche (avec son accord) pour suivre les remboursements','Pour les déclarations fiscales : cochez "prise en charge d\'un ascendant" si applicable','La case T de la déclaration permet de déduire les frais d\'accueil d\'un parent dans le besoin'],
+    link:'impots.gouv.fr — "Déductions aidants familiaux"' },
 ];
 
 const DEM_STATUS_KEY = 'welo_dem_status';
