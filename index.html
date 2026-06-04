@@ -72,7 +72,8 @@
   #screen-forum-thread > div:first-child,
   #screen-dem-detail > div:first-child,
   #screen-new-post > div:first-child,
-  #screen-repit > div:first-child { padding-top: 56px !important; }
+  #screen-repit > div:first-child,
+  #screen-repit-booking > div:first-child { padding-top: 56px !important; }
   #screen-demarches > div:first-child { padding-top: 56px !important; }
   #screen-article-detail > div:first-child { padding-top: 16px !important; }
 
@@ -91,6 +92,7 @@
     #screen-dem-detail > div:first-child,
     #screen-new-post > div:first-child,
     #screen-repit > div:first-child,
+    #screen-repit-booking > div:first-child,
     #screen-demarches > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
     #screen-article-detail > div:first-child { padding-top: calc(16px + env(safe-area-inset-top, 0px)) !important; }
   }
@@ -1886,6 +1888,16 @@
   .feed-like-btn { background:none;border:none;font-size:13px;font-weight:600;color:var(--text-gray);cursor:pointer;display:flex;align-items:center;gap:5px;padding:0; }
   .feed-like-btn.liked { color:#E91E63; }
 
+  /* Répit booking */
+  .bk-section { background:white;border:1.5px solid var(--border);border-radius:20px;padding:16px;margin-bottom:12px; }
+  .bk-section-header { display:flex;align-items:center;justify-content:space-between;margin-bottom:12px; }
+  .bk-section-title { font-size:12px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-gray); }
+  .bk-edit-btn { background:var(--bg);border:none;border-radius:50%;width:28px;height:28px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0; }
+  .bk-pill-row { display:flex;flex-wrap:wrap;gap:8px; }
+  .bk-pill { padding:8px 14px;border:1.5px solid var(--border);border-radius:50px;font-size:13px;font-weight:600;color:var(--text-gray);background:white;cursor:pointer;font-family:'Host Grotesk',sans-serif;transition:all 0.15s; }
+  .bk-pill.selected { border-color:var(--purple);background:var(--purple-light);color:var(--purple); }
+  .bk-date-input { width:100%;border:1.5px solid var(--border);border-radius:12px;padding:10px 14px;font-size:15px;font-family:'Host Grotesk',sans-serif;color:var(--text);background:white;outline:none;box-sizing:border-box; }
+  .bk-date-input:focus { border-color:var(--purple); }
   /* Répit screen */
   .repit-card { background:white;border:1.5px solid var(--border);border-radius:20px;padding:16px;margin-bottom:12px;cursor:pointer;transition:border-color 0.15s; }
   .repit-card:active { background:var(--bg); }
@@ -2042,7 +2054,7 @@
       </div>
 
       <!-- Répit CTA -->
-      <div style="padding:0 20px 20px;">
+      <div style="padding:0 20px 12px;">
         <div onclick="goTo('repit')" style="background:linear-gradient(135deg,#E8F5E9 0%,#C8E6C9 100%);border-radius:20px;padding:16px 18px;border:1.5px solid #A5D6A7;cursor:pointer;display:flex;align-items:center;gap:14px;">
           <div style="font-size:28px;flex-shrink:0;">🌿</div>
           <div style="flex:1;min-width:0;">
@@ -2050,6 +2062,24 @@
             <div style="font-size:12px;color:#2E7D32;opacity:0.85;margin-top:2px;">Aide à domicile · Accueil de jour · Ateliers</div>
           </div>
           <i data-lucide="chevron-right" style="width:18px;height:18px;color:#1B5E20;stroke-width:2.5;flex-shrink:0;"></i>
+        </div>
+      </div>
+
+      <!-- Upcoming repit reservation (shown after booking) -->
+      <div id="home-repit-reservation" style="display:none;padding:0 20px 20px;">
+        <div style="background:white;border:1.5px solid #A5D6A7;border-radius:20px;padding:14px 16px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+            <i data-lucide="calendar-check" style="width:16px;height:16px;color:#2E7D32;stroke-width:2;"></i>
+            <span style="font-size:12px;font-weight:800;letter-spacing:0.3px;text-transform:uppercase;color:#2E7D32;">Répit à venir</span>
+          </div>
+          <div style="display:flex;align-items:center;gap:10px;">
+            <img id="home-res-photo" style="width:40px;height:40px;border-radius:50%;object-fit:cover;flex-shrink:0;" loading="lazy">
+            <div style="flex:1;min-width:0;">
+              <div id="home-res-name" style="font-size:14px;font-weight:700;color:var(--text);"></div>
+              <div id="home-res-details" style="font-size:12px;color:var(--text-gray);margin-top:2px;"></div>
+            </div>
+            <button onclick="goTo('repit')" style="background:var(--bg);border:none;border-radius:10px;padding:6px 10px;font-size:12px;font-weight:600;color:var(--text-gray);cursor:pointer;font-family:'Host Grotesk',sans-serif;flex-shrink:0;">Modifier</button>
+          </div>
         </div>
       </div>
 
@@ -2107,6 +2137,7 @@
         </div>
       </div>
     </div>
+
     <img src="images/Mascotte qui tend la main.png"
       style="position:absolute;bottom:72px;right:12px;width:80px;pointer-events:none;z-index:20;filter:drop-shadow(0 4px 12px rgba(0,0,0,0.15));"
       alt="Mascotte WELO"/>
@@ -3552,6 +3583,164 @@
     </div>
   </div>
 
+  <!-- ===================== SCREEN RÉPIT BOOKING ===================== -->
+  <div class="screen" id="screen-repit-booking" style="flex-direction:column;">
+    <div style="padding:56px 20px 14px;background:white;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:12px;flex-shrink:0;">
+      <button class="back-btn" onclick="goTo('repit')" style="margin:0;">
+        <i data-lucide="arrow-left" style="width:20px;height:20px;stroke-width:2.5;"></i>
+      </button>
+      <div style="flex:1;">
+        <div style="font-size:17px;font-weight:800;color:var(--text);letter-spacing:-0.3px;">Réserver une séance</div>
+        <div style="font-size:12px;color:var(--text-gray);">Vérifiez et ajustez chaque détail</div>
+      </div>
+    </div>
+
+    <div class="scroll-content" style="padding:16px 20px 40px;">
+      <!-- Pro card -->
+      <div class="bk-section">
+        <div class="bk-section-header">
+          <span class="bk-section-title">Professionnel</span>
+          <button class="bk-edit-btn" onclick="goTo('repit')">
+            <i data-lucide="pencil" style="width:14px;height:14px;color:var(--text-gray);stroke-width:2;"></i>
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <img id="bk-pro-photo" style="width:56px;height:56px;border-radius:50%;object-fit:cover;flex-shrink:0;" loading="lazy">
+          <div>
+            <div id="bk-pro-name" style="font-size:16px;font-weight:700;color:var(--text);"></div>
+            <div id="bk-pro-role" style="font-size:13px;color:var(--text-gray);margin-top:2px;"></div>
+            <div style="display:flex;align-items:center;gap:4px;margin-top:4px;">
+              <i data-lucide="circle" style="width:8px;height:8px;fill:#4CAF50;stroke:none;"></i>
+              <span style="font-size:12px;color:#4CAF50;font-weight:600;">Disponible</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Date & Heure -->
+      <div class="bk-section">
+        <div class="bk-section-header">
+          <span class="bk-section-title">Date et heure</span>
+          <button class="bk-edit-btn" onclick="toggleBkDateEdit()">
+            <i data-lucide="pencil" style="width:14px;height:14px;color:var(--text-gray);stroke-width:2;"></i>
+          </button>
+        </div>
+        <div id="bk-date-display" style="display:flex;gap:20px;">
+          <div style="display:flex;align-items:center;gap:8px;">
+            <i data-lucide="calendar" style="width:18px;height:18px;color:var(--purple);stroke-width:2;"></i>
+            <span id="bk-date-text" style="font-size:15px;font-weight:600;color:var(--text);"></span>
+          </div>
+          <div style="display:flex;align-items:center;gap:8px;">
+            <i data-lucide="clock" style="width:18px;height:18px;color:var(--purple);stroke-width:2;"></i>
+            <span id="bk-time-text" style="font-size:15px;font-weight:600;color:var(--text);"></span>
+          </div>
+        </div>
+        <div id="bk-date-edit" style="display:none;margin-top:12px;">
+          <div style="margin-bottom:10px;">
+            <div style="font-size:12px;color:var(--text-gray);margin-bottom:6px;font-weight:600;">Date</div>
+            <input type="date" id="bk-date-input" class="bk-date-input" onchange="updateBkDate(this.value)">
+          </div>
+          <div style="font-size:12px;color:var(--text-gray);margin-bottom:8px;font-weight:600;">Heure</div>
+          <div class="bk-pill-row">
+            <button class="bk-pill" onclick="selectBkTime(this,'9h00')">9h00</button>
+            <button class="bk-pill" onclick="selectBkTime(this,'10h00')">10h00</button>
+            <button class="bk-pill" onclick="selectBkTime(this,'14h00')">14h00</button>
+            <button class="bk-pill" onclick="selectBkTime(this,'15h00')">15h00</button>
+            <button class="bk-pill" onclick="selectBkTime(this,'16h00')">16h00</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Durée -->
+      <div class="bk-section">
+        <div class="bk-section-header">
+          <span class="bk-section-title">Durée souhaitée</span>
+        </div>
+        <div class="bk-pill-row" id="bk-duration-row">
+          <button class="bk-pill" onclick="selectBkPill(this,'duration','2h')">2h</button>
+          <button class="bk-pill selected" onclick="selectBkPill(this,'duration','3h')">3h</button>
+          <button class="bk-pill" onclick="selectBkPill(this,'duration','4h')">4h</button>
+          <button class="bk-pill" onclick="selectBkPill(this,'duration','Journée')">Journée</button>
+        </div>
+      </div>
+
+      <!-- Mode -->
+      <div class="bk-section">
+        <div class="bk-section-header">
+          <span class="bk-section-title">Mode d'intervention</span>
+        </div>
+        <div class="bk-pill-row" id="bk-mode-row">
+          <button class="bk-pill selected" onclick="selectBkPill(this,'mode','domicile')">🏠 À domicile</button>
+          <button class="bk-pill" onclick="selectBkPill(this,'mode','depot')">🚗 Je dépose mon proche</button>
+        </div>
+      </div>
+
+      <!-- Proche -->
+      <div class="bk-section">
+        <div class="bk-section-header">
+          <span class="bk-section-title">Votre proche</span>
+          <button class="bk-edit-btn" onclick="goTo('onboard-2')">
+            <i data-lucide="pencil" style="width:14px;height:14px;color:var(--text-gray);stroke-width:2;"></i>
+          </button>
+        </div>
+        <div style="display:flex;align-items:center;gap:12px;">
+          <div style="width:44px;height:44px;border-radius:50%;background:var(--purple);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:white;flex-shrink:0;" id="bk-proche-initial">?</div>
+          <div>
+            <div id="bk-proche-name" style="font-size:15px;font-weight:700;color:var(--text);"></div>
+            <div id="bk-proche-info" style="font-size:13px;color:var(--text-gray);margin-top:2px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Confirm button -->
+      <button onclick="confirmRepitBooking()" style="width:100%;background:var(--purple);color:white;border:none;border-radius:16px;padding:16px;font-size:16px;font-weight:800;font-family:'Host Grotesk',sans-serif;cursor:pointer;letter-spacing:-0.2px;margin-top:8px;">
+        Confirmer la réservation →
+      </button>
+    </div>
+  </div>
+
+  <!-- ===================== SCREEN RÉPIT SUCCESS ===================== -->
+  <div class="screen" id="screen-repit-success" style="flex-direction:column;">
+    <div class="scroll-content" style="display:flex;flex-direction:column;align-items:center;padding:60px 24px 40px;">
+      <img src="images/Mascotte qui fait coucou.png" style="width:110px;height:auto;margin-bottom:24px;filter:drop-shadow(0 8px 20px rgba(245,196,0,0.25));" alt="">
+      <div style="font-size:24px;font-weight:800;color:var(--text);letter-spacing:-0.5px;text-align:center;margin-bottom:10px;">Votre répit est organisé !</div>
+      <div style="font-size:16px;color:var(--text-gray);text-align:center;line-height:1.6;margin-bottom:32px;">Profitez de ce moment pour vous. Votre proche est entre de bonnes mains. 🌿</div>
+
+      <!-- Recap card -->
+      <div style="width:100%;background:var(--bg);border-radius:20px;padding:20px;margin-bottom:32px;">
+        <div style="font-size:12px;font-weight:800;letter-spacing:0.5px;text-transform:uppercase;color:var(--text-gray);margin-bottom:14px;">Récapitulatif</div>
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:14px;">
+          <img id="success-pro-photo" style="width:44px;height:44px;border-radius:50%;object-fit:cover;flex-shrink:0;" loading="lazy">
+          <div>
+            <div id="success-pro-name" style="font-size:15px;font-weight:700;color:var(--text);"></div>
+            <div id="success-pro-role" style="font-size:13px;color:var(--text-gray);"></div>
+          </div>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:8px;">
+          <div style="display:flex;gap:10px;align-items:center;">
+            <i data-lucide="calendar" style="width:16px;height:16px;color:var(--purple);stroke-width:2;flex-shrink:0;"></i>
+            <span id="success-date" style="font-size:14px;color:var(--text);font-weight:500;"></span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <i data-lucide="clock" style="width:16px;height:16px;color:var(--purple);stroke-width:2;flex-shrink:0;"></i>
+            <span id="success-time" style="font-size:14px;color:var(--text);font-weight:500;"></span>
+          </div>
+          <div style="display:flex;gap:10px;align-items:center;">
+            <i data-lucide="home" style="width:16px;height:16px;color:var(--purple);stroke-width:2;flex-shrink:0;"></i>
+            <span id="success-mode" style="font-size:14px;color:var(--text);font-weight:500;"></span>
+          </div>
+        </div>
+      </div>
+
+      <button onclick="goTo('home')" style="width:100%;background:var(--purple);color:white;border:none;border-radius:16px;padding:16px;font-size:16px;font-weight:800;font-family:'Host Grotesk',sans-serif;cursor:pointer;margin-bottom:12px;">
+        Retourner à l'accueil
+      </button>
+      <button onclick="goTo('repit')" style="width:100%;background:white;color:var(--purple);border:1.5px solid var(--purple);border-radius:16px;padding:14px;font-size:15px;font-weight:700;font-family:'Host Grotesk',sans-serif;cursor:pointer;">
+        Trouver un autre professionnel
+      </button>
+    </div>
+  </div>
+
   <!-- ===================== SCREEN RÉPIT ===================== -->
   <div class="screen" id="screen-repit" style="flex-direction:column;">
     <div style="padding:56px 20px 12px;background:white;border-bottom:1px solid var(--border);flex-shrink:0;">
@@ -3598,7 +3787,7 @@
             <span class="repit-tag">Alzheimer</span>
             <span class="repit-tag">Parkinson</span>
           </div>
-          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="showToast('Demande envoyée à Laurence !')">Contacter pour une séance →</button>
+          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="openRepitBooking(0)">Contacter pour une séance →</button>
         </div>
 
         <div class="repit-card" data-type="domicile alzheimer all">
@@ -3616,7 +3805,7 @@
             <span class="repit-tag">Médicaments</span>
             <span class="repit-tag">Alzheimer</span>
           </div>
-          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="showToast('Demande envoyée à Marc !')">Contacter pour une séance →</button>
+          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="openRepitBooking(1)">Contacter pour une séance →</button>
         </div>
 
         <div class="repit-card" data-type="depot alzheimer parkinson all">
@@ -3636,7 +3825,7 @@
             <span class="repit-tag">Parkinson</span>
           </div>
           <div style="font-size:13px;color:var(--text-gray);margin-bottom:10px;">🕐 Lun-Ven 9h–17h · Dépôt et récupération flexibles</div>
-          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="showToast('Réservation envoyée !')">Réserver une journée →</button>
+          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="openRepitBooking(2)">Réserver une journée →</button>
         </div>
 
         <div class="repit-card" data-type="depot all">
@@ -3655,7 +3844,7 @@
             <span class="repit-tag">Toutes pathologies</span>
           </div>
           <div style="font-size:13px;color:var(--text-gray);margin-bottom:10px;">📅 Mardi et jeudi 14h–17h · Gratuit avec orientation CPAM</div>
-          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="showToast('Inscription envoyée !')">S'inscrire →</button>
+          <button class="btn-purple" style="width:100%;justify-content:center;" onclick="openRepitBooking(3)">S'inscrire →</button>
         </div>
       </div>
     </div>
@@ -3688,6 +3877,8 @@ const screens = {
   'forum-thread':   'screen-forum-thread',
   'group-chat':     'screen-group-chat',
   'repit':          'screen-repit',
+  'repit-booking':  'screen-repit-booking',
+  'repit-success':  'screen-repit-success',
 };
 function personalizeHome() {
   const prenom = profile.prenomProche || profile.prenom || 'Marie';
@@ -3930,7 +4121,7 @@ const NAV_ITEMS = [
   { key: 'profil',    icon: 'circle-user',     label: 'Profil' },
 ];
 
-const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat','dem-detail','new-post','article-detail','repit'];
+const NO_NAV = ['splash','event-detail','forum','chat','onboard-1','onboard-2','onboard-3','onboard-4','onboard-recap','onboard-recos','demarches','forum-thread','group-chat','dem-detail','new-post','article-detail','repit','repit-booking','repit-success'];
 
 function buildNavs(activeKey) {
   document.querySelectorAll('.bottom-nav').forEach(nav => {
@@ -4685,6 +4876,138 @@ function renderDemarches() {
   if (typeof lucide !== 'undefined') lucide.createIcons();
 }
 // =================== FIN DÉMARCHES ===================
+
+// =================== RÉPIT BOOKING ===================
+const REPIT_PROS = [
+  { name: 'Laurence M.', role: 'Auxiliaire de vie · Petits-fils Paris 11e',
+    photo: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=104&h=104&fit=crop&crop=faces&q=80' },
+  { name: 'Marc T.', role: 'Aide-soignant · ADMR Paris',
+    photo: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=104&h=104&fit=crop&crop=faces&q=80' },
+  { name: 'Centre Accueil de Jour', role: 'Espace Claude Pompidou · Paris 11e',
+    photo: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=104&h=104&fit=crop&crop=faces&q=80' },
+  { name: 'Atelier Mémoire & Lien', role: 'Maison des Aidants Paris 12e',
+    photo: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=104&h=104&fit=crop&crop=faces&q=80' },
+];
+
+const bkState = {
+  name: '', role: '', photo: '',
+  date: '', time: '14h00',
+  duration: '3h', mode: 'domicile'
+};
+
+function openRepitBooking(idx) {
+  const pro = REPIT_PROS[idx];
+  if (!pro) return;
+  bkState.name = pro.name;
+  bkState.role = pro.role;
+  bkState.photo = pro.photo;
+
+  // Populate pro card
+  document.getElementById('bk-pro-photo').src = pro.photo;
+  document.getElementById('bk-pro-name').textContent = pro.name;
+  document.getElementById('bk-pro-role').textContent = pro.role;
+
+  // Default date = tomorrow
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  const iso = tomorrow.toISOString().split('T')[0];
+  bkState.date = iso;
+  document.getElementById('bk-date-input').value = iso;
+  updateBkDate(iso);
+
+  // Default time = 14h00
+  bkState.time = '14h00';
+  document.querySelectorAll('#bk-date-edit .bk-pill').forEach(p => {
+    p.classList.toggle('selected', p.textContent === '14h00');
+  });
+  document.getElementById('bk-time-text').textContent = '14h00';
+
+  // Proche info
+  const prenomProche = profile.prenomProche || 'Votre proche';
+  document.getElementById('bk-proche-initial').textContent = prenomProche[0].toUpperCase();
+  document.getElementById('bk-proche-name').textContent = prenomProche;
+  const ageLabel = LABELS.age[profile.age] || '';
+  const lienLabel = LABELS.lien[profile.lien] || '';
+  document.getElementById('bk-proche-info').textContent =
+    [lienLabel, ageLabel].filter(Boolean).join(' · ') || 'Profil non complété';
+
+  // Reset duration pills
+  document.querySelectorAll('#bk-duration-row .bk-pill').forEach(p => {
+    p.classList.toggle('selected', p.textContent === '3h');
+  });
+  bkState.duration = '3h';
+
+  // Reset mode pills
+  document.querySelectorAll('#bk-mode-row .bk-pill').forEach(p => {
+    p.classList.toggle('selected', p.textContent.includes('domicile'));
+  });
+  bkState.mode = 'domicile';
+
+  // Hide date edit form, show display
+  document.getElementById('bk-date-edit').style.display = 'none';
+  document.getElementById('bk-date-display').style.display = 'flex';
+
+  goTo('repit-booking');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+
+function updateBkDate(val) {
+  bkState.date = val;
+  if (!val) return;
+  const d = new Date(val + 'T00:00:00');
+  const formatted = d.toLocaleDateString('fr-FR', { weekday: 'long', day: 'numeric', month: 'long' });
+  document.getElementById('bk-date-text').textContent =
+    formatted.charAt(0).toUpperCase() + formatted.slice(1);
+}
+
+function toggleBkDateEdit() {
+  const edit = document.getElementById('bk-date-edit');
+  const display = document.getElementById('bk-date-display');
+  const opening = edit.style.display === 'none' || edit.style.display === '';
+  edit.style.display = opening ? 'block' : 'none';
+  display.style.display = opening ? 'none' : 'flex';
+}
+
+function selectBkPill(el, group, value) {
+  el.closest('.bk-pill-row').querySelectorAll('.bk-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  bkState[group] = value;
+}
+
+function selectBkTime(el, time) {
+  el.closest('.bk-pill-row').querySelectorAll('.bk-pill').forEach(p => p.classList.remove('selected'));
+  el.classList.add('selected');
+  bkState.time = time;
+  document.getElementById('bk-time-text').textContent = time;
+}
+
+function confirmRepitBooking() {
+  // Populate success screen
+  document.getElementById('success-pro-photo').src = bkState.photo;
+  document.getElementById('success-pro-name').textContent = bkState.name;
+  document.getElementById('success-pro-role').textContent = bkState.role;
+
+  const dateText = document.getElementById('bk-date-text').textContent;
+  const durationLabel = bkState.duration === 'Journée' ? 'Journée complète' : bkState.duration;
+  document.getElementById('success-date').textContent = dateText + ' · ' + durationLabel;
+  document.getElementById('success-time').textContent = bkState.time;
+  document.getElementById('success-mode').textContent =
+    bkState.mode === 'domicile' ? 'À domicile' : 'Je dépose mon proche';
+
+  // Show reservation block on home screen
+  const homeRes = document.getElementById('home-repit-reservation');
+  if (homeRes) homeRes.style.display = '';
+  const homePhoto = document.getElementById('home-res-photo');
+  if (homePhoto) homePhoto.src = bkState.photo;
+  const homeName = document.getElementById('home-res-name');
+  if (homeName) homeName.textContent = bkState.name + ' · ' + bkState.role;
+  const homeDetails = document.getElementById('home-res-details');
+  if (homeDetails) homeDetails.textContent = dateText + ' à ' + bkState.time + ' · ' + durationLabel;
+
+  goTo('repit-success');
+  if (typeof lucide !== 'undefined') lucide.createIcons();
+}
+// =================== FIN RÉPIT BOOKING ===================
 </script>
 
 </body>
