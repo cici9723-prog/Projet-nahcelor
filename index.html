@@ -3891,7 +3891,7 @@ const screens = {
   'repit-success':  'screen-repit-success',
 };
 function personalizeHome() {
-  const prenom = profile.prenomProche || profile.prenom || 'Marie';
+  const prenom = profile.prenom || 'Marie';
   const h = new Date().getHours();
   const salut = h < 12 ? 'Bonne journée ☀️' : h < 18 ? 'Bon après-midi 🌤️' : 'Bonne soirée 🌙';
   const subEl = document.getElementById('home-greeting-sub');
